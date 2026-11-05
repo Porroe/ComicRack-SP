@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/comicStackViewFrame" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <StackView android:gravity="center" android:id="@id/comicStackView" android:layout_width="fill_parent" android:layout_height="fill_parent" android:loopViews="true" />
+    <TextView android:textSize="20.0sp" android:textStyle="bold" android:textColor="#ffffffff" android:gravity="center" android:id="@id/comicStackEmptyView" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="@string/empty_list" />
+    <LinearLayout android:gravity="center_horizontal" android:layout_gravity="bottom|center|right" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageView android:id="@id/widgetRefresh" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@drawable/btn_refresh" android:scaleType="fitCenter" />
+        <ImageView android:id="@id/widgetWifi" android:visibility="gone" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@drawable/btn_wifi" android:scaleType="fitCenter" />
+        <ImageView android:id="@id/widgetConfigure" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@drawable/icon" />
+    </LinearLayout>
+</FrameLayout>

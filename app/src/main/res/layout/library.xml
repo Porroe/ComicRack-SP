@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/libraryContainer" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/libraryOverlayLayout" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <android.support.v4.view.ViewPager android:id="@id/comicListPager" android:background="@color/comic_list_background_light" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <android.support.v4.view.PagerTabStrip android:layout_gravity="bottom" android:id="@id/comicListPagerTitle" android:background="@color/comic_list_background_dark" android:paddingTop="2.0dip" android:paddingBottom="0.0dip" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        </android.support.v4.view.ViewPager>
+        <com.cyo.common.view.Sidebar android:orientation="horizontal" android:id="@id/libraryListFragmentContainer" android:layout_width="@dimen/library_list_width" android:layout_height="fill_parent" android:layout_marginRight="@dimen/sidebar_inset" android:baselineAligned="false">
+            <LinearLayout android:orientation="vertical" android:id="@id/libraryListFragment" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+            <LinearLayout android:orientation="vertical" android:id="@id/libraryListShadow" android:background="@drawable/shadow_gradient" android:layout_width="@dimen/sidebar_shadow_width" android:layout_height="fill_parent" />
+            <LinearLayout android:orientation="vertical" android:id="@id/libraryListShadowExtra" android:layout_width="@dimen/sidebar_extra" android:layout_height="fill_parent" />
+        </com.cyo.common.view.Sidebar>
+    </RelativeLayout>
+</LinearLayout>

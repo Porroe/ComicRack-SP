@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/widgetStackItem" android:background="@drawable/widget_stack_cover_black_border" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/widgetStackCover" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="fitStart" android:adjustViewBounds="true" />
+    <ImageView android:layout_gravity="bottom|center" android:id="@id/widgetComicRating" android:layout_width="wrap_content" android:layout_height="16.0dip" android:layout_marginBottom="12.0dip" android:scaleType="centerInside" />
+</FrameLayout>

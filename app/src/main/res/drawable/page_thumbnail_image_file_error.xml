@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <size android:height="300.0dip" android:width="200.0dip" />
+            <gradient android:startColor="#ffffffff" android:endColor="#ffd0d0d0" android:angle="45.0" />
+            <padding android:right="6.0dip" android:bottom="6.0dip" />
+        </shape>
+    </item>
+    <item>
+        <bitmap android:gravity="bottom|center|right" android:src="@drawable/error_book" />
+    </item>
+</layer-list>

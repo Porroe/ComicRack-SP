@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:padding="4.0sp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center_vertical" android:id="@id/superMenuIcon" android:layout_width="32.0dip" android:layout_height="32.0dip" android:layout_marginLeft="4.0dip" android:layout_marginRight="4.0dip" android:scaleType="centerInside" />
+    <LinearLayout android:orientation="vertical" android:id="@id/linearLayout1" android:padding="4.0sp" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView android:textAppearance="@style/TextAppearance.MediumDefault" android:id="@id/superMenuCaption" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Caption" />
+        <TextView android:textAppearance="@style/TextAppearance.SmallDefault" android:id="@id/superMenuDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Description" />
+    </LinearLayout>
+</LinearLayout>

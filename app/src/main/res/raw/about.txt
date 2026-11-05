@@ -1,0 +1,54 @@
+
+<b><name> for Android</b>
+<i>Version <version></i>
+<i><copyright></i>
+
+ComicRack for Android is the companion for the best eComic Reader and Manager for PCs: <a href="http://comicrack.cyolito.com">ComicRack for Windows</a>
+
+Optimized for phones and tablets it allows you to read your eComics anywhere you want.
+
+When used together with <i>ComicRack for Windows</i> it allows automatic synchronization of eComics with your Android device, including reading positions, reading lists and bookmarks. Your synchronized eComics will also be converted and optimized so they can be read fast an reliable on your handheld device. And best of all, this way you can read all the formats <i>ComicRack for Windows</i> supports (even WebComics).
+Also, thanks to intelligent optimizations, you can put about twice as much eComics onto your device when synching with <i>ComicRack for Windows</i>.
+
+<freeversion><b>Short feature list:</b>
+
+• Optimized for phones and tablets
+• Reader with single and double page viewing
+• Advanced zoom modes
+• Auto scrolling
+• Color adjustments
+• Automatic page cropping for small devices
+• Full library management with lists, searching and editing
+• Management of reading states (unread, completed, bookmarks etc.)
+• Wireless and USB synchronization with ComicRack for Windows
+• Reads CBZ and CBR (non solid) natively
+• When used together with ComicRack for Windows it supports CBZ, CBR, CB7, CBT, PDF, DJVU and WebComics
+• Live Wallpaper
+• App Widget
+• Twitter integration
+
+<freeversionlimits><b>Live Wallpaper:</b>
+
+ComicRack includes a Live Wallpaper that shows random covers from your library. You can even start reading by double tapping the background.
+
+<b>App Widgets</b>
+
+ComicRack also includes highly configurable app widgets that allows you to glimpse into your library and start reading immediately if you see something you like.
+
+<b>Search Provider:</b>
+
+ComicRack comes with a search provider for all eComics in it's database. If you want to search for Artists and eComics from the Android System Search, go into search options and enable ComicRack.
+
+<b>Troubleshooting:</b>
+
+<paidversion>If you experience any bugs it is best to post your problems in the appropriate section of the user forum.
+
+<b>Online Resources:</b>
+
+• <a href="http://comicrack.cyolito.com/documentation/comicrack-for-android">Documentation</a>
+• <a href="http://comicrack.cyolito.com/faqs/comicrack-android">FAQ</a>
+• <a href="http://comicrack.cyolito.com/forum">Support and User Forum</a>
+
+ComicRack has a lively and supportive user community. Head over and talk to other ComicRack users.
+
+<b>Have Fun!</b>

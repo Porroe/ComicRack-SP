@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cyo.common.view.CheckableLinearLayout android:orientation="horizontal" android:background="@drawable/comic_item_tile_background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.cyo.common.view.FastThumbView android:id="@id/bookmarkThumb" android:layout_width="66.0dip" android:layout_height="100.0dip" android:layout_margin="4.0dip" />
+    <LinearLayout android:orientation="vertical" android:id="@id/linearLayout1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textAppearance="@style/TextAppearance.MediumDefault" android:id="@id/bookmarkCaption" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <TextView android:textAppearance="@style/TextAppearance.VerySmall" android:id="@id/bookmarkPage" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+</com.cyo.common.view.CheckableLinearLayout>

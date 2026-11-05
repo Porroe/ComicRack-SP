@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/comicDetailsMainContainer" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="110.0sp">
+        <ImageView android:id="@id/comicDetailsImage" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="fitCenter" android:layout_alignParentBottom="true" android:alpha="0.5" />
+        <TextView android:textAppearance="?android:textAppearanceLarge" android:ellipsize="end" android:id="@id/comicDetailsCaption" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:layout_marginTop="4.0dip" android:text="Superman #34 (of 77) (2011)" android:singleLine="true" style="@style/ShadowText" />
+        <TextView android:textAppearance="?android:textAppearanceMedium" android:ellipsize="end" android:id="@id/comicDetailsTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Far, far away..." android:singleLine="true" android:layout_below="@id/comicDetailsCaption" android:layout_alignLeft="@id/comicDetailsCaption" style="@style/ShadowText" />
+        <LinearLayout android:id="@id/comicDetailsBar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" style="@style/Toolbar">
+            <LinearLayout android:layout_gravity="fill_horizontal" android:id="@id/ratingsContainer" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                <RatingBar android:layout_gravity="center_vertical" android:id="@id/comicDetailsRating" android:layout_width="wrap_content" android:layout_height="32.0dip" android:numStars="5" android:stepSize="0.5" style="@style/RatingBar.Book" />
+            </LinearLayout>
+            <ImageButton android:layout_gravity="center_vertical" android:id="@id/comicDetailsEdit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_edit" style="@style/ToolbarButton" />
+            <ImageButton android:layout_gravity="center_vertical" android:id="@id/comicDetailsPreviousComic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_prev_book" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/comicDetailsNextComic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_next_book" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/comicDetailsEditOk" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_check" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/comicDetailsEditCancel" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_cancel" style="@style/ToolbarButton" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/comicDetailsContainer" android:fadingEdge="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="8.0dip" android:layout_marginTop="20.0dip" android:overScrollMode="ifContentScrolls" />
+</LinearLayout>

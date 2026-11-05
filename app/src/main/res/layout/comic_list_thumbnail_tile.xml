@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cyo.common.view.CheckableLinearLayout android:orientation="horizontal" android:background="@drawable/comic_item_tile_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4.0sp">
+        <com.cyo.common.view.FastThumbView android:id="@id/comicListThumbnailImage" android:background="@drawable/page_thumbnail_image_loading" android:layout_width="@dimen/comic_list_thumbnail_width" android:layout_height="@dimen/comic_list_thumbnail_height" android:scaleType="centerCrop" />
+        <com.cyo.common.view.ProgressView android:id="@id/comicListCurrentProgress" android:background="@color/read_background" android:layout_width="fill_parent" android:layout_height="@dimen/progress_height" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_margin="4.0sp" android:layout_weight="1.0">
+        <TextView android:textAppearance="@style/TextAppearance.MediumDefault" android:id="@id/comicListThumbnailCaption" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="-4.0sp" android:text="Superman V2003 #1 (of 12)" />
+        <com.cyo.common.view.EllipsizingTextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/comicListThumbnailDescription" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Grant Morrison" android:maxLines="3" />
+        <com.cyo.common.view.EllipsizingTextView android:textAppearance="@style/TextAppearance.VerySmall" android:id="@id/comicListThumbnailSummary" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="4.0sp" android:layout_marginBottom="4.0sp" android:text="This is the summary text" android:layout_weight="1.0" />
+        <com.cyo.common.view.SimpleRatingBar android:id="@id/comicListRating" android:layout_width="fill_parent" android:layout_height="20.0sp" />
+    </LinearLayout>
+</com.cyo.common.view.CheckableLinearLayout>

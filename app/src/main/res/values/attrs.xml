@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="percent1" format="integer" />
+    <attr name="percent2" format="integer" />
+    <attr name="color1" format="color" />
+    <attr name="color2" format="color" />
+    <attr name="full" format="reference" />
+    <attr name="empty" format="reference" />
+    <attr name="full_alpha" format="reference" />
+    <attr name="empty_alpha" format="reference" />
+    <attr name="max_rating" format="integer" />
+    <attr name="rating" format="integer" />
+    <attr name="checkAll" format="string" />
+    <attr name="separator" format="string" />
+</resources>

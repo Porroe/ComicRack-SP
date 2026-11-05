@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/readerContainer" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.cyo.comicrack.viewer.PageView android:scrollbarStyle="insideOverlay" android:id="@id/readerPageView" android:scrollbars="horizontal|vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:hapticFeedbackEnabled="true" android:fadeScrollbars="true" />
+    <include android:id="@id/readerColorContainer_ref" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16.0dip" android:layout_centerInParent="true" layout="@layout/reader_color_control" />
+    <LinearLayout android:id="@id/readerTopBar" android:paddingLeft="@dimen/reader_thumbnails_control_padding" android:paddingRight="0.0dip" android:layout_alignParentTop="true" style="@style/Toolbar">
+        <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/captionContainer" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <TextView android:textAppearance="?android:textAppearanceMedium" android:textColor="@android:color/white" android:ellipsize="marquee" android:id="@id/readerCaption" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Caption" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:ellipsize="end" android:id="@id/readerSubCaption" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="-4.0sp" android:text="Description" android:singleLine="true" />
+        </LinearLayout>
+        <ImageButton android:id="@id/readerDoublePage" android:src="@drawable/btn_single_page" style="@style/ToolbarButton" />
+        <ImageButton android:id="@id/readerFit" android:src="@drawable/btn_fit_all" style="@style/ToolbarButton" />
+        <ImageButton android:id="@id/readerRotate" android:src="@drawable/btn_rotate" style="@style/ToolbarButton" />
+        <ImageButton android:id="@id/readerColorAdjust" android:src="@drawable/btn_color_adjust" style="@style/ToolbarButton" />
+        <ImageButton android:id="@id/readerBrightness" android:src="@drawable/btn_bright_system" style="@style/ToolbarButton" />
+        <ImageButton android:id="@id/readerMenu" android:src="@drawable/ic_menu_moreoverflow" style="@style/ToolbarButton" />
+    </LinearLayout>
+    <include android:id="@id/readerBottomBar_ref" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" layout="@layout/reader_bottom_bar" />
+    <LinearLayout android:id="@id/readerCoverContainer" android:background="@drawable/toolbar_background_rounded_br" android:paddingLeft="4.0dip" android:paddingRight="2.0dip" android:paddingBottom="2.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/readerTopBar" android:layout_alignParentLeft="true">
+        <com.cyo.common.view.FastThumbView android:id="@id/readerCover" android:background="@drawable/page_thumbnail_background" android:layout_width="@dimen/reader_thumbnail_cover_width" android:layout_height="@dimen/reader_thumbnail_cover_height" android:layout_marginRight="2.0dip" android:layout_marginBottom="2.0dip" />
+        <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/readerLinearLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <ImageButton android:id="@id/readerBookmarks" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_bookmark" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/readerManga" android:src="@drawable/btn_left_right" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/readerRate" android:src="@drawable/btn_rate" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/readerInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_info" style="@style/ToolbarButton" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:textAppearance="@style/TextAppearance.MediumDefault" android:textSize="@dimen/page_number_height" android:id="@id/readerPageNumber" android:background="@drawable/toolbar_background_rounded" android:paddingLeft="8.0dip" android:paddingTop="4.0dip" android:paddingRight="8.0dip" android:paddingBottom="4.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" style="@style/stylePageNumber" />
+</RelativeLayout>

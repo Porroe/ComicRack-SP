@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Toolbar">
+        <item name="android:background">@drawable/toolbar_background</item>
+        <item name="android:paddingTop">2.0dip</item>
+        <item name="android:paddingBottom">2.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ToolbarButton">
+        <item name="android:background">@drawable/toolbar_button_background</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">2.0dip</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="ShadowText">
+        <item name="android:shadowColor">#ff000000</item>
+        <item name="android:shadowDx">2.0</item>
+        <item name="android:shadowDy">2.0</item>
+        <item name="android:shadowRadius">3.0</item>
+    </style>
+    <style name="ListCaption" parent="@android:style/Widget.TextView">
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:textColor">@color/list_caption_text</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="TextAppearance.MediumDefault" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/comic_list_bigtext</item>
+    </style>
+    <style name="TextAppearance.SmallDefault" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/comic_list_text</item>
+    </style>
+    <style name="TextAppearance.VerySmall" parent="@style/TextAppearance.SmallDefault">
+        <item name="android:textSize">12.0sp</item>
+    </style>
+    <style name="TextAppearance.SemiLarge" parent="@style/TextAppearance.MediumDefault">
+        <item name="android:textSize">18.0sp</item>
+    </style>
+    <style name="RatingBar.Book" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_book</item>
+    </style>
+    <style name="ThumbnailGallery" parent="@android:style/Widget.Gallery">
+        <item name="android:spacing">0.0dip</item>
+    </style>
+    <style name="stylePageNumber" parent="@android:style/Widget.TextView">
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:background">@drawable/page_thumbnail_number_background</item>
+        <item name="android:layout_margin">4.0dip</item>
+    </style>
+    <style name="Fullscreen" parent="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <style name="Defaultscreen" parent="@android:style/Theme.NoTitleBar" />
+    <style name="DefaultDialog" parent="@android:style/Theme.Dialog" />
+    <style name="DefaultDialogLight" parent="@android:style/Theme.Dialog" />
+    <style name="DefaultPreferenceDialog" parent="@android:style/Theme.Black" />
+</resources>

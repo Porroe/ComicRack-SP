@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/library_list_background_light" />
+        </shape>
+    </item>
+    <item>
+        <bitmap android:gravity="bottom|center|right" android:src="@drawable/comicrack_logo" />
+    </item>
+</layer-list>

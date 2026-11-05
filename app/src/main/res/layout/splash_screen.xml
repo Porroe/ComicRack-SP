@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/splashMainContainer" android:background="@drawable/black_background" android:paddingLeft="20.0dip" android:paddingRight="20.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/splashLogo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="40.0dip" android:src="@drawable/logo" />
+    <Button android:id="@id/splashChooseFolder" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/select_folder" />
+    <ProgressBar android:id="@id/splashProgress" android:layout_width="250.0dip" android:layout_height="wrap_content" style="@android:style/Widget.ProgressBar.Horizontal" />
+    <TextView android:textAppearance="?android:textAppearanceSmall" android:gravity="center_horizontal" android:id="@id/splashMessage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="Message" />
+    <TextView android:gravity="center" android:id="@id/splashEdition" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:text="@string/full_edition" style="?android:attr/textAppearanceSmall" />
+    <TextView android:gravity="center" android:id="@id/splashCopyright" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/copyright" style="?android:attr/textAppearanceSmall" />
+</LinearLayout>

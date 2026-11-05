@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cyo="http://schemas.cyolito.com/android">
+    <PreferenceCategory android:title="@string/preference_category_reader_pageview_title" android:key="preference_category_reader_pageview">
+        <ListPreference android:persistent="true" android:entries="@array/autoCropType" android:title="@string/reader_pageview_autocrop_type_title" android:key="reader_pageview_autocrop_type" android:summary="@string/reader_pageview_autocrop_type_summary" android:defaultValue="None" android:dialogTitle="@string/reader_pageview_autocrop_type_dialog_title" android:entryValues="@array/autoCropTypeValues" />
+        <CheckBoxPreference android:title="@string/reader_pageview_pagenumbers_title" android:key="reader_pageview_pagenumbers" android:summary="@string/reader_pageview_pagenumbers_summary" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/reader_show_clock_title" android:key="reader_show_clock" android:summary="@string/reader_show_clock_summary" android:defaultValue="false" />
+        <ListPreference android:persistent="true" android:entries="@array/backgroundColorStyles" android:title="@string/reader_pageview_background_color_title" android:key="reader_pageview_background_color" android:summary="@string/reader_pageview_background_color_summary" android:defaultValue="Page" android:dialogTitle="@string/reader_pageview_background_color_dialog_title" android:entryValues="@array/backgroundColorStylesValues" />
+        <CheckBoxPreference android:title="@string/reader_always_split_double_pages_title" android:key="reader_always_split_double_pages" android:summary="@string/reader_always_split_double_pages_summary" android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preference_category_reader_reading_title" android:key="preference_category_reading">
+        <CheckBoxPreference android:title="@string/general_reading_show_cover_title" android:key="general_reading_show_cover" android:summary="@string/general_reading_show_cover_summary" android:defaultValue="true" />
+        <CheckBoxPreference android:title="@string/general_rate_comic_title" android:key="general_rate_comic" android:summary="@string/general_rate_comic_summary" android:defaultValue="true" />
+        <CheckBoxPreference android:title="@string/reader_reading_manga_default_title" android:key="reader_reading_manga_default" android:summary="@string/reader_reading_manga_default_summary" android:defaultValue="false" />
+        <com.cyo.common.view.ListPreferenceMultiSelect android:entries="@array/pageType" android:title="@string/reader_reading_pagefilter_title" android:key="reader_reading_pagefilter" android:summary="@string/reader_reading_pagefilter_summary" android:defaultValue="" android:dialogTitle="@string/reader_reading_pagefilter_dialog_title" android:entryValues="@array/pageTypeValues" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preference_category_reader_screen_title" android:key="preference_category_reader_screen">
+        <ListPreference android:persistent="true" android:entries="@array/readerRotation" android:title="@string/reader_screen_rotation_title" android:key="reader_screen_rotation" android:summary="@string/reader_screen_rotation_summary" android:defaultValue="User" android:dialogTitle="@string/reader_screen_rotation_dialog_title" android:entryValues="@array/readerRotationValues" />
+        <CheckBoxPreference android:title="@string/reader_hide_navigation_title" android:key="reader_hide_navigation" android:summary="@string/reader_hide_navigation_summary" android:defaultValue="true" />
+        <CheckBoxPreference android:title="@string/reader_screen_always_on_title" android:key="reader_screen_always_on" android:summary="@string/reader_screen_always_on_summary" android:defaultValue="false" />
+        <com.cyo.common.view.SeekBarPreference android:max="100" android:title="@string/reader_screen_max_brightness_title" android:key="reader_screen_max_brightness" android:summary="@string/reader_screen_max_brightness_summary" android:defaultValue="100" cyo:unit="%" />	/>
+<com.cyo.common.view.SeekBarPreference android:max="100" android:title="@string/reader_screen_min_brightness_title" android:key="reader_screen_min_brightness" android:summary="@string/reader_screen_min_brightness_summary" android:defaultValue="20" cyo:unit="%" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preference_category_reader_animation_title" android:key="preference_category_reader_animation">
+        <CheckBoxPreference android:title="@string/reader_animation_zoom_title" android:key="reader_animation_zoom" android:summary="@string/reader_animation_zoom_summary" android:defaultValue="true" />
+        <CheckBoxPreference android:title="@string/reader_animation_scroll_title" android:key="reader_animation_scroll" android:summary="@string/reader_animation_scroll_summary" android:defaultValue="true" />
+        <ListPreference android:persistent="true" android:entries="@array/transitionStyles" android:title="@string/reader_animation_page_transition_style_title" android:key="reader_animation_page_transition_style" android:summary="@string/reader_animation_page_transition_style_summary" android:defaultValue="Slide" android:dialogTitle="@string/reader_animation_page_transition_style_dialog_title" android:entryValues="@array/transitionStylesValues" />
+        <CheckBoxPreference android:title="@string/reader_animation_page_transition_show_full_title" android:key="reader_animation_page_transition_show_full" android:summary="@string/reader_animation_page_transition_show_full_summary" android:defaultValue="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

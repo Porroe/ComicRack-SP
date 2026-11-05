@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:id="@id/editScrollView" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/editComicContainer" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@id/editComicContainerSeries" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView07" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series" />
+            <AutoCompleteTextView android:id="@id/editComicSeries" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView29" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series_title" />
+            <EditText android:id="@id/editComicTitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView06" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/volume" />
+            <EditText android:id="@id/editComicVolume" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="number" />
+            <LinearLayout android:id="@id/LinearLayout03" android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout04" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView05" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series_number" />
+                    <EditText android:id="@id/editComicNumber" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textNoSuggestions" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout02" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView04" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series_count" />
+                    <EditText android:id="@id/editComicCount" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:id="@id/linearLayout1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+                <LinearLayout android:orientation="vertical" android:id="@id/linearLayout2" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series_year" />
+                    <EditText android:id="@id/editComicYear" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="number">
+                        <requestFocus />
+                    </EditText>
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:id="@id/readerButtonsRightGradient" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView03" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series_month" />
+                    <EditText android:id="@id/editComicMonth" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="number" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout11" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/textViewDay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series_day" />
+                    <EditText android:id="@id/editComicDay" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/editComicContainerStory" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dip">
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/widgetComicTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/alternate" />
+            <AutoCompleteTextView android:id="@id/editComicAlternate" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <LinearLayout android:id="@id/LinearLayout05" android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout07" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView09" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/alternate_number" />
+                    <EditText android:id="@id/editComicAlternateNumber" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textNoSuggestions" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout06" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView08" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/alternate_count" />
+                    <EditText android:id="@id/editComicAlternateCount" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/story_arc" />
+            <AutoCompleteTextView android:id="@id/editComicStoryArc" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/series_group" />
+            <AutoCompleteTextView android:id="@id/editComicStoryGroup" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/editComicContainerFormat" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="32.0dip">
+            <LinearLayout android:id="@id/LinearLayout12" android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout14" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/publisher" />
+                    <AutoCompleteTextView android:id="@id/editComicPublisher" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout13" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/imprint" />
+                    <AutoCompleteTextView android:id="@id/editComicImprint" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:id="@id/LinearLayout08" android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout10" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/format" />
+                    <AutoCompleteTextView android:id="@id/editComicFormat" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout09" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/age_rating" />
+                    <AutoCompleteTextView android:id="@id/editComicAgeRating" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/genre" />
+            <AutoCompleteTextView android:id="@id/editComicGenre" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/editComicContainerArtists" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dip">
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/writer" />
+            <MultiAutoCompleteTextView android:id="@id/editComicWriter" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView19" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/penciller" />
+            <MultiAutoCompleteTextView android:id="@id/editComicPenciller" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView18" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/inker" />
+            <MultiAutoCompleteTextView android:id="@id/editComicInker" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/colorist" />
+            <MultiAutoCompleteTextView android:id="@id/editComicColorist" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView50" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/letterer" />
+            <MultiAutoCompleteTextView android:id="@id/editComicLetterer" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView51" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cover_artist" />
+            <MultiAutoCompleteTextView android:id="@id/editComicCoverArtist" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView52" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/editor" />
+            <MultiAutoCompleteTextView android:id="@id/editComicEditor" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/editComicContainerStoryInfo" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dip">
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/main_character_or_team" />
+            <AutoCompleteTextView android:id="@id/editComicMainCharacterOrTeam" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView23" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/characters" />
+            <MultiAutoCompleteTextView android:id="@id/editComicCharacters" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView24" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/teams" />
+            <MultiAutoCompleteTextView android:id="@id/editComicTeams" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/locations" />
+            <MultiAutoCompleteTextView android:id="@id/editComicLocations" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/editComicContainerInfo" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="32.0dip">
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView27" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary" />
+            <EditText android:id="@id/editComicSummary" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textAutoCorrect|textMultiLine" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView25" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/notes" />
+            <EditText android:id="@id/editComicNotes" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textAutoCorrect|textMultiLine" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView26" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/review" />
+            <EditText android:id="@id/editComicReview" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textAutoCorrect|textMultiLine" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView30" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/scan_information" />
+            <EditText android:id="@id/editComicScanInformation" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="text" />
+            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@id/TextView28" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/web" />
+            <EditText android:id="@id/editComicWeb" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textUri" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

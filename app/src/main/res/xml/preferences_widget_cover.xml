@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cyo="http://schemas.cyolito.com/android">
+    <PreferenceCategory android:title="@string/preference_category_widget_looks_title" android:key="preference_category_widget_looks">
+        <ListPreference android:persistent="true" android:entries="@array/widgetShowCover" android:title="@string/widget_show_cover_title" android:key="widget_show_cover" android:summary="@string/widget_show_cover_summary" android:defaultValue="Medium" android:dialogTitle="@string/widget_show_cover_dialog_title" android:entryValues="@array/widgetShowCoverValues" />
+        <ListPreference android:persistent="true" android:entries="@array/widgetShowCaption" android:title="@string/widget_show_caption_title" android:key="widget_show_caption" android:summary="@string/widget_show_caption_summary" android:defaultValue="White" android:dialogTitle="@string/widget_show_caption_dialog_title" android:entryValues="@array/widgetShowCaptionValues" />
+        <CheckBoxPreference android:title="@string/widget_show_rating_title" android:key="widget_show_rating" android:summary="@string/widget_show_rating_summary" android:defaultValue="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preference_category_comic_selection_title" android:key="preference_category_widget_comics">
+        <ListPreference android:persistent="true" android:entries="@array/autoChange" android:title="@string/comic_selection_auto_change_title" android:key="widget_auto_change" android:summary="@string/comic_selection_auto_change_summary" android:defaultValue="60" android:dialogTitle="@string/comic_selection_auto_change_dialog_title" android:entryValues="@array/autoChangeValues" />
+        <com.cyo.common.view.ListPreferenceMultiSelect android:persistent="true" android:entries="@array/comicSelection" android:title="@string/comic_selection_comic_selection_title" android:key="widget_comic_selection" android:summary="@string/comic_selection_comic_selection_summary" android:dialogTitle="@string/comic_selection_comic_selection_dialog_title" android:entryValues="@array/comicSelectionValues" />
+        <EditTextPreference android:persistent="true" android:title="@string/comic_selection_comic_keywords_title" android:key="widget_comic_keywords" android:summary="@string/comic_selection_comic_keywords_summary" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preference_category_widget_controls_title" android:key="preference_category_widget_controls">
+        <CheckBoxPreference android:title="@string/widget_show_refresh_title" android:key="widget_show_refresh" android:summary="@string/widget_show_refresh_summary" android:defaultValue="true" />
+        <CheckBoxPreference android:title="@string/widget_show_wifi_title" android:key="widget_show_wifi" android:summary="@string/widget_show_wifi_summary" android:defaultValue="false" />
+        <ListPreference android:persistent="true" android:entries="@array/comicTapAction" android:title="@string/widget_tap_background_title" android:key="widget_tap_background" android:summary="@string/widget_tap_background_summary" android:defaultValue="Read" android:dialogTitle="@string/widget_tap_background_dialog_title" android:entryValues="@array/comicTapActionValues" />
+        <ListPreference android:persistent="true" android:entries="@array/comicTapAction" android:title="@string/widget_tap_cover_title" android:key="widget_tap_cover" android:summary="@string/widget_tap_cover_summary" android:defaultValue="Read" android:dialogTitle="@string/widget_tap_cover_dialog_title" android:entryValues="@array/comicTapActionValues" />
+        <ListPreference android:persistent="true" android:entries="@array/comicTapAction" android:title="@string/widget_tap_caption_title" android:key="widget_tap_caption" android:summary="@string/widget_tap_caption_summary" android:defaultValue="OpenSeries" android:dialogTitle="@string/widget_tap_caption_dialog_title" android:entryValues="@array/comicTapActionValues" />
+    </PreferenceCategory>
+</PreferenceScreen>

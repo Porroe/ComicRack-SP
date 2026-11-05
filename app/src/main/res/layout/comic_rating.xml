@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:minWidth="@dimen/dialog_width"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RatingBar android:layout_gravity="center" android:id="@id/comicRating" android:layout_width="wrap_content" android:layout_height="32.0dip" android:layout_margin="16.0dip" android:numStars="5" android:stepSize="0.5" style="@style/RatingBar.Book" />
+    <EditText android:gravity="top" android:id="@id/comicRatingReview" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/enter_short_review" android:maxLines="10" android:minLines="3" android:inputType="textMultiLine">
+        <requestFocus />
+    </EditText>
+    <CheckBox android:id="@id/comicRatingTweet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/share_on_twitter" />
+</LinearLayout>

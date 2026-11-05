@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wallpaper android:description="@string/cover_wallpaper_description" android:settingsActivity="com.cyo.comicrack.viewer.CoverWallpaperService$ConfigurationActivity" android:thumbnail="@drawable/comicrack_logo"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -1,0 +1,8 @@
+<b>Limitations of the Free Edition</b>
+
+• Displays ads
+• No Wifi synchronization
+• USB synchronization is limited to 100 books.
+• No editing of book information (like author or penciller)
+• No selection of comics by keyword for the Live Wallpaper and the Widget
+

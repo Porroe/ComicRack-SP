@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cyo.common.view.CheckableLinearLayout android:gravity="center_vertical" android:orientation="vertical" android:background="@drawable/library_item_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/libraryListThumbContainer" android:layout_width="fill_parent" android:layout_height="60.0sp" android:layout_marginLeft="4.0dip" android:layout_marginTop="8.0dip" android:layout_marginRight="4.0dip">
+        <LinearLayout android:gravity="center_horizontal" android:id="@id/libraryListThumbs" android:layout_width="70.0sp" android:layout_height="wrap_content">
+            <RelativeLayout android:id="@id/libraryListThumbCovers" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <com.cyo.common.view.FastThumbView android:id="@id/libraryListThumb3" android:background="@drawable/library_list_empty_cover" android:layout_width="50.0sp" android:layout_height="75.0sp" android:layout_alignParentLeft="true" />
+                <com.cyo.common.view.FastThumbView android:id="@id/libraryListThumb2" android:background="@drawable/library_list_empty_cover" android:layout_width="50.0sp" android:layout_height="75.0sp" android:layout_marginLeft="10.0sp" android:layout_marginTop="10.0sp" android:layout_alignParentLeft="true" />
+                <com.cyo.common.view.FastThumbView android:id="@id/libraryListThumb1" android:background="@drawable/library_list_empty_cover" android:layout_width="50.0sp" android:layout_height="75.0sp" android:layout_marginLeft="20.0sp" android:layout_marginTop="20.0sp" android:layout_alignParentLeft="true" />
+            </RelativeLayout>
+        </LinearLayout>
+        <com.cyo.common.view.EllipsizingTextView android:textAppearance="@style/TextAppearance.SmallDefault" android:ellipsize="end" android:id="@id/libraryListThumbnailDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:text="Description" android:maxLines="2" android:layout_toRightOf="@id/libraryListThumbs" android:layout_alignParentBottom="true" />
+        <com.cyo.common.view.EllipsizingTextView android:textAppearance="@style/TextAppearance.MediumDefault" android:ellipsize="end" android:id="@id/libraryListThumbnailCaption" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:layout_marginBottom="-6.0dip" android:text="Caption" android:maxLines="2" android:layout_toRightOf="@id/libraryListThumbs" android:layout_above="@id/libraryListThumbnailDescription" />
+    </RelativeLayout>
+</com.cyo.common.view.CheckableLinearLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="comic_list_thumbnail_height">200.0sp</dimen>
+    <dimen name="comic_list_thumbnail_width">130.0sp</dimen>
+    <dimen name="comic_list_column_width">135.0sp</dimen>
+    <dimen name="comic_list_padding">8.0dip</dimen>
+    <dimen name="reader_thumbnail_height">250.0dip</dimen>
+    <dimen name="reader_thumbnail_cover_height">200.0dip</dimen>
+    <dimen name="reader_thumbnail_cover_width">135.0dip</dimen>
+    <dimen name="reader_thumbnails_control_padding">4.0dip</dimen>
+    <dimen name="reader_thumbnails_control_gradient_width">32.0dip</dimen>
+    <dimen name="caption_margin">8.0dip</dimen>
+    <dimen name="dialog_width">600.0dip</dimen>
+    <dimen name="dialog_height">400.0dip</dimen>
+    <dimen name="progress_height">8.0dip</dimen>
+    <dimen name="page_number_height">18.0sp</dimen>
+    <dimen name="library_list_width">300.0dip</dimen>
+</resources>

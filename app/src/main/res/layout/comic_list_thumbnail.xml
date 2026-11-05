@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cyo.common.view.CheckableLinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/comic_item_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.cyo.common.view.FastThumbView android:id="@id/comicListThumbnailImage" android:background="@drawable/page_thumbnail_image_loading" android:layout_width="@dimen/comic_list_thumbnail_width" android:layout_height="@dimen/comic_list_thumbnail_height" android:scaleType="centerCrop" />
+    <com.cyo.common.view.ProgressView android:id="@id/comicListCurrentProgress" android:background="@color/read_background" android:layout_width="@dimen/comic_list_thumbnail_width" android:layout_height="@dimen/progress_height" />
+    <com.cyo.common.view.SimpleRatingBar android:id="@id/comicListRating" android:layout_width="fill_parent" android:layout_height="16.0dip" android:layout_marginTop="1.0dip" />
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="52.0sp">
+        <com.cyo.common.view.EllipsizingTextView android:textAppearance="@style/TextAppearance.SmallDefault" android:textStyle="bold" android:gravity="center_horizontal" android:id="@id/comicListThumbnailCaption" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="This is a rather long caption" android:maxLines="2" />
+        <TextView android:textAppearance="@style/TextAppearance.SmallDefault" android:ellipsize="marquee" android:gravity="center_horizontal" android:id="@id/comicListThumbnailDescription" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="-4.0sp" android:text="This is a rather long Description" android:maxLines="1" android:singleLine="true" />
+    </LinearLayout>
+</com.cyo.common.view.CheckableLinearLayout>

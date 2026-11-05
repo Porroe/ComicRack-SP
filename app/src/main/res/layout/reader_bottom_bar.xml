@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/readerBottomBar" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/readerBottomLayout" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="horizontal" android:id="@id/readerButtonsRight" android:background="@drawable/toolbar_background_rounded_tl" android:paddingLeft="2.0dip" android:paddingTop="2.0dip" android:paddingRight="0.0dip" android:paddingBottom="2.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true">
+            <ImageButton android:id="@id/readerPreviousComic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_prev_book" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/readerFirstPage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_first_page" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/readerLastPage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_last_page" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/readerNextComic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_next_book" style="@style/ToolbarButton" />
+            <ImageButton android:id="@id/readerClose" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/btn_close" style="@style/ToolbarButton" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/readerGalleryContainer" android:background="@drawable/toolbar_background" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="@dimen/reader_thumbnail_height" android:layout_below="@id/readerButtonsRight">
+            <Gallery android:id="@id/readerThumbnails" android:background="#00000000" android:layout_width="fill_parent" android:layout_height="wrap_content" style="@style/ThumbnailGallery" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/readerButtonsLeftGradient" android:background="@drawable/toolbar_gradient_left" android:layout_width="@dimen/reader_thumbnails_control_gradient_width" android:layout_height="wrap_content" android:layout_alignTop="@id/readerGalleryContainer" android:layout_alignBottom="@id/readerGalleryContainer" />
+        <LinearLayout android:orientation="vertical" android:id="@id/readerButtonsRightGradient" android:background="@drawable/toolbar_gradient_right" android:layout_width="@dimen/reader_thumbnails_control_gradient_width" android:layout_height="wrap_content" android:layout_alignTop="@id/readerGalleryContainer" android:layout_alignRight="@id/readerGalleryContainer" android:layout_alignBottom="@id/readerGalleryContainer" />
+        <com.cyo.common.view.ProgressView android:id="@id/readerCurrentProgress" android:background="@color/read_background" android:layout_width="fill_parent" android:layout_height="@dimen/progress_height" android:layout_below="@id/readerGalleryContainer" />
+        <View android:id="@id/readerGalleryContainerPaddingTop" android:background="@drawable/toolbar_background" android:layout_width="wrap_content" android:layout_height="4.0dip" android:layout_toLeftOf="@id/readerButtonsRight" android:layout_above="@id/readerGalleryContainer" android:layout_alignWithParentIfMissing="true" />
+        <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/readerClock" android:background="@drawable/toolbar_background_rounded_tr" android:paddingLeft="2.0dip" android:paddingRight="2.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="17:23" android:layout_above="@id/readerGalleryContainerPaddingTop" />
+    </RelativeLayout>
+</LinearLayout>

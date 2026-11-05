@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:padding="@dimen/widget_margin" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/widgetCover" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="centerCrop" />
+    <ImageView android:id="@id/widgetComicRating" android:layout_width="wrap_content" android:layout_height="16.0dip" android:layout_marginTop="4.0dip" android:scaleType="centerInside" android:layout_alignParentTop="true" android:layout_centerHorizontal="true" />
+    <ImageView android:id="@id/widgetCaptionOverlay" android:layout_width="fill_parent" android:layout_height="76.0dip" android:src="@android:color/white" android:layout_alignParentBottom="true" />
+    <LinearLayout android:id="@id/widgetSmallCover" android:background="@drawable/widget_cover_white_border" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_alignParentBottom="true">
+        <ImageView android:id="@id/widgetSmallCoverImageSmall" android:layout_width="44.0sp" android:layout_height="68.0sp" android:scaleType="centerCrop" />
+        <ImageView android:id="@id/widgetSmallCoverImageMedium" android:layout_width="64.0dip" android:layout_height="96.0dip" android:scaleType="centerCrop" />
+        <ImageView android:id="@id/widgetSmallCoverImageLarge" android:layout_width="84.0dip" android:layout_height="128.0dip" android:scaleType="centerCrop" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/widgetTextContainer" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="4.0dip" android:layout_marginBottom="4.0dip" android:layout_toRightOf="@id/widgetSmallCover" android:layout_alignTop="@id/widgetCaptionOverlay" android:layout_alignRight="@id/widgetCaptionOverlay" android:layout_alignBottom="@id/widgetCaptionOverlay" android:layout_alignParentRight="false" android:layout_alignParentBottom="false">
+        <TextView android:textAppearance="?android:textAppearanceSmallInverse" android:textSize="14.0sp" android:textStyle="bold" android:ellipsize="end" android:id="@id/widgetComicCaption" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Series" android:maxLines="2" />
+        <TextView android:textAppearance="?android:textAppearanceSmallInverse" android:textSize="12.0sp" android:ellipsize="end" android:id="@id/widgetComicTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-2.0dip" android:text="Title" android:maxLines="1" />
+        <TextView android:textAppearance="?android:textAppearanceSmallInverse" android:textSize="13.0sp" android:id="@id/widgetComicSummary" android:scrollbars="none" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dip" android:text="Summary" />
+    </LinearLayout>
+    <TextView android:textAppearance="?android:textAppearanceMedium" android:gravity="center" android:id="@id/widgetLoading" android:background="@drawable/black_background" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/refreshing_widget" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" />
+    <LinearLayout android:orientation="vertical" android:id="@id/widgetControlsContainer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_marginRight="4.0dip" android:layout_alignParentTop="true" android:layout_alignParentRight="true">
+        <ImageView android:id="@id/widgetRefresh" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@drawable/btn_refresh" android:scaleType="fitCenter" />
+        <ImageView android:id="@id/widgetWifi" android:visibility="gone" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@drawable/btn_wifi" android:scaleType="fitCenter" />
+    </LinearLayout>
+    <ImageView android:id="@id/widgetConfigure" android:layout_width="32.0dip" android:layout_height="32.0dip" android:layout_marginLeft="4.0dip" android:layout_marginTop="4.0dip" android:src="@drawable/icon" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+</RelativeLayout>
