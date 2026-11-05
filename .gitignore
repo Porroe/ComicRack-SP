@@ -3,3 +3,7 @@
 *.iml
 local.properties
 build/
+
+# Local APKs and decompiler output
+*.apk
+/ComicRack.1.80.decoded/

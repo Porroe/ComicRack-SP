@@ -1,6 +1,8 @@
 # ComicRack SP for Android
 
-This Android Studio project contains Java and resources recovered from ComicRack 1.80. Open this directory in Android Studio and select JDK 17 as the Gradle JDK. The project uses the included Gradle 8.7 wrapper, Android SDK Platform 21, and Build Tools 34.0.0. API 21 matches the original compile platform and provides legacy APIs referenced by the recovered source.
+**SP means “Slop.”** ComicRack SP is an AI-assisted effort to decompile and update ComicRack 1.80 for Android. AI helped reconstruct Java from the original bytecode and repair parts of the app so it could build and run again.
+
+Open this directory in Android Studio and select JDK 17 as the Gradle JDK. The project uses the included Gradle 8.7 wrapper, Android SDK Platform 21, and Build Tools 34.0.0. API 21 matches the original compile platform and provides legacy APIs referenced by the recovered source.
 
 - `app/src/main/java` contains the Java recovered by JADX 1.5.2 with `--deobf --no-inline-methods --no-inline-anonymous`. These options preserve synthetic accessors and alias obfuscated names that collide. The `renamed from` comments identify original names for comparison with Smali.
 - `app/src/main/AndroidManifest.xml` and `app/src/main/res` come from Apktool. Gradle supplies the package and version metadata and generates the resource class. ComicRack SP uses the application ID `com.cyo.comicracksp`, minimum SDK 8, and target SDK 21. It preserves all 1,045 declared resource IDs.
