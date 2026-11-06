@@ -359,59 +359,59 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
     }
 
     /* renamed from: a */
-    private Rect m1491a(AbstractC0587aa abstractC0587aa, Canvas canvas, Paint paint) {
-        Rect rect = null;
-        C0944o c0944o = new C0944o(abstractC0587aa.mo1273b(), abstractC0587aa.mo1274c());
-        C0944o c0944o2 = new C0944o(canvas.getWidth(), canvas.getHeight());
-        if (c0944o.f2833b <= 0 || c0944o2.f2833b <= 0) {
+    private Rect m1491a(AbstractC0587aa pageBitmap, Canvas canvas, Paint paint) {
+        Rect pageClip = null;
+        C0944o pageSize = new C0944o(pageBitmap.mo1273b(), pageBitmap.mo1274c());
+        C0944o canvasSize = new C0944o(canvas.getWidth(), canvas.getHeight());
+        if (pageSize.f2833b <= 0 || canvasSize.f2833b <= 0) {
             return null;
         }
-        boolean z = false;
-        float f = c0944o.f2832a / c0944o.f2833b;
-        float f2 = c0944o2.f2832a / c0944o2.f2833b;
-        Paint paintM1490a = m1490a(paint);
-        Matrix matrix = new Matrix();
-        Matrix matrix2 = canvas.getMatrix();
-        if (matrix2 != null && matrix2.invert(matrix)) {
-            Paint paint2 = paintM1490a != null ? new Paint(paintM1490a) : new Paint();
-            paint2.setColor(C0932c.m1960a(paint2.getAlpha(), m1488a(abstractC0587aa)));
-            RectF rectF = new RectF(0.0f, 0.0f, c0944o2.f2832a - 1, c0944o2.f2833b - 1);
-            float[] fArr = {rectF.left, rectF.top, rectF.right, rectF.top, rectF.right, rectF.bottom, rectF.left, rectF.bottom};
-            matrix.mapPoints(fArr);
-            RectF rectF2 = new RectF(fArr[0], fArr[1], fArr[2], fArr[5]);
-            float f3 = f2 / f;
+        boolean canvasSaved = false;
+        float pageAspectRatio = (float) pageSize.f2832a / pageSize.f2833b;
+        float canvasAspectRatio = (float) canvasSize.f2832a / canvasSize.f2833b;
+        Paint pagePaint = m1490a(paint);
+        Matrix canvasToPage = new Matrix();
+        Matrix pageToCanvas = canvas.getMatrix();
+        if (pageToCanvas != null && pageToCanvas.invert(canvasToPage)) {
+            Paint edgePaint = pagePaint != null ? new Paint(pagePaint) : new Paint();
+            edgePaint.setColor(C0932c.m1960a(edgePaint.getAlpha(), m1488a(pageBitmap)));
+            RectF canvasBounds = new RectF(0.0f, 0.0f, canvasSize.f2832a - 1, canvasSize.f2833b - 1);
+            float[] canvasCorners = {canvasBounds.left, canvasBounds.top, canvasBounds.right, canvasBounds.top, canvasBounds.right, canvasBounds.bottom, canvasBounds.left, canvasBounds.bottom};
+            canvasToPage.mapPoints(canvasCorners);
+            RectF visiblePageBounds = new RectF(canvasCorners[0], canvasCorners[1], canvasCorners[2], canvasCorners[5]);
+            float aspectRatioScale = canvasAspectRatio / pageAspectRatio;
             canvas.save();
-            if (f3 > 1.0f) {
-                int iMin = ((int) (Math.min(f3 * c0944o.f2832a, Math.max(c0944o.f2832a, rectF2.width())) - c0944o.f2832a)) / 2;
-                int i = (-iMin) - 5;
-                int i2 = iMin + c0944o.f2832a + 5;
-                Rect rect2 = new Rect(i, 0, i2, c0944o.f2833b);
-                canvas.clipRect(rect2);
-                canvas.drawRect(i, 0.0f, 1.0f, c0944o.f2833b, paint2);
-                canvas.drawRect(c0944o.f2832a - 1, 0.0f, i2, c0944o.f2833b, paint2);
-                abstractC0587aa.mo1272a(false, true, false, true);
-                z = true;
-                rect = rect2;
+            if (aspectRatioScale > 1.0f) {
+                int horizontalPadding = ((int) (Math.min(aspectRatioScale * pageSize.f2832a, Math.max(pageSize.f2832a, visiblePageBounds.width())) - pageSize.f2832a)) / 2;
+                int left = (-horizontalPadding) - 5;
+                int right = horizontalPadding + pageSize.f2832a + 5;
+                Rect horizontalClip = new Rect(left, 0, right, pageSize.f2833b);
+                canvas.clipRect(horizontalClip);
+                canvas.drawRect(left, 0.0f, 1.0f, pageSize.f2833b, edgePaint);
+                canvas.drawRect(pageSize.f2832a - 1, 0.0f, right, pageSize.f2833b, edgePaint);
+                pageBitmap.mo1272a(false, true, false, true);
+                canvasSaved = true;
+                pageClip = horizontalClip;
             } else {
-                int iMin2 = ((int) (Math.min(c0944o.f2833b / f3, Math.max(c0944o.f2833b, rectF2.height())) - c0944o.f2833b)) / 2;
-                int i3 = (-iMin2) - 5;
-                int i4 = iMin2 + c0944o.f2833b + 5;
-                Rect rect3 = new Rect(0, i3, c0944o.f2832a, i4);
-                canvas.clipRect(rect3);
-                canvas.drawRect(0.0f, i3, c0944o.f2832a, 1.0f, paint2);
-                canvas.drawRect(0.0f, c0944o.f2833b - 1, c0944o.f2832a, i4, paint2);
-                abstractC0587aa.mo1272a(true, false, true, false);
-                z = true;
-                rect = rect3;
+                int verticalPadding = ((int) (Math.min(pageSize.f2833b / aspectRatioScale, Math.max(pageSize.f2833b, visiblePageBounds.height())) - pageSize.f2833b)) / 2;
+                int top = (-verticalPadding) - 5;
+                int bottom = verticalPadding + pageSize.f2833b + 5;
+                Rect verticalClip = new Rect(0, top, pageSize.f2832a, bottom);
+                canvas.clipRect(verticalClip);
+                canvas.drawRect(0.0f, top, pageSize.f2832a, 1.0f, edgePaint);
+                canvas.drawRect(0.0f, pageSize.f2833b - 1, pageSize.f2832a, bottom, edgePaint);
+                pageBitmap.mo1272a(true, false, true, false);
+                canvasSaved = true;
+                pageClip = verticalClip;
             }
         }
-        abstractC0587aa.m1270a(canvas, paintM1490a);
-        abstractC0587aa.mo1272a(true, true, true, true);
-        if (z) {
+        pageBitmap.m1270a(canvas, pagePaint);
+        pageBitmap.mo1272a(true, true, true, true);
+        if (canvasSaved) {
             canvas.restore();
-            return rect;
+            return pageClip;
         }
-        return rect;
+        return pageClip;
     }
 
     /* renamed from: a */

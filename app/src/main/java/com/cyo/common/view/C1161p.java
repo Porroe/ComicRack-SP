@@ -30,12 +30,12 @@ public final class C1161p implements InterfaceC1160o {
     public EnumC1162q f3669e = EnumC1162q.Forward;
 
     /* renamed from: g */
-    float f3671g = 0.0f;
+    float manualTimelineProgress = 0.0f;
 
     /* renamed from: a */
     public final synchronized int m2440a(AbstractC1159n item, long duration) {
         if (duration >= 0) {
-            item.f3661k = duration;
+            item.durationMillis = duration;
         }
         item.f3663m = this;
         item.m2425a(this.f3670f);
@@ -239,7 +239,7 @@ public final class C1161p implements InterfaceC1160o {
         long duration = 0;
         synchronized (this.f3665a) {
             for (AbstractC1159n item : this.f3665a) {
-                duration += item.f3661k;
+                duration += item.durationMillis;
             }
         }
         return duration;
@@ -250,7 +250,7 @@ public final class C1161p implements InterfaceC1160o {
         long j = 0;
         synchronized (this.f3665a) {
             for (int i2 = 0; i2 <= i; i2++) {
-                j += m2435b(i2).f3661k;
+                j += m2435b(i2).durationMillis;
             }
         }
         return j;

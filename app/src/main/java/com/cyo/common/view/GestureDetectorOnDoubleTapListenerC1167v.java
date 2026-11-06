@@ -53,7 +53,7 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
     public C1161p f3705h;
 
     /* renamed from: i */
-    float f3706i;
+    float manualPosition;
 
     /* renamed from: j */
     private C0205n f3707j;
@@ -639,7 +639,7 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
             return;
         }
         synchronized (c1161p.f3665a) {
-            for (int size = c1161p.f3665a.size() - 1; size >= 0 && ((AbstractC1159n) c1161p.f3665a.get(size)).f3662l <= 0.0f; size--) {
+            for (int size = c1161p.f3665a.size() - 1; size >= 0 && ((AbstractC1159n) c1161p.f3665a.get(size)).manualProgress <= 0.0f; size--) {
                 c1161p.f3665a.remove(size);
             }
             Collections.reverse(c1161p.f3665a);
@@ -657,25 +657,29 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
     }
 
     /* renamed from: a */
-    public final float m2487a(float f) {
-        AbstractC1159n abstractC1159nM2442a = this.f3705h.m2442a(C0795fk.class);
-        C1161p c1161p = this.f3705h;
-        int iIndexOf = c1161p.f3665a.indexOf(abstractC1159nM2442a);
-        long jM2441a = iIndexOf == -1 ? 0L : c1161p.m2441a(iIndexOf);
-        this.f3706i = C0950af.m1989a(f, 0.0f, 1.0f);
-        C1161p c1161p2 = this.f3705h;
-        long j = (long) (jM2441a * this.f3706i);
-        c1161p2.f3671g = j / c1161p2.m2451g();
-        synchronized (c1161p2.f3665a) {
-            for (AbstractC1159n item : c1161p2.f3665a) {
-                item.m2426b(j / item.f3661k);
-                j -= item.f3661k;
+    public final float m2487a(float dragProgress) {
+        C1161p animationQueue = this.f3705h;
+        AbstractC1159n pageTransition = animationQueue.m2442a(C0795fk.class);
+        int transitionIndex = animationQueue.f3665a.indexOf(pageTransition);
+        long transitionEndMillis = transitionIndex == -1 ? 0L : animationQueue.m2441a(transitionIndex);
+        this.manualPosition = C0950af.m1989a(dragProgress, 0.0f, 1.0f);
+        long remainingMillis = (long) (transitionEndMillis * this.manualPosition);
+        long queueDurationMillis = animationQueue.m2451g();
+        animationQueue.manualTimelineProgress = queueDurationMillis > 0
+                ? (float) remainingMillis / queueDurationMillis : 0.0f;
+        synchronized (animationQueue.f3665a) {
+            for (AbstractC1159n animation : animationQueue.f3665a) {
+                float animationProgress = animation.durationMillis > 0
+                        ? (float) remainingMillis / animation.durationMillis
+                        : (remainingMillis >= 0 ? 1.0f : 0.0f);
+                animation.m2426b(animationProgress);
+                remainingMillis -= animation.durationMillis;
             }
         }
-        return this.f3706i;
+        return this.manualPosition;
     }
 
     public float getManualPosition() {
-        return this.f3706i;
+        return this.manualPosition;
     }
 }

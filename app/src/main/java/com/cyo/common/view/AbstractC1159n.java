@@ -11,7 +11,7 @@ import com.cyo.common.p022a.AbstractC0934e;
 public abstract class AbstractC1159n {
 
     /* renamed from: a */
-    private long f3655a;
+    private long frameTimeMillis;
 
     /* renamed from: b */
     private boolean f3656b;
@@ -23,16 +23,16 @@ public abstract class AbstractC1159n {
     private boolean f3658d;
 
     /* renamed from: i */
-    public long f3659i;
+    public long frameTimeOverrideMillis;
 
     /* renamed from: j */
-    public long f3660j;
+    public long startTimeMillis;
 
     /* renamed from: k */
-    long f3661k;
+    long durationMillis;
 
     /* renamed from: l */
-    float f3662l;
+    float manualProgress;
 
     /* renamed from: m */
     InterfaceC1160o f3663m;
@@ -48,10 +48,10 @@ public abstract class AbstractC1159n {
 
     /* renamed from: b */
     public final boolean m2427b() {
-        if (this.f3658d || this.f3660j == 0 || this.f3657c) {
+        if (this.f3658d || this.startTimeMillis == 0 || this.f3657c) {
             return false;
         }
-        this.f3655a = AnimationUtils.currentAnimationTimeMillis();
+        this.frameTimeMillis = AnimationUtils.currentAnimationTimeMillis();
         if (!this.f3656b && m2428c()) {
             this.f3656b = true;
             if (this.f3663m != null) {
@@ -74,20 +74,21 @@ public abstract class AbstractC1159n {
     }
 
     /* renamed from: b */
-    private float m2424b(boolean z) {
-        float f;
+    private float m2424b(boolean clampProgress) {
+        float progress;
         if (this.f3658d) {
-            f = this.f3662l;
+            progress = this.manualProgress;
         } else {
-            if (this.f3660j == 0 || this.f3661k == 0) {
+            if (this.startTimeMillis == 0 || this.durationMillis == 0) {
                 return -1.0f;
             }
-            f = ((this.f3659i != 0 ? this.f3659i : this.f3655a) - this.f3660j) / this.f3661k;
+            long elapsedMillis = (this.frameTimeOverrideMillis != 0 ? this.frameTimeOverrideMillis : this.frameTimeMillis) - this.startTimeMillis;
+            progress = (float) elapsedMillis / this.durationMillis;
         }
-        if (z) {
-            return C0950af.m1989a(f, 0.0f, 1.0f);
+        if (clampProgress) {
+            return C0950af.m1989a(progress, 0.0f, 1.0f);
         }
-        return f;
+        return progress;
     }
 
     /* renamed from: c */
@@ -118,12 +119,12 @@ public abstract class AbstractC1159n {
     /* renamed from: f */
     public final void m2431f() {
         if (!m2428c() && !m2429d()) {
-            this.f3660j = AnimationUtils.currentAnimationTimeMillis();
+            this.startTimeMillis = AnimationUtils.currentAnimationTimeMillis();
             if (m2428c() || m2429d()) {
                 return;
             }
-            if (this.f3660j == 0) {
-                this.f3660j = AnimationUtils.currentAnimationTimeMillis();
+            if (this.startTimeMillis == 0) {
+                this.startTimeMillis = AnimationUtils.currentAnimationTimeMillis();
             }
             m2427b();
         }
@@ -133,20 +134,20 @@ public abstract class AbstractC1159n {
     public final void m2432g() {
         this.f3657c = false;
         this.f3656b = false;
-        this.f3660j = 0L;
-        this.f3659i = 0L;
-        if (this.f3662l > 0.0f && this.f3662l < 1.0f) {
-            float f = this.f3662l;
+        this.startTimeMillis = 0L;
+        this.frameTimeOverrideMillis = 0L;
+        if (this.manualProgress > 0.0f && this.manualProgress < 1.0f) {
+            float f = this.manualProgress;
             if (this.f3664n) {
                 f = 1.0f - f;
             }
-            this.f3660j = AnimationUtils.currentAnimationTimeMillis() - ((long) (f * this.f3661k));
+            this.startTimeMillis = AnimationUtils.currentAnimationTimeMillis() - ((long) (f * this.durationMillis));
         }
     }
 
     /* renamed from: b */
     public final void m2426b(float f) {
-        this.f3662l = f;
+        this.manualProgress = f;
         if (this.f3658d) {
             mo1793a(m2424b(true));
             mo1792a();

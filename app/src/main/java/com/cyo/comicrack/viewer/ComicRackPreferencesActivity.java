@@ -66,7 +66,6 @@ public class ComicRackPreferencesActivity extends C0425n {
 
     @Override // com.p004a.p012b.p013a.p014a.p015a.C0425n, android.preference.PreferenceActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
         f1969a = m1452a(f1969a, C0798fn.readerAction);
         f1970b = m1452a(f1970b, C0798fn.readerActionValues);
         f1971c = m1452a(f1971c, C0798fn.backgroundColorStyles);
@@ -79,6 +78,7 @@ public class ComicRackPreferencesActivity extends C0425n {
         f1978j = m1452a(f1978j, C0798fn.readerRotationValues);
         f1979k = m1452a(f1979k, C0798fn.autoChange);
         f1980l = m1452a(f1980l, C0798fn.autoChangeValues);
+        super.onCreate(bundle);
         if (!C0951ag.m2004d()) {
             addPreferencesFromResource(C0809fy.preferences_general);
             addPreferencesFromResource(C0809fy.preferences_reader);
@@ -152,7 +152,7 @@ public class ComicRackPreferencesActivity extends C0425n {
     }
 
     /* compiled from: DontLook */
-    public class GeneralFragment extends PreferenceFragment {
+    public static class GeneralFragment extends PreferenceFragment {
         @Override // android.preference.PreferenceFragment, android.app.Fragment
         public void onCreate(Bundle bundle) {
             super.onCreate(bundle);
@@ -162,7 +162,7 @@ public class ComicRackPreferencesActivity extends C0425n {
     }
 
     /* compiled from: DontLook */
-    public class DisplayFragment extends PreferenceFragment {
+    public static class DisplayFragment extends PreferenceFragment {
         @Override // android.preference.PreferenceFragment, android.app.Fragment
         public void onCreate(Bundle bundle) {
             super.onCreate(bundle);
@@ -172,7 +172,7 @@ public class ComicRackPreferencesActivity extends C0425n {
     }
 
     /* compiled from: DontLook */
-    public class InputFragment extends PreferenceFragment {
+    public static class InputFragment extends PreferenceFragment {
         @Override // android.preference.PreferenceFragment, android.app.Fragment
         public void onCreate(Bundle bundle) {
             super.onCreate(bundle);
@@ -182,7 +182,7 @@ public class ComicRackPreferencesActivity extends C0425n {
     }
 
     /* compiled from: DontLook */
-    public class WallpaperFragment extends PreferenceFragment {
+    public static class WallpaperFragment extends PreferenceFragment {
         @Override // android.preference.PreferenceFragment, android.app.Fragment
         public void onCreate(Bundle bundle) {
             super.onCreate(bundle);

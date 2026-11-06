@@ -434,8 +434,8 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
             C1161p c1161p = this.f2357m;
             synchronized (c1161p.f3665a) {
                 for (AbstractC1159n abstractC1159n : c1161p.f3665a) {
-                    if (abstractC1159n.m2430e() && abstractC1159n.f3659i == 0) {
-                        abstractC1159n.f3659i = AnimationUtils.currentAnimationTimeMillis();
+                    if (abstractC1159n.m2430e() && abstractC1159n.frameTimeOverrideMillis == 0) {
+                        abstractC1159n.frameTimeOverrideMillis = AnimationUtils.currentAnimationTimeMillis();
                     }
                 }
             }
@@ -449,9 +449,9 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
             C1161p c1161p = this.f2357m;
             synchronized (c1161p.f3665a) {
                 for (AbstractC1159n abstractC1159n : c1161p.f3665a) {
-                    if (abstractC1159n.f3659i != 0) {
-                        abstractC1159n.f3660j += AnimationUtils.currentAnimationTimeMillis() - abstractC1159n.f3659i;
-                        abstractC1159n.f3659i = 0L;
+                    if (abstractC1159n.frameTimeOverrideMillis != 0) {
+                        abstractC1159n.startTimeMillis += AnimationUtils.currentAnimationTimeMillis() - abstractC1159n.frameTimeOverrideMillis;
+                        abstractC1159n.frameTimeOverrideMillis = 0L;
                         abstractC1159n.m2427b();
                     }
                 }
