@@ -22,7 +22,6 @@ import com.cyo.common.view.ContentAnimation;
 import com.cyo.common.view.C1165t;
 import com.cyo.common.view.EnumC1164s;
 import com.cyo.common.view.AnimatedContentView;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -206,7 +205,7 @@ public class PageView extends AnimatedContentView {
     /* renamed from: a */
     private int m1488a(AbstractC0587aa abstractC0587aa) {
         switch (m1504i()[this.f2003n.ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 if (abstractC0587aa != null) {
                     break;
                 }

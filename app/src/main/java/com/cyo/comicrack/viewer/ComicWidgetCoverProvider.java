@@ -15,7 +15,6 @@ import com.cyo.common.C0951ag;
 import com.cyo.common.C0998bi;
 import com.cyo.common.p022a.C0944o;
 import com.cyo.common.view.SimpleRatingBar;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -182,13 +181,13 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
             return true;
         }
         switch (m1460a()[c0736df.f2302d.ordinal()]) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 remoteViews.setImageViewResource(C0803fs.widgetCaptionOverlay, C0800fp.black_transparent_40);
                 remoteViews.setTextColor(C0803fs.widgetComicCaption, -1);
                 remoteViews.setTextColor(C0803fs.widgetComicSummary, -1);
                 remoteViews.setTextColor(C0803fs.widgetComicTitle, -1);
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 remoteViews.setImageViewResource(C0803fs.widgetCaptionOverlay, android.R.color.white);
                 remoteViews.setTextColor(C0803fs.widgetComicCaption, -16777216);
                 remoteViews.setTextColor(C0803fs.widgetComicSummary, -16777216);
@@ -216,10 +215,10 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
             if (c0736df.f2301c != EnumC0738dh.None) {
                 Bitmap bitmapCreateScaledBitmap = Bitmap.createScaledBitmap(bitmapMo1275d, (bitmapMo1275d.getWidth() * 256) / bitmapMo1275d.getHeight(), 256, true);
                 switch (m1462b()[c0736df.f2301c.ordinal()]) {
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         remoteViews.setImageViewBitmap(C0803fs.widgetSmallCoverImageSmall, bitmapCreateScaledBitmap);
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         remoteViews.setImageViewBitmap(C0803fs.widgetSmallCoverImageMedium, bitmapCreateScaledBitmap);
                         break;
                     case 4:

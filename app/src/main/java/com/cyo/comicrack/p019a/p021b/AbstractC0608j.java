@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.a.b.j */
@@ -67,10 +66,10 @@ public abstract class AbstractC0608j implements InterfaceC0606h {
             int height = bitmapMo1317a.getHeight();
             matrix.preTranslate((-width) / 2.0f, (-height) / 2.0f);
             switch (C0939j.m1976a()[enumC0938i.ordinal()]) {
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     matrix.preRotate(90.0f);
                     break;
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     matrix.preRotate(180.0f);
                     break;
                 case 4:

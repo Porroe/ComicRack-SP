@@ -9,7 +9,6 @@ import android.widget.RemoteViews;
 import com.cyo.comicrack.p019a.p020a.C0505b;
 import com.cyo.common.AbstractC1010bu;
 import com.cyo.common.C0998bi;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.db */
@@ -72,7 +71,7 @@ public enum EnumC0732db {
     /* renamed from: a */
     public final Intent m1753a(Context context, C0505b c0505b) {
         switch (m1752a()[ordinal()]) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (c0505b == null) {
                     return null;
                 }
@@ -80,7 +79,7 @@ public enum EnumC0732db {
                 intent.putExtra("ReadBookId", c0505b.f1570b);
                 intent.addFlags(603979776);
                 return intent;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 if (c0505b == null) {
                     return null;
                 }

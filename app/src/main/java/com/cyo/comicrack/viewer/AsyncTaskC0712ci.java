@@ -22,9 +22,13 @@ final class AsyncTaskC0712ci extends AsyncTask {
     /* renamed from: d */
     private final /* synthetic */ ActivityC0881ip f2241d;
 
-    AsyncTaskC0712ci(ComicRackApplication comicRackApplication, ActivityC0881ip activityC0881ip) {
+    private final boolean showProgress;
+
+    AsyncTaskC0712ci(ComicRackApplication comicRackApplication, ActivityC0881ip activityC0881ip,
+            boolean showProgress) {
         this.f2238a = comicRackApplication;
         this.f2241d = activityC0881ip;
+        this.showProgress = showProgress;
     }
 
     /* renamed from: a */
@@ -34,15 +38,23 @@ final class AsyncTaskC0712ci extends AsyncTask {
 
     @Override // android.os.AsyncTask
     protected final /* synthetic */ Object doInBackground(Object... objArr) {
-        this.f2238a.m1427a(new C0713cj(this));
-        return true;
+        try {
+            this.f2238a.m1427a(showProgress ? new C0713cj(this) : null);
+            return true;
+        } catch (RuntimeException exception) {
+            android.util.Log.w("ComicRack", "Library refresh failed", exception);
+            return false;
+        }
     }
 
     @Override // android.os.AsyncTask
     protected final /* synthetic */ void onPostExecute(Object obj) {
         Boolean bool = (Boolean) obj;
-        this.f2239b.dismiss();
-        if (this.f2241d.m1881u()) {
+        this.f2238a.libraryRefreshFinished();
+        if (this.f2239b != null) {
+            this.f2239b.dismiss();
+        }
+        if (bool && !this.f2241d.isDestroyed() && this.f2241d.m1881u()) {
             this.f2241d.m1880t();
         }
         super.onPostExecute(bool);
@@ -66,6 +78,9 @@ final class AsyncTaskC0712ci extends AsyncTask {
     @Override // android.os.AsyncTask
     protected final void onPreExecute() {
         super.onPreExecute();
+        if (!showProgress) {
+            return;
+        }
         this.f2239b = new ProgressDialog(this.f2241d);
         C0951ag.m1995a().mo2021a(this.f2239b);
         this.f2239b.setProgressStyle(1);

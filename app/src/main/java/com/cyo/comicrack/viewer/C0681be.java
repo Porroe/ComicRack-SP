@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.be */
@@ -203,7 +202,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
             m1835aa();
         }
         switch (c0756dz.f2391a) {
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 m1834a("ComicList", "Delete", "");
                 List listM1382a = C0635m.m1382a((Iterable) c0756dz.f2392b);
                 if (listM1382a.size() > 0) {
@@ -226,7 +225,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                 m1834a("ComicList", "Rate", "");
                 InterfaceC0606h interfaceC0606hM1354a = C0628f.m1354a(c0756dz.m1816c(), false);
                 if (interfaceC0606hM1354a != null) {
-                    ComicRackApplication.f1954i.m1426a((Activity) m55i(), interfaceC0606hM1354a, false, (Runnable) new RunnableC0702bz(this));
+                    ComicRackApplication.f1954i.showComicRatingDialog((Activity) m55i(), interfaceC0606hM1354a, false, (Runnable) new RunnableC0702bz(this));
                 }
                 return true;
             default:
@@ -301,7 +300,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
         Context applicationContext = m55i().getApplicationContext();
         boolean z = m1714Q() == 256;
         switch (m1716S().m1749a()) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 if (!z) {
                     i = C0804ft.comic_list_thumbnail;
                     break;
@@ -309,10 +308,10 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                     i = C0804ft.comic_list_thumbnail_compact;
                     break;
                 }
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 i = C0804ft.comic_list_thumbnail_tile;
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (!z) {
                     i = C0804ft.comic_list_thumbnail;
                     break;
@@ -328,13 +327,13 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
             C0635m c0635mM1438c = ComicRackApplication.f1954i.m1438c();
             if (m1716S().m1749a() != 2) {
                 switch (m1716S().f2272c) {
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         c0692bp = new C0691bo(this, c0635mM1438c);
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         c0692bp = new C0692bp(this);
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         c0692bp = new C0689bm(this);
                         break;
                     case 4:
@@ -349,16 +348,16 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                 }
             } else {
                 switch (m1716S().f2273d) {
-                    case TwitterResponse.NONE /* 0 */:
+                    case 0:
                         c0692bp = new C0683bg(this, c0635mM1438c);
                         break;
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         c0692bp = new C0684bh(this);
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         c0692bp = new C0686bj(this);
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         c0692bp = new C0685bi(this);
                         break;
                 }
@@ -465,16 +464,16 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
         if (m1716S().m1749a() == 2) {
             strM1387b = iMo1719a == 1 ? m1838b(C0806fv.one_stack, new Object[0]) : m1838b(C0806fv.d_stacks, Integer.valueOf(iMo1719a));
             switch (m1716S().f2273d) {
-                case TwitterResponse.NONE /* 0 */:
+                case 0:
                     i = C0806fv.series;
                     break;
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                     i = C0806fv.story;
                     break;
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     i = C0806fv.folder;
                     break;
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     i = C0806fv.publisher;
                     break;
                 default:
@@ -505,7 +504,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
     @Override // com.cyo.comicrack.viewer.AbstractC0782ey
     /* renamed from: b */
     protected final C0575ak mo1731b(C0575ak c0575ak) {
-        boolean z;
+        boolean keepNamedSingleComicStacks;
         AbstractC0708ce c0699bw;
         C0575ak c0575ak2;
         C0575ak c0575akMo1731b = super.mo1731b(c0575ak);
@@ -517,7 +516,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                 c0575ak3 = (C0575ak) c0575ak3.m1242b(c0725cvM1715R.f2269c[i - 1].f2275a, false);
             }
             C0726cw c0726cwM1748a = c0725cvM1715R.m1748a(i);
-            boolean z2 = i < c0725cvM1715R.f2268b;
+            boolean openingStack = i < c0725cvM1715R.f2268b;
             if (c0575ak3 == null) {
                 c0575ak2 = c0575ak3;
             } else {
@@ -529,24 +528,24 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                 } else {
                     C0635m c0635mM1438c = ComicRackApplication.f1954i.m1438c();
                     switch (c0726cwM1748a.f2273d) {
-                        case TwitterResponse.NONE /* 0 */:
-                            z = false;
+                        case 0:
+                            keepNamedSingleComicStacks = false;
                             c0699bw = new C0696bt(this, c0635mM1438c);
                             break;
-                        case TwitterResponse.READ /* 1 */:
-                            z = true;
+                        case 1:
+                            keepNamedSingleComicStacks = true;
                             c0699bw = new C0697bu(this);
                             break;
-                        case TwitterResponse.READ_WRITE /* 2 */:
-                            z = true;
+                        case 2:
+                            keepNamedSingleComicStacks = true;
                             c0699bw = new C0699bw(this);
                             break;
-                        case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
-                            z = true;
+                        case 3:
+                            keepNamedSingleComicStacks = true;
                             c0699bw = new C0698bv(this);
                             break;
                         default:
-                            z = true;
+                            keepNamedSingleComicStacks = true;
                             c0699bw = null;
                             break;
                     }
@@ -554,7 +553,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                         c0575ak2 = c0575ak4;
                     } else {
                         c0699bw.mo1740a(c0575ak4);
-                        C0575ak c0575ak5 = new C0575ak(c0575ak4.f1750p);
+                        C0575ak stackedComics = new C0575ak(c0575ak4.f1750p);
                         Iterator it = c0575ak4.m1986x().iterator();
                         String str = null;
                         C0572ah c0572ah = null;
@@ -568,26 +567,21 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                             }
                             if (str == null || !zMo1741b || C0998bi.m2083b(strMo1739a, str) != 0) {
                                 c0572ah = new C0572ah(c0505bM1221j, strMo1739a);
-                                c0575ak5.m1237a((InterfaceC0571ag) c0572ah);
+                                stackedComics.m1237a((InterfaceC0571ag) c0572ah);
                             }
                             c0572ah.m1237a((InterfaceC0571ag) c0572ah2);
                             str = strMo1739a;
                         }
-                        if (!z2) {
-                            int i2 = 0;
-                            while (true) {
-                                int i3 = i2;
-                                if (i3 < c0575ak5.m1987y()) {
-                                    C0572ah c0572ah3 = (C0572ah) c0575ak5.m1983d(i3);
-                                    if (c0572ah3.m1987y() == 1 && (!z || c0572ah3.f1739a == null)) {
-                                        c0572ah3.m1217a();
-                                        c0572ah3.m1988z();
-                                    }
-                                    i2 = i3 + 1;
+                        if (!openingStack) {
+                            for (int stackIndex = 0; stackIndex < stackedComics.m1987y(); stackIndex++) {
+                                C0572ah stack = (C0572ah) stackedComics.m1983d(stackIndex);
+                                if (stack.m1987y() == 1 && (!keepNamedSingleComicStacks || stack.f1739a == null)) {
+                                    stack.m1217a();
+                                    stack.m1988z();
                                 }
                             }
                         }
-                        c0575ak2 = c0575ak5;
+                        c0575ak2 = stackedComics;
                     }
                 }
             }
@@ -611,19 +605,19 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                 InterfaceC0571ag interfaceC0571ag = (InterfaceC0571ag) entry;
                 C0572ah c0572ah = (C0572ah) interfaceC0571ag;
                 switch (i) {
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         if (c0572ah.m1227p()) {
                             break;
                         } else {
                             c0575ak2.m1237a(interfaceC0571ag);
                             break;
                         }
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         if (!c0572ah.m1227p() && !c0572ah.m1226o()) {
                             c0575ak2.m1237a(interfaceC0571ag);
                         }
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         if (c0572ah.m1227p()) {
                             c0575ak2.m1237a(interfaceC0571ag);
                             break;
@@ -668,11 +662,11 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
     /* renamed from: d */
     private static int m1711d(int i) {
         switch (i) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 return C0806fv.unread;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 return C0806fv.reading;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 return C0806fv.read;
             default:
                 return C0806fv.all;
@@ -686,14 +680,14 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
         if (this.f2194i != null) {
             TextView textView = this.f2194i;
             switch (i & 255) {
-                case TwitterResponse.NONE /* 0 */:
+                case 0:
                     i2 = C0806fv.cover;
                     break;
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                 default:
                     i2 = C0806fv.detail;
                     break;
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     i2 = C0806fv.stack;
                     break;
             }

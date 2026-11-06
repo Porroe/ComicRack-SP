@@ -1,6 +1,8 @@
 package com.cyo.comicrack.viewer;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import android.app.Activity;
+import android.os.Build;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.DialogInterface;
@@ -16,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import com.cyo.comicrack.p019a.C0572ah;
@@ -37,22 +38,23 @@ import com.cyo.common.C1095l;
 import com.cyo.common.C1172w;
 import com.cyo.common.C1173x;
 import com.cyo.common.InterfaceC0994be;
-import com.cyo.common.p024b.p025a.C0978f;
+import com.cyo.common.view.C1146bm;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Timer;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
-public class ComicRackApplication extends androidx.multidex.MultiDexApplication implements InterfaceC0615q {
+public class ComicRackApplication extends android.app.Application implements InterfaceC0615q {
 
     /* renamed from: f */
     public static boolean f1953f;
@@ -70,19 +72,18 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
     Timer f1958k;
 
     /* renamed from: l */
-    private C0635m f1959l;
+    private volatile C0635m f1959l;
+    private volatile boolean startupRefreshPending;
+    private boolean refreshQueued;
 
     /* renamed from: m */
     private C0724cu f1960m;
 
     /* renamed from: n */
-    private boolean f1961n;
+    private volatile boolean f1961n;
 
     /* renamed from: o */
     private Handler f1962o = new Handler();
-
-    /* renamed from: p */
-    private C0978f f1963p;
 
     /* renamed from: q */
     private boolean f1964q;
@@ -124,6 +125,7 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
     @Override // android.app.Application
     public void onCreate() {
         super.onCreate();
+        ComicDocuments.initialize(this);
         C0628f.m1357a(this);
         f1954i = this;
         this.f1962o = new Handler();
@@ -131,7 +133,12 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
         this.f1957h = PreferenceManager.getDefaultSharedPreferences(this).getString("current_library_2nd_path", null);
         AbstractC0614p.m1324a(this);
         if (!C0628f.f1889k) {
-            registerReceiver(new C0709cf(this), new IntentFilter("com.cyo.comicracksp.WIFI_HEARTBEAT"));
+            IntentFilter heartbeat = new IntentFilter("com.cyo.comicracksp.WIFI_HEARTBEAT");
+            if (Build.VERSION.SDK_INT >= 33) {
+                registerReceiver(new C0709cf(this), heartbeat, RECEIVER_NOT_EXPORTED);
+            } else {
+                registerReceiver(new C0709cf(this), heartbeat);
+            }
         }
     }
 
@@ -144,7 +151,7 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
 
     /* renamed from: o */
     private boolean m1418o() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("general_enable_wireless", true);
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("general_enable_wireless", false);
     }
 
     /* renamed from: a */
@@ -180,7 +187,7 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
             Intent intent = new Intent(this, (Class<?>) WifiSyncService.class);
             intent.putExtra("WifiEnabled", zM1418o);
             intent.putExtra("CurrentLibraryPath", string);
-            if (zM1418o) {
+            if (zM1418o && string != null && !ComicDocuments.isDocument(string)) {
                 startService(intent);
             } else {
                 stopService(intent);
@@ -200,7 +207,7 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
 
     /* renamed from: b */
     public final C0505b m1435b(String str) {
-        return this.f1959l.m1391a(str);
+        return this.f1959l == null ? null : this.f1959l.m1391a(str);
     }
 
     /* renamed from: a */
@@ -212,7 +219,7 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
         if (stringExtra != null) {
             return m1435b(stringExtra);
         }
-        return this.f1959l.m1390a(intent.getData());
+        return this.f1959l == null || intent.getData() == null ? null : this.f1959l.m1390a(intent.getData());
     }
 
     /* renamed from: d */
@@ -258,92 +265,92 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
         String string2 = defaultSharedPreferences.getString("general_library_path", "");
         String string3 = defaultSharedPreferences.getString("current_library_2nd_path", "");
         String string4 = defaultSharedPreferences.getString("general_library_2nd_path", "");
-        if (m1419p() != 0 && m1445i() && string2.equalsIgnoreCase(string)) {
-            if ((m1419p() == m1421r()) && string3.equals(string4)) {
-                return true;
-            }
-        }
-        return false;
+        return this.f1959l != null && m1419p() != 0 && string2.equals(string) && string3.equals(string4);
     }
 
     /* renamed from: i */
     public final boolean m1445i() {
-        return this.f1956g == null || new File(this.f1956g).exists();
+        return this.f1956g == null || ComicDocuments.hasReadGrant(this.f1956g);
+    }
+
+    void loadSavedLibrary() {
+        SharedPreferences preferences = m1441e();
+        String primaryFolder = preferences.getString("general_library_path", "");
+        String additionalFolder = preferences.getString("general_library_2nd_path", "");
+        List<C0505b> savedComics = new ArrayList<>();
+        boolean primaryGranted = ComicDocuments.hasReadGrant(primaryFolder);
+        boolean additionalGranted = ComicDocuments.hasReadGrant(additionalFolder);
+        if (primaryGranted || additionalGranted) {
+            C0628f.m1352a().m1099a(comic -> {
+                String source = comic.f1655v;
+                if (source != null && ((primaryGranted && source.startsWith(primaryFolder + "/document/"))
+                        || (additionalGranted && source.startsWith(additionalFolder + "/document/")))) {
+                    comic.f1586r = comic.f1585q;
+                    savedComics.add(comic);
+                }
+            });
+        }
+        this.f1959l = C0635m.m1381a(this, savedComics, Collections.emptyList(),
+                m1442f().f2266b, 0, preferences.getBoolean("general_library_use_volumes", true), null);
+        this.startupRefreshPending = primaryGranted || additionalGranted;
+    }
+
+    void refreshAfterStartup(ActivityC0881ip activity) {
+        if (activity instanceof LibraryActivity && startupRefreshPending && queueLibraryRefresh(activity, false)) {
+            startupRefreshPending = false;
+        }
+    }
+
+    private boolean queueLibraryRefresh(ActivityC0881ip activity, boolean showProgress) {
+        if (refreshQueued || this.f1961n) {
+            return false;
+        }
+        refreshQueued = true;
+        new AsyncTaskC0712ci(this, activity, showProgress).execute();
+        return true;
+    }
+
+    void libraryRefreshFinished() {
+        refreshQueued = false;
     }
 
     /* renamed from: a */
     public final void m1427a(InterfaceC0624z interfaceC0624z) {
-        if (m1445i()) {
-            this.f1961n = true;
-            f1953f = new File(String.valueOf(this.f1956g) + "/.nomediascan").exists();
-            PowerManager.WakeLock wakeLockNewWakeLock = ((PowerManager) getSystemService("power")).newWakeLock(1, "ComicRackLibraryRefresh");
-            wakeLockNewWakeLock.acquire();
-            try {
-                SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences defaultSharedPreferences2 = PreferenceManager.getDefaultSharedPreferences(this);
-                String string = defaultSharedPreferences2.getString("current_library_path", "");
-                String string2 = defaultSharedPreferences2.getString("general_library_path", "");
-                if (C0998bi.m2081a(string2)) {
-                    string2 = string;
-                } else if (!C0998bi.m2081a(string) && !string2.equalsIgnoreCase(string) && new File(String.valueOf(string) + "/comicrack.ini").delete()) {
-                    C1173x.m2506a(this, string);
-                }
-                File file = new File(string2);
-                if (!file.exists() || !C1172w.m2504a(file)) {
-                    string2 = m1420q();
-                }
-                if (string2 != null) {
-                    m1414c(file);
-                    SharedPreferences.Editor editorEdit = defaultSharedPreferences2.edit();
-                    editorEdit.putString("current_library_path", string2);
-                    editorEdit.putString("general_library_path", string2);
-                    editorEdit.commit();
-                    f1954i.m1436b();
-                }
-                this.f1956g = string2;
-                this.f1957h = defaultSharedPreferences.getString("general_library_2nd_path", "");
-                defaultSharedPreferences.edit().putString("current_library_2nd_path", this.f1957h).commit();
-                C0603e c0603e = new C0603e(this.f1956g, this.f1957h);
-                this.f1959l = C0635m.m1381a(this, c0603e.mo1292a(interfaceC0624z), c0603e.mo1291a(), m1442f().f2266b, C0628f.f1889k ? 100 : 0, defaultSharedPreferences.getBoolean("general_library_use_volumes", true), interfaceC0624z);
-                m1442f().m1747a();
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putLong("library_last_update", m1421r()).commit();
-                C0628f.m1367c(this);
-            } finally {
-                this.f1961n = false;
-                wakeLockNewWakeLock.release();
+        this.f1961n = true;
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "ComicRack:LibraryRefresh");
+        wakeLock.acquire(15 * 60 * 1000L);
+        try {
+            SharedPreferences preferences = m1441e();
+            String primaryFolder = preferences.getString("general_library_path", "");
+            String additionalFolder = preferences.getString("general_library_2nd_path", "");
+            this.f1956g = primaryFolder.isEmpty() ? null : primaryFolder;
+            this.f1957h = additionalFolder;
+            C0603e scanner = new C0603e(primaryFolder, additionalFolder);
+            this.f1959l = C0635m.m1381a(this, scanner.mo1292a(interfaceC0624z), scanner.mo1291a(),
+                    m1442f().f2266b, 0, preferences.getBoolean("general_library_use_volumes", true),
+                    interfaceC0624z);
+            m1442f().m1747a();
+            preferences.edit()
+                    .putString("current_library_path", primaryFolder)
+                    .putString("current_library_2nd_path", additionalFolder)
+                    .putLong("library_last_update", System.currentTimeMillis())
+                    .apply();
+            C0628f.m1367c(this);
+        } finally {
+            this.f1961n = false;
+            if (wakeLock.isHeld()) {
+                wakeLock.release();
             }
         }
     }
 
-    /* renamed from: j */
-    public static String m1415j() {
-        return String.valueOf(Environment.getExternalStorageDirectory().getAbsolutePath()) + "/Comics";
-    }
-
-    /* renamed from: q */
-    private static String m1420q() {
-        String strM2369a = C1095l.m2369a(Environment.getExternalStorageDirectory().getAbsolutePath(), "comicrack.ini", 8, true);
-        if (strM2369a == null) {
-            try {
-                File file = new File(m1415j());
-                if (file.exists() || file.mkdir()) {
-                    return file.getAbsolutePath();
-                }
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
+    public void setLibraryFolder(String preferenceKey, android.net.Uri folder) {
+        m1441e().edit().putString(preferenceKey, folder.toString()).apply();
+        if ("general_library_path".equals(preferenceKey)) {
+            this.f1956g = folder.toString();
         }
-        return strM2369a;
-    }
-
-    /* renamed from: c */
-    public final void m1439c(String str) {
-        SharedPreferences.Editor editorEdit = PreferenceManager.getDefaultSharedPreferences(this).edit();
-        editorEdit.putString("general_library_path", str);
-        editorEdit.commit();
-        this.f1956g = str;
     }
 
     /* renamed from: k */
@@ -356,13 +363,7 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
 
     /* renamed from: a */
     public final void m1429a(ActivityC0881ip activityC0881ip) {
-        if (!this.f1961n) {
-            if (!m1445i()) {
-                activityC0881ip.startActivityForResult(new Intent(activityC0881ip, (Class<?>) SplashActivity.class), 1);
-            } else {
-                new AsyncTaskC0712ci(this, activityC0881ip).execute(new Integer[0]);
-            }
-        }
+        queueLibraryRefresh(activityC0881ip, true);
     }
 
     /* renamed from: a */
@@ -372,7 +373,7 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
         C0505b c0505bM1816c = c0756dz.m1816c();
         C0575ak c0575ak2 = (c0575ak != null || listM1382a.isEmpty()) ? c0575ak : (C0575ak) this.f1959l.m1984d((InterfaceC0571ag) listM1382a.get(0));
         switch (c0756dz.f2391a) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 InterfaceC0571ag interfaceC0571ag = (InterfaceC0571ag) listM1382a.get(0);
                 if (interfaceC0571ag instanceof C0572ah) {
                     C0572ah c0572ah = (C0572ah) interfaceC0571ag;
@@ -385,11 +386,11 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
                     m1430a(activityC0881ip, c0505bM1221j, c0575ak3, z);
                 }
                 return true;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 ActivityC0881ip.m960a("Application", "Library", "Refresh", 0);
                 m1429a(activityC0881ip);
                 return true;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (c0505bM1816c != null) {
                     m1406a(activityC0881ip, c0505bM1816c, c0575ak2, C0951ag.m1995a().mo2012a(c0756dz.f2394d, c0756dz.f2395e));
                     return true;
@@ -490,8 +491,8 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
     public final void m1431a(ActivityC0881ip activityC0881ip, Runnable runnable) {
         int i = 0;
         SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String string = defaultSharedPreferences.getString("about_version", "");
-        String strM2003d = C0951ag.m2003d(this);
+        String previousAboutVersion = defaultSharedPreferences.getString("about_version", "");
+        String currentVersion = C0951ag.m2003d(this);
         int i2 = defaultSharedPreferences.getInt("about_version_count", 0) + 1;
         if (i2 == 5) {
             try {
@@ -500,11 +501,11 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
                 }
             } catch (Throwable th2) {
                 i = i2;
-                defaultSharedPreferences.edit().putString("about_version", strM2003d).putInt("about_version_count", i).commit();
+                defaultSharedPreferences.edit().putString("about_version", currentVersion).putInt("about_version_count", i).commit();
                 throw th2;
             }
         }
-        if (string.equals(strM2003d)) {
+        if (previousAboutVersion.isEmpty() || previousAboutVersion.equals(currentVersion)) {
             if (runnable != null) {
                 runnable.run();
             }
@@ -513,11 +514,11 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
                 C0649a.m1695a(activityC0881ip, runnable);
                 i2 = 0;
             } catch (Throwable th3) {
-                defaultSharedPreferences.edit().putString("about_version", strM2003d).putInt("about_version_count", i).commit();
+                defaultSharedPreferences.edit().putString("about_version", currentVersion).putInt("about_version_count", i).commit();
                 throw th3;
             }
         }
-        defaultSharedPreferences.edit().putString("about_version", strM2003d).putInt("about_version_count", i2).commit();
+        defaultSharedPreferences.edit().putString("about_version", currentVersion).putInt("about_version_count", i2).commit();
     }
 
     /* renamed from: a */
@@ -638,11 +639,6 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
         }
     }
 
-    /* renamed from: r */
-    private long m1421r() {
-        return new File(String.valueOf(this.f1956g) + "/comicrack.ini").lastModified();
-    }
-
     /* renamed from: l */
     public static boolean m1417l() {
         return C0628f.f1889k;
@@ -684,36 +680,36 @@ public class ComicRackApplication extends androidx.multidex.MultiDexApplication 
         }
     }
 
-    /* renamed from: n */
-    public final C0978f m1447n() {
-        if (this.f1963p == null) {
-            this.f1963p = new C0978f("lc7K38IqLGD9tlvj9DP42w", "RgiRdp7tjUg1F3120P1N7cWB2AN7tSD3HjjOVuQtaW4", "72f97428c2cd9571cb1d3ed8fcbd8174", PreferenceManager.getDefaultSharedPreferences(this));
-        }
-        return this.f1963p;
-    }
+    public final void showComicRatingDialog(Activity activity, InterfaceC0606h comicProvider,
+            boolean offerDisablePrompt, Runnable onDismiss) {
+        C0505b comic = comicProvider.mo1298a();
+        View ratingView = activity.getLayoutInflater().inflate(C0804ft.comic_rating, (ViewGroup) null);
+        RatingBar ratingBar = (RatingBar) ratingView.findViewById(C0803fs.comicRating);
+        EditText reviewField = (EditText) ratingView.findViewById(C0803fs.comicRatingReview);
+        ratingBar.setRating(comic.f1576h);
+        reviewField.setText(comic.f1624I);
 
-    /* renamed from: a */
-    public final void m1426a(Activity activity, InterfaceC0606h interfaceC0606h, boolean z, Runnable runnable) {
-        C0505b c0505bMo1298a = interfaceC0606h.mo1298a();
-        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean zM1996a = C0951ag.m1996a(activity);
-        View viewInflate = activity.getLayoutInflater().inflate(C0804ft.comic_rating, (ViewGroup) null);
-        RatingBar ratingBar = (RatingBar) viewInflate.findViewById(C0803fs.comicRating);
-        EditText editText = (EditText) viewInflate.findViewById(C0803fs.comicRatingReview);
-        CheckBox checkBox = (CheckBox) viewInflate.findViewById(C0803fs.comicRatingTweet);
-        ratingBar.setRating(c0505bMo1298a.f1576h);
-        editText.setText(c0505bMo1298a.f1624I);
-        checkBox.setChecked(defaultSharedPreferences.getBoolean("tweet_rating", false));
-        if (!zM1996a) {
-            checkBox.setVisibility(8);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+                .setTitle(comic.m1171c(false))
+                .setView(ratingView)
+                .setPositiveButton(android.R.string.yes, (dialog, button) -> {
+                    comic.m1122a(ratingBar.getRating());
+                    comic.m1132b(reviewField.getText().toString());
+                    C0628f.m1364b(comicProvider);
+                })
+                .setNegativeButton(android.R.string.no, null);
+        if (offerDisablePrompt) {
+            builder.setNeutralButton(C0806fv.do_not_ask_again, (dialog, button) ->
+                    m1441e().edit().putBoolean("general_rate_comic", false).commit());
         }
-        AlertDialog.Builder negativeButton = new AlertDialog.Builder(activity).setTitle(c0505bMo1298a.m1171c(false)).setView(viewInflate).setPositiveButton(android.R.string.yes, new DialogInterfaceOnClickListenerC0721cr(this, ratingBar, editText, c0505bMo1298a, interfaceC0606h, zM1996a, checkBox, defaultSharedPreferences, activity)).setNegativeButton(android.R.string.no, (DialogInterface.OnClickListener) null);
-        if (z) {
-            negativeButton.setNeutralButton(C0806fv.do_not_ask_again, new DialogInterfaceOnClickListenerC0710cg(this, defaultSharedPreferences));
-        }
-        AlertDialog alertDialogCreate = negativeButton.create();
-        alertDialogCreate.setCanceledOnTouchOutside(true);
-        alertDialogCreate.setOnDismissListener(new DialogInterfaceOnDismissListenerC0711ch(this, defaultSharedPreferences, checkBox, activity, runnable));
-        alertDialogCreate.show();
+        AlertDialog ratingDialog = builder.create();
+        ratingDialog.setCanceledOnTouchOutside(true);
+        ratingDialog.setOnDismissListener(dialog -> {
+            C1146bm.m2419a(activity);
+            if (onDismiss != null) {
+                onDismiss.run();
+            }
+        });
+        ratingDialog.show();
     }
 }

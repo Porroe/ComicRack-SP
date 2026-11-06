@@ -6,8 +6,6 @@ import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.cyo.common.C0950af;
-import twitter4j.HttpResponseCode;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -78,7 +76,7 @@ public class Sidebar extends LinearLayout {
         this.f3534b = 5;
         this.f3535c = 20;
         this.f3536d = 100000;
-        this.f3537e = HttpResponseCode.MULTIPLE_CHOICES;
+        this.f3537e = 300;
         this.f3538f = 100;
         this.f3547o = true;
         this.f3549q = 10;
@@ -109,7 +107,7 @@ public class Sidebar extends LinearLayout {
                 if (this.f3550r != null) {
                     InterfaceC1142bi interfaceC1142bi = this.f3550r;
                 }
-                m2387a(z ? 1 : -1, HttpResponseCode.MULTIPLE_CHOICES);
+                m2387a(z ? 1 : -1, 300);
             } else {
                 setLeftMargin(z ? 0 : -getSidebarWidth());
                 if (this.f3550r != null) {
@@ -137,14 +135,14 @@ public class Sidebar extends LinearLayout {
     @Override // android.view.View
     public boolean onTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 this.f3539g = false;
                 if (this.f3540h) {
                     m2387a(this.f3544l, 100);
                     break;
                 }
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (this.f3539g) {
                     if (this.f3540h) {
                         m2390b(motionEvent);
@@ -160,7 +158,7 @@ public class Sidebar extends LinearLayout {
     @Override // android.view.ViewGroup
     public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 this.f3539g = true;
                 this.f3540h = false;
                 this.f3541i = false;
@@ -168,10 +166,10 @@ public class Sidebar extends LinearLayout {
                 this.f3542j = motionEvent.getRawX();
                 this.f3543k = motionEvent.getRawY();
                 break;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 this.f3539g = false;
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (this.f3539g) {
                     if (this.f3540h) {
                         m2390b(motionEvent);

@@ -1,6 +1,7 @@
 package com.cyo.comicrack.viewer;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -19,6 +20,10 @@ import com.p004a.p012b.p016b.p017a.ServiceConnectionC0464i;
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
 public class SplashActivity extends ActivityC0423l implements InterfaceC1116aj {
+    private static final int CHOOSE_LIBRARY_FOLDER = 1002;
+    static final int RESULT_FOLDER_SELECTION_CANCELLED = 100;
+    static final int RESULT_LICENSE_CHECK_FAILED = 101;
+
 
     /* renamed from: a */
     private ProgressBar f2099a;
@@ -95,6 +100,10 @@ public class SplashActivity extends ActivityC0423l implements InterfaceC1116aj {
     @Override // com.p004a.p012b.p013a.p014a.p015a.ActivityC0423l, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::onBackPressed);
+        }
         if (ComicRackApplication.f1954i.m1440d()) {
             setResult(0);
             finish();
@@ -102,14 +111,27 @@ public class SplashActivity extends ActivityC0423l implements InterfaceC1116aj {
         }
         setResult(-1);
         setContentView(C0804ft.splash_screen);
+        SystemBarInsets.applyToContent(this);
         this.f2099a = (ProgressBar) findViewById(C0803fs.splashProgress);
         this.f2099a.setProgress(0);
         this.f2100b = (TextView) findViewById(C0803fs.splashMessage);
         this.f2100b.setVisibility(4);
         this.f2101c = (Button) findViewById(C0803fs.splashChooseFolder);
-        this.f2101c.setOnClickListener(new ViewOnClickListenerC0867ib(this));
+        this.f2101c.setOnClickListener(view ->
+                startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), CHOOSE_LIBRARY_FOLDER));
         ((TextView) findViewById(C0803fs.splashEdition)).setText(Html.fromHtml(String.valueOf(getString(C0628f.f1889k ? C0806fv.free_edition : C0806fv.full_edition)) + " <b>V " + C0951ag.m2003d(this) + "</b>"));
-        this.f2099a.post(new RunnableC0869id(this));
+        this.f2099a.post(this::startLibraryInitialization);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
+        if (requestCode == CHOOSE_LIBRARY_FOLDER && resultCode == RESULT_OK) {
+            android.net.Uri folder = com.cyo.comicrack.storage.ComicDocuments.persistReadGrant(result);
+            if (folder != null) {
+                ComicRackApplication.f1954i.setLibraryFolder("general_library_path", folder);
+            }
+        }
     }
 
     @Override // android.app.Activity
@@ -147,10 +169,14 @@ public class SplashActivity extends ActivityC0423l implements InterfaceC1116aj {
     /* renamed from: a */
     public final void mo1647a(boolean z) {
         if (!z) {
-            setResult(100);
+            setResult(RESULT_FOLDER_SELECTION_CANCELLED);
             finish();
             return;
         }
+        startLibraryInitialization();
+    }
+
+    private void startLibraryInitialization() {
         this.f2103e = new AsyncTaskC0870ie(this).execute(this);
         if (C0628f.f1889k) {
             this.f2106h = true;

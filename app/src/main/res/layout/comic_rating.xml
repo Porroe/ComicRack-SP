@@ -5,5 +5,4 @@
     <EditText android:gravity="top" android:id="@id/comicRatingReview" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/enter_short_review" android:maxLines="10" android:minLines="3" android:inputType="textMultiLine">
         <requestFocus />
     </EditText>
-    <CheckBox android:id="@id/comicRatingTweet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/share_on_twitter" />
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.p004a.p012b.p016b.p017a;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.Parcel;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.a.b.b.a.d */
@@ -21,7 +20,7 @@ public abstract class AbstractBinderC0459d extends Binder implements InterfaceC0
     @Override // android.os.Binder
     public boolean onTransact(int i, Parcel parcel, Parcel parcel2, int i2) throws android.os.RemoteException {
         switch (i) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 parcel.enforceInterface("com.android.vending.licensing.ILicenseResultListener");
                 mo1059a(parcel.readInt(), parcel.readString(), parcel.readString());
                 return true;

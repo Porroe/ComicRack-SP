@@ -1,5 +1,6 @@
 package com.cyo.comicrack.p019a;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -32,7 +33,6 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.a.f */
@@ -303,8 +303,8 @@ public final class C0628f {
     }
 
     /* renamed from: c */
-    public static boolean m1369c(String str) {
-        return !C0998bi.m2081a(str) && C0998bi.m2091f(str, ".cbp");
+    public static boolean isLegacyCbpPath(String source) {
+        return !C0998bi.m2081a(source) && !ComicDocuments.isDocument(source) && C0998bi.m2091f(source, ".cbp");
     }
 
     /* renamed from: d */
@@ -312,7 +312,7 @@ public final class C0628f {
         if (C0998bi.m2081a(str)) {
             return false;
         }
-        return C0998bi.m2091f(str, ".cbp") || C0998bi.m2091f(str, ".cbz") || C0998bi.m2091f(str, ".cbr") || C0998bi.m2091f(str, ".cbr") || C0998bi.m2091f(str, ".zip") || C0998bi.m2091f(str, ".rar");
+        return ComicDocuments.isComicName(ComicDocuments.displayName(str));
     }
 
     /* renamed from: a */
@@ -355,15 +355,15 @@ public final class C0628f {
             i = 0;
         }
         switch (i) {
-            case TwitterResponse.READ /* 1 */:
-                c0609k = new C0613o(m1369c(str));
+            case 1:
+                c0609k = new C0613o(isLegacyCbpPath(str));
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 c0609k = new C0609k();
                 break;
             default:
                 if (AbstractC0614p.m1326a(str, new byte[]{80, 75})) {
-                    c0609k = new C0613o(C0998bi.m2091f(str, ".cbp"));
+                    c0609k = new C0613o(isLegacyCbpPath(str));
                     break;
                 } else if (AbstractC0614p.m1326a(str, new byte[]{82, 97, 114, 33})) {
                     c0609k = new C0609k();
@@ -374,8 +374,10 @@ public final class C0628f {
         if (c0609k != null) {
             c0609k.mo1300a(c0505b);
         } else {
-            m1352a().m1107b(str);
-            if (m1369c(str)) {
+            if (!ComicDocuments.isDocument(str)) {
+                m1352a().m1107b(str);
+            }
+            if (isLegacyCbpPath(str)) {
                 AbstractC0614p.m1328c(str);
             }
         }

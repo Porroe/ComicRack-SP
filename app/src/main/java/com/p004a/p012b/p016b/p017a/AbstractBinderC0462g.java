@@ -4,7 +4,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.IInterface;
 import android.os.Parcel;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.a.b.b.a.g */
@@ -26,7 +25,7 @@ public abstract class AbstractBinderC0462g extends Binder implements InterfaceC0
     public boolean onTransact(int i, Parcel parcel, Parcel parcel2, int i2) throws android.os.RemoteException {
         InterfaceC0458c c0460e;
         switch (i) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 parcel.enforceInterface("com.android.vending.licensing.ILicensingService");
                 long j = parcel.readLong();
                 String string = parcel.readString();

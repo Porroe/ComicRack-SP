@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.cyo.comicrack.viewer.C0805fu;
 import com.cyo.common.C0998bi;
 import com.cyo.common.C1095l;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.a.b */
@@ -42,11 +41,11 @@ final class C0585b extends SQLiteOpenHelper {
     @Override // android.database.sqlite.SQLiteOpenHelper
     public final void onUpgrade(SQLiteDatabase sQLiteDatabase, int i, int i2) throws SQLException {
         switch (i) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 m1258a(sQLiteDatabase, this.f1766b);
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 m1258a(sQLiteDatabase, this.f1767c);
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 m1258a(sQLiteDatabase, this.f1768d);
                 break;
         }

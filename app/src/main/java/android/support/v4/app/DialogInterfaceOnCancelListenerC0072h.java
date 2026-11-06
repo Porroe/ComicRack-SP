@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: android.support.v4.app.h */
@@ -137,10 +136,10 @@ public class DialogInterfaceOnCancelListenerC0072h extends Fragment implements D
         }
         this.f268f = mo176c(bundle);
         switch (this.f263a) {
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 this.f268f.getWindow().addFlags(24);
-            case TwitterResponse.READ /* 1 */:
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 1:
+            case 2:
                 this.f268f.requestWindowFeature(1);
                 break;
         }

@@ -14,7 +14,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: android.support.v4.app.a */
@@ -210,16 +209,16 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
             C0069e c0069e = this.f95b;
             while (c0069e != null) {
                 switch (c0069e.f251c) {
-                    case TwitterResponse.NONE /* 0 */:
+                    case 0:
                         str2 = "NULL";
                         break;
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         str2 = "ADD";
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         str2 = "REPLACE";
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         str2 = "REMOVE";
                         break;
                     case 4:
@@ -470,12 +469,12 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
             int i3 = c0070fM71a != null ? 0 : c0069e.f253e;
             int i4 = c0070fM71a != null ? 0 : c0069e.f254f;
             switch (c0069e.f251c) {
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                     Fragment fragment2 = c0069e.f252d;
                     fragment2.f36Q = i3;
                     this.f94a.m215a(fragment2, false);
                     break;
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     Fragment fragment3 = c0069e.f252d;
                     if (this.f94a.f303g != null) {
                         fragment = fragment3;
@@ -514,7 +513,7 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
                     } else {
                         break;
                     }
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     Fragment fragment5 = c0069e.f252d;
                     fragment5.f36Q = i4;
                     this.f94a.m213a(fragment5, i2, i);
@@ -571,10 +570,10 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
         if (this.f94a.f312p.mo178a()) {
             for (C0069e c0069e = this.f95b; c0069e != null; c0069e = c0069e.f249a) {
                 switch (c0069e.f251c) {
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         m87b(sparseArray2, c0069e.f252d);
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         Fragment fragment2 = c0069e.f252d;
                         fragment = fragment2;
                         if (this.f94a.f303g != null) {
@@ -591,7 +590,7 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
                         }
                         m87b(sparseArray2, fragment);
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         m84a(sparseArray, c0069e.f252d);
                         break;
                     case 4:
@@ -616,10 +615,10 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
         if (this.f94a.f312p.mo178a()) {
             for (C0069e c0069e = this.f95b; c0069e != null; c0069e = c0069e.f249a) {
                 switch (c0069e.f251c) {
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         m84a(sparseArray, c0069e.f252d);
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         if (c0069e.f257i != null) {
                             for (int size = c0069e.f257i.size() - 1; size >= 0; size--) {
                                 m87b(sparseArray2, (Fragment) c0069e.f257i.get(size));
@@ -627,7 +626,7 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
                         }
                         m84a(sparseArray, c0069e.f252d);
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         m87b(sparseArray2, c0069e.f252d);
                         break;
                     case 4:
@@ -667,12 +666,12 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
             int i3 = c0070f != null ? 0 : c0069e.f255g;
             int i4 = c0070f != null ? 0 : c0069e.f256h;
             switch (c0069e.f251c) {
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                     Fragment fragment = c0069e.f252d;
                     fragment.f36Q = i4;
                     this.f94a.m213a(fragment, LayoutInflaterFactoryC0082r.m200c(i2), i);
                     break;
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     Fragment fragment2 = c0069e.f252d;
                     if (fragment2 != null) {
                         fragment2.f36Q = i4;
@@ -688,7 +687,7 @@ final class RunnableC0002a extends AbstractC0004ab implements Runnable {
                     } else {
                         break;
                     }
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     Fragment fragment4 = c0069e.f252d;
                     fragment4.f36Q = i3;
                     this.f94a.m215a(fragment4, false);

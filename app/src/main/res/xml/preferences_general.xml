@@ -2,17 +2,13 @@
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/preference_category_general_library_title" android:key="preference_category_general_library">
-        <com.cyo.common.view.FolderSelectPreference android:title="@string/general_comics_location_title" android:key="general_library_path" android:summary="@string/general_comics_location_summary" />
-        <com.cyo.common.view.FolderSelectPreference android:title="@string/general_comics_2nd_location_title" android:key="general_library_2nd_path" android:summary="@string/general_comics_2nd_location_summary" allowReadOnly="true" />
+        <Preference android:title="@string/general_comics_location_title" android:key="general_library_path" android:summary="@string/general_comics_location_summary" />
+        <Preference android:title="@string/general_comics_2nd_location_title" android:key="general_library_2nd_path" android:summary="@string/general_comics_2nd_location_summary" />
         <CheckBoxPreference android:title="@string/general_library_use_volumes_title" android:key="general_library_use_volumes" android:summary="@string/general_library_use_volumes_summary" android:defaultValue="true" />
-        <CheckBoxPreference android:title="@string/general_enable_wireless_title" android:key="general_enable_wireless" android:summary="@string/general_enable_wireless_summary" android:defaultValue="true" />
+        <CheckBoxPreference android:title="@string/general_enable_wireless_title" android:key="general_enable_wireless" android:summary="@string/general_enable_wireless_summary" android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/preference_category_general_startup_title" android:key="preference_category_general_startup">
         <CheckBoxPreference android:title="@string/general_startup_open_last_title" android:key="general_startup_open_last" android:summary="@string/general_startup_open_last_summary" android:defaultValue="false" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/preference_category_social_title" android:key="preference_category_general_social">
-        <CheckBoxPreference android:title="@string/general_twitter_include_thumb_title" android:key="tweet_include_thumb" android:summary="@string/general_twitter_include_thumb_summary" android:defaultValue="true" />
-        <CheckBoxPreference android:title="@string/general_twitter_reset_title" android:key="general_twitter_reset" android:summary="@string/general_twitter_reset_summary" android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/preference_category_general_support_title" android:key="preference_category_general_support">
         <CheckBoxPreference android:title="@string/general_allow_tracking_title" android:key="tracking_enabled" android:summary="@string/general_allow_tracking_summary" android:defaultValue="false" />

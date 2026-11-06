@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import java.util.Arrays;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: android.support.v4.widget.w */
@@ -417,7 +416,7 @@ public final class C0240w {
         }
         this.f638l.addMovement(motionEvent);
         switch (iM391a) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 float x = motionEvent.getX();
                 float y = motionEvent.getY();
                 int iM394b = C0141ab.m394b(motionEvent, 0);
@@ -431,13 +430,13 @@ public final class C0240w {
                     break;
                 }
                 break;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 if (this.f627a == 1) {
                     m574i();
                 }
                 m586e();
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (this.f627a == 1) {
                     int iM392a = C0141ab.m392a(motionEvent, this.f629c);
                     float fM395c = C0141ab.m395c(motionEvent, iM392a);
@@ -480,7 +479,7 @@ public final class C0240w {
                     m573c(motionEvent);
                 }
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 if (this.f627a == 1) {
                     m562a(0.0f);
                 }

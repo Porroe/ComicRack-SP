@@ -6,7 +6,6 @@ V1.80:
 • Fixed update of values in list after changes in the information dialog
 • Fixed constant refresh if read-only directory is selected
 • Fixed selecting read only folder on secondary sd cards (4.4+)
-• Fixed uploading cover images in tweets (adaption to twitter changes)
 
 V1.79:
 
@@ -51,7 +50,6 @@ V1.76:
 • New command to check/uncheck comics in the list (useful for syncing only checked books)
 • Reworked Bookmarks dialog
 • Page is dimmed when controls are displayed
-• Fixed Twitter (they phased out API 1.0 support)
 • Fixed some casing in texts
 • Fixed missing update if contrast was changed
 • Fixed customizing navigation button actions
@@ -205,14 +203,10 @@ V1.63:
 V1.62:
 
 • Added a secondary library path for manually added eComics (can be read only)
-• Replaced rating star in twitter with '*'
 • Fixed rename file when target name already exists
-• Made the quality of the twitter thumbnail device independent
 
 V1.61:
 
-• Reviews can now be shared on Twitter (including cover thumbnail)
-• Snapshots can be tweeted
 • Added review command to comic list
 • Fixed doublespread paging for right to left comics
 • Double tap zoom now tries to keep the zooming area visible

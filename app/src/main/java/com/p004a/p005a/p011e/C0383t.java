@@ -17,7 +17,6 @@ import com.p004a.p005a.C0330bs;
 import com.p004a.p005a.C0331bt;
 import com.p004a.p005a.C0332bu;
 import com.p004a.p005a.p007b.C0290e;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.a.a.e.t */
@@ -42,13 +41,13 @@ public class C0383t extends WebChromeClient {
     public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
         String str = "JS: " + consoleMessage.message() + " (" + consoleMessage.sourceId() + ":" + consoleMessage.lineNumber() + ")";
         switch (C0382s.f1073a[consoleMessage.messageLevel().ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 C0372i.m914b(str);
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 C0372i.m920e(str);
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
             case 4:
                 C0372i.m916c(str);
                 break;

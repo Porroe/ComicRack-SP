@@ -33,7 +33,6 @@ public final class C0806fv {
     public static final int artists = 2131296282;
     public static final int ask_delete_ecomics = 2131296280;
     public static final int ask_tracking = 2131296283;
-    public static final int authenticate_on_twitter = 2131296644;
     public static final int autocrop_styles_all = 2131296766;
     public static final int autocrop_styles_medium = 2131296765;
     public static final int autocrop_styles_none = 2131296764;
@@ -147,10 +146,6 @@ public final class C0806fv {
     public static final int general_startup_open_last_title = 2131296357;
     public static final int general_support_visit_summary = 2131296425;
     public static final int general_support_visit_title = 2131296426;
-    public static final int general_twitter_include_thumb_summary = 2131296652;
-    public static final int general_twitter_include_thumb_title = 2131296651;
-    public static final int general_twitter_reset_summary = 2131296647;
-    public static final int general_twitter_reset_title = 2131296646;
     public static final int genre = 2131296358;
     public static final int genres = 2131296752;
     public static final int goto_page = 2131296759;
@@ -241,7 +236,6 @@ public final class C0806fv {
     public static final int preference_category_reader_pageview_title = 2131296413;
     public static final int preference_category_reader_reading_title = 2131296414;
     public static final int preference_category_reader_screen_title = 2131296415;
-    public static final int preference_category_social_title = 2131296645;
     public static final int preference_category_tapping_summary = 2131296416;
     public static final int preference_category_tapping_title = 2131296417;
     public static final int preference_category_wallpaper_controls_title = 2131296615;
@@ -431,7 +425,6 @@ public final class C0806fv {
     public static final int series_number = 2131296560;
     public static final int series_title = 2131296561;
     public static final int series_year = 2131296562;
-    public static final int share_on_twitter = 2131296648;
     public static final int show_ecomics_of_artist = 2131296563;
     public static final int show_ecomics_of_writer = 2131296564;
     public static final int show_ecomics_with_this_genre = 2131296565;
@@ -471,11 +464,6 @@ public final class C0806fv {
     public static final int transition_styles_slide = 2131296597;
     public static final int transition_styles_stack = 2131296595;
     public static final int transparent = 2131296726;
-    public static final int tweet = 2131296653;
-    public static final int tweet_failed = 2131296650;
-    public static final int tweet_sent = 2131296649;
-    public static final int tweet_snapshot_caption = 2131296654;
-    public static final int tweet_snapshot_text = 2131296655;
     public static final int unknown = 2131296598;
     public static final int unread = 2131296599;
     public static final int unread_ecomics = 2131296600;

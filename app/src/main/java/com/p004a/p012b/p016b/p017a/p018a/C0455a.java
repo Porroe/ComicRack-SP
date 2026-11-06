@@ -1,6 +1,5 @@
 package com.p004a.p012b.p016b.p017a.p018a;
 
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.a.b.b.a.a.a */
@@ -64,19 +63,19 @@ public class C0455a {
             int i9 = length - i5;
             int i10 = (i9 > 2 ? (bArr[i8 + 2] << 24) >>> 24 : 0) | (i9 > 0 ? (bArr[i8] << 24) >>> 8 : 0) | (i9 > 1 ? (bArr[i8 + 1] << 24) >>> 16 : 0);
             switch (i9) {
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                     bArr3[i4] = bArr2[i10 >>> 18];
                     bArr3[i4 + 1] = bArr2[(i10 >>> 12) & 63];
                     bArr3[i4 + 2] = 61;
                     bArr3[i4 + 3] = 61;
                     break;
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     bArr3[i4] = bArr2[i10 >>> 18];
                     bArr3[i4 + 1] = bArr2[(i10 >>> 12) & 63];
                     bArr3[i4 + 2] = bArr2[(i10 >>> 6) & 63];
                     bArr3[i4 + 3] = 61;
                     break;
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     bArr3[i4] = bArr2[i10 >>> 18];
                     bArr3[i4 + 1] = bArr2[(i10 >>> 12) & 63];
                     bArr3[i4 + 2] = bArr2[(i10 >>> 6) & 63];

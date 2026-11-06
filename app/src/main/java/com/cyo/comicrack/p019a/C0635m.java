@@ -1,5 +1,6 @@
 package com.cyo.comicrack.p019a;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -144,9 +145,11 @@ public final class C0635m extends C0575ak implements InterfaceC1093j {
 
     /* renamed from: a */
     public final C0505b m1390a(Uri uri) {
+        String source = uri.toString();
         String lastPathSegment = uri.getLastPathSegment();
         for (C0505b c0505b : this.f1931k) {
-            if (c0505b.f1655v.endsWith(lastPathSegment)) {
+            if (c0505b.f1655v.equals(source) || (!ComicDocuments.isDocument(source)
+                    && lastPathSegment != null && c0505b.f1655v.endsWith(lastPathSegment))) {
                 return c0505b;
             }
         }
@@ -197,7 +200,9 @@ public final class C0635m extends C0575ak implements InterfaceC1093j {
     /* renamed from: a */
     public static Intent m1380a(Context context, Class cls, C0505b c0505b, C0575ak c0575ak, boolean z) {
         Intent intent = new Intent(context, (Class<?>) cls);
-        intent.setData(Uri.fromFile(new File(c0505b.f1655v)));
+        if (ComicDocuments.isDocument(c0505b.f1655v)) {
+            intent.setData(Uri.parse(c0505b.f1655v));
+        }
         intent.putExtra("comic_id", c0505b.f1570b);
         if (c0575ak != null) {
             C0575ak c0575akMo1210e = c0575ak.mo1210e();
@@ -243,7 +248,7 @@ public final class C0635m extends C0575ak implements InterfaceC1093j {
         int i2 = 0;
         while (it.hasNext()) {
             C0505b c0505b = (C0505b) it.next();
-            if (i > 0 && C0628f.m1369c(c0505b.f1655v) && (i2 = i2 + 1) > i) {
+            if (i > 0 && C0628f.isLegacyCbpPath(c0505b.f1655v) && (i2 = i2 + 1) > i) {
                 c0635m.f1934n = true;
             } else {
                 c0635m.f1931k.add(c0505b);

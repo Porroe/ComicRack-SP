@@ -1,6 +1,5 @@
 package com.cyo.comicrack.p019a.p020a;
 
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.a.a.cg */
@@ -88,11 +87,11 @@ public enum EnumC0539cg {
     /* renamed from: a */
     public final byte m1199a() {
         switch (m1198b()[ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 return (byte) 0;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 return (byte) 1;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 return (byte) 2;
             case 4:
             default:
@@ -117,13 +116,13 @@ public enum EnumC0539cg {
     /* renamed from: a */
     public static EnumC0539cg m1197a(byte b) {
         switch (b) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 return FrontCover;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 return InnerCover;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 return Roundup;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
             default:
                 return Story;
             case 4:

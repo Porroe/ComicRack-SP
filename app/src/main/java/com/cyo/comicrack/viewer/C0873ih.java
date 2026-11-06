@@ -1,7 +1,6 @@
 package com.cyo.comicrack.viewer;
 
 import com.p004a.p012b.p016b.p017a.InterfaceC0468m;
-import twitter4j.MediaEntity;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.ih */
@@ -24,7 +23,7 @@ final class C0873ih implements InterfaceC0468m {
     @Override // com.p004a.p012b.p016b.p017a.InterfaceC0468m
     /* renamed from: b */
     public final void mo1079b() {
-        this.f2651a.setResult(MediaEntity.Size.CROP);
+        this.f2651a.setResult(SplashActivity.RESULT_LICENSE_CHECK_FAILED);
         m1864d();
     }
 

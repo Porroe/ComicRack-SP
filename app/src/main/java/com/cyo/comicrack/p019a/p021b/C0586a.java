@@ -94,20 +94,6 @@ public final class C0586a {
     }
 
     /* renamed from: a */
-    public static Bitmap m1259a(Bitmap bitmap) {
-        if (bitmap != null && bitmap.getHeight() != 0 && bitmap.getWidth() != 0) {
-            float height = 512.0f / bitmap.getHeight();
-            if (height <= 0.5f) {
-                int width = (int) (height * bitmap.getWidth());
-                Log.d("Thumb", "Scaling: " + bitmap.getHeight() + " => 512");
-                return Bitmap.createScaledBitmap(bitmap, width, 512, true);
-            }
-            return bitmap;
-        }
-        return bitmap;
-    }
-
-    /* renamed from: a */
     public static boolean m1267a(View view, int i, int i2, int i3) {
         float f = (i == 0 || i2 == 0) ? 0.6666667f : i / i2;
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();

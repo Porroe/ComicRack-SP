@@ -145,7 +145,6 @@
     <item type="id" name="comicListThumbnailSummary" />
     <item type="id" name="comicRating" />
     <item type="id" name="comicRatingReview" />
-    <item type="id" name="comicRatingTweet" />
     <item type="id" name="widgetCover" />
     <item type="id" name="widgetComicRating" />
     <item type="id" name="widgetCaptionOverlay" />

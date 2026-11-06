@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: android.support.v4.app.l */
@@ -175,7 +174,7 @@ public class ActivityC0076l extends Activity {
             return true;
         }
         switch (i) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 return this.f274b.m222a(menuItem);
             case 6:
                 return this.f274b.m228b(menuItem);
@@ -187,7 +186,7 @@ public class ActivityC0076l extends Activity {
     @Override // android.app.Activity, android.view.Window.Callback
     public void onPanelClosed(int i, Menu menu) {
         switch (i) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 this.f274b.m227b(menu);
                 break;
         }
@@ -392,7 +391,7 @@ public class ActivityC0076l extends Activity {
         sb.append(Integer.toHexString(System.identityHashCode(view)));
         sb.append(' ');
         switch (view.getVisibility()) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 sb.append('V');
                 break;
             case 4:

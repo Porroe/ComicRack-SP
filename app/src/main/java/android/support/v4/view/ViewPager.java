@@ -29,7 +29,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -1267,13 +1266,13 @@ public class ViewPager extends ViewGroup {
                 C0186bt c0186bt = (C0186bt) childAt.getLayoutParams();
                 if (c0186bt.f510a) {
                     switch (c0186bt.f511b & 7) {
-                        case TwitterResponse.READ /* 1 */:
+                        case 1:
                             measuredWidth = Math.max((width - childAt.getMeasuredWidth()) / 2, paddingLeft);
                             int i5 = paddingRight;
                             i2 = paddingLeft;
                             i3 = i5;
                             break;
-                        case TwitterResponse.READ_WRITE /* 2 */:
+                        case 2:
                         case 4:
                         default:
                             measuredWidth = paddingLeft;
@@ -1281,7 +1280,7 @@ public class ViewPager extends ViewGroup {
                             i2 = paddingLeft;
                             i3 = i6;
                             break;
-                        case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                        case 3:
                             int width2 = childAt.getWidth() + paddingLeft;
                             int i7 = paddingLeft;
                             i3 = paddingRight;
@@ -1386,7 +1385,7 @@ public class ViewPager extends ViewGroup {
             }
         }
         switch (action) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 float x = motionEvent.getX();
                 this.f409H = x;
                 this.f407F = x;
@@ -1409,7 +1408,7 @@ public class ViewPager extends ViewGroup {
                     this.f402A = false;
                 }
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 int i = this.f411J;
                 if (i != -1) {
                     int iM392a = C0141ab.m392a(motionEvent, i);
@@ -1472,7 +1471,7 @@ public class ViewPager extends ViewGroup {
         }
         this.f412K.addMovement(motionEvent);
         switch (motionEvent.getAction() & 255) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 this.f442m.abortAnimation();
                 this.f454y = false;
                 m326b();
@@ -1484,7 +1483,7 @@ public class ViewPager extends ViewGroup {
                 this.f408G = y;
                 this.f411J = C0141ab.m394b(motionEvent, 0);
                 break;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 if (this.f402A) {
                     VelocityTracker velocityTracker = this.f412K;
                     velocityTracker.computeCurrentVelocity(1000, this.f414M);
@@ -1513,7 +1512,7 @@ public class ViewPager extends ViewGroup {
                     break;
                 }
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (!this.f402A) {
                     int iM392a = C0141ab.m392a(motionEvent, this.f411J);
                     float fM395c = C0141ab.m395c(motionEvent, iM392a);
@@ -1538,7 +1537,7 @@ public class ViewPager extends ViewGroup {
                     break;
                 }
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 if (this.f402A) {
                     m301a(this.f438i, true, 0, false);
                     this.f411J = -1;

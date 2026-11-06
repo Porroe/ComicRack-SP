@@ -2,7 +2,6 @@ package android.support.v4.view.p003a;
 
 import android.graphics.Rect;
 import android.os.Build;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: android.support.v4.view.a.a */
@@ -108,10 +107,10 @@ public final class C0113a {
             int iNumberOfTrailingZeros = 1 << Integer.numberOfTrailingZeros(iMo348a);
             int i = (iNumberOfTrailingZeros ^ (-1)) & iMo348a;
             switch (iNumberOfTrailingZeros) {
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                     str = "ACTION_FOCUS";
                     break;
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     str = "ACTION_CLEAR_FOCUS";
                     break;
                 case 4:

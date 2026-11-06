@@ -1,6 +1,10 @@
 package com.cyo.comicrack.viewer;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.net.Uri;
+import android.widget.Toast;
+import com.cyo.comicrack.storage.ComicDocuments;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -21,6 +25,47 @@ import java.util.Map;
 @TargetApi(11)
 /* loaded from: classes.dex */
 public class ComicRackPreferencesActivity extends C0425n {
+    private static final int CHOOSE_PRIMARY_FOLDER = 1101;
+    private static final int CHOOSE_ADDITIONAL_FOLDER = 1102;
+    private static final String PRIMARY_FOLDER_KEY = "general_library_path";
+    private static final String ADDITIONAL_FOLDER_KEY = "general_library_2nd_path";
+
+    private void bindLibraryFolders(PreferenceGroup preferences) {
+        bindLibraryFolder(preferences.findPreference(PRIMARY_FOLDER_KEY), PRIMARY_FOLDER_KEY, CHOOSE_PRIMARY_FOLDER);
+        bindLibraryFolder(preferences.findPreference(ADDITIONAL_FOLDER_KEY), ADDITIONAL_FOLDER_KEY, CHOOSE_ADDITIONAL_FOLDER);
+    }
+
+    private void bindLibraryFolder(Preference preference, String key, int requestCode) {
+        if (preference == null) {
+            return;
+        }
+        String source = ComicRackApplication.f1954i.m1441e().getString(key, "");
+        if (ComicDocuments.isDocument(source)) {
+            preference.setSummary(ComicDocuments.hasReadGrant(source)
+                    ? ComicDocuments.displayName(source) : getString(R.string.folder_access_unavailable));
+        }
+        preference.setOnPreferenceClickListener(selectedPreference -> {
+            startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), requestCode);
+            return true;
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
+        if (resultCode != RESULT_OK || (requestCode != CHOOSE_PRIMARY_FOLDER && requestCode != CHOOSE_ADDITIONAL_FOLDER)) {
+            return;
+        }
+        Uri folder = ComicDocuments.persistReadGrant(result);
+        if (folder == null) {
+            Toast.makeText(this, R.string.folder_access_unavailable, Toast.LENGTH_LONG).show();
+            return;
+        }
+        ComicRackApplication.f1954i.setLibraryFolder(
+                requestCode == CHOOSE_PRIMARY_FOLDER ? PRIMARY_FOLDER_KEY : ADDITIONAL_FOLDER_KEY, folder);
+        recreate();
+    }
+
 
     /* renamed from: a */
     private static List f1969a;
@@ -95,6 +140,7 @@ public class ComicRackPreferencesActivity extends C0425n {
             m1453a(preferenceCategory, "preference_category_navpanel_long");
             m1453a(preferenceCategory, "preference_category_keyboard");
             m1456b(preferenceScreen);
+            bindLibraryFolders(preferenceScreen);
         }
     }
 
@@ -158,6 +204,7 @@ public class ComicRackPreferencesActivity extends C0425n {
             super.onCreate(bundle);
             addPreferencesFromResource(C0809fy.preferences_general);
             ComicRackPreferencesActivity.m1454a(getPreferenceScreen());
+            ((ComicRackPreferencesActivity) getActivity()).bindLibraryFolders(getPreferenceScreen());
         }
     }
 

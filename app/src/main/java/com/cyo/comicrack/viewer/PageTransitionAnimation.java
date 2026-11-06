@@ -6,7 +6,6 @@ import android.view.animation.DecelerateInterpolator;
 import com.cyo.comicrack.p019a.p021b.AbstractC0587aa;
 import com.cyo.common.view.ContentAnimation;
 import com.cyo.common.view.C1165t;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.fk */
@@ -109,10 +108,10 @@ public class PageTransitionAnimation extends ContentAnimation {
             enumC0793fiM1844a = EnumC0793fi.m1844a(enumC0793fiM1844a);
         }
         switch (m1845h()[this.f2481a.f2470a.ordinal()]) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 PageView.m1500b(this.f2485e, canvas, this.f2482b, enumC0793fiM1844a, this.f2481a.f2474e, this.f2487g, PageView.m1492a(this.f2485e), this.f2483c, paintM1499b);
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 PageView.m1496a(this.f2485e, canvas, this.f2482b, enumC0793fiM1844a, this.f2481a.f2474e, this.f2487g, PageView.m1492a(this.f2485e), this.f2483c, paintM1499b);
                 break;
             case 4:

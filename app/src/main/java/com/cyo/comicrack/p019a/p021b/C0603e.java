@@ -1,5 +1,6 @@
 package com.cyo.comicrack.p019a.p021b;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import android.database.sqlite.SQLiteDatabase;
 import com.cyo.comicrack.p019a.C0477a;
 import com.cyo.comicrack.p019a.C0628f;
@@ -25,7 +26,7 @@ public final class C0603e implements InterfaceC0602d {
         boolean z;
         if (strArr != null) {
             for (String str : strArr) {
-                if (!C0998bi.m2081a(str) && new File(str).exists()) {
+                if (!C0998bi.m2081a(str) && (ComicDocuments.isDocument(str) || new File(str).exists())) {
                     for (Object entry : this.f1805a) {
                         String str2 = (String) entry;
                         if (str2.startsWith(str) || str.startsWith(str2)) {
@@ -64,7 +65,7 @@ public final class C0603e implements InterfaceC0602d {
                 }
             }
         }
-        if (arrayList.size() != iM1099a) {
+        if (!this.f1805a.isEmpty() && arrayList.size() != iM1099a && this.f1805a.stream().noneMatch(source -> ComicDocuments.isDocument((String) source))) {
             C0628f.m1352a().m1105a(arrayList);
         }
         return arrayList;
@@ -102,7 +103,12 @@ public final class C0603e implements InterfaceC0602d {
         Iterator it = this.f1805a.iterator();
         while (it.hasNext()) {
             try {
-                m1294a(collection, new File((String) it.next()), 1);
+                String source = (String) it.next();
+                if (ComicDocuments.isDocument(source)) {
+                    ComicDocuments.collectComics(source, collection);
+                } else {
+                    m1294a(collection, new File(source), 1);
+                }
             } catch (SecurityException e) {
                 e.printStackTrace();
             }

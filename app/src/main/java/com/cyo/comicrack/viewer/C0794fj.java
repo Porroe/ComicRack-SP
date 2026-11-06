@@ -1,7 +1,6 @@
 package com.cyo.comicrack.viewer;
 
 import com.cyo.common.view.C1165t;
-import twitter4j.HttpResponseCode;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.fj */
@@ -39,7 +38,7 @@ public final class C0794fj {
     public boolean f2479j;
 
     public C0794fj() {
-        this.f2478i = HttpResponseCode.MULTIPLE_CHOICES;
+        this.f2478i = 300;
     }
 
     public C0794fj(EnumC0793fi enumC0793fi, EnumC0796fl enumC0796fl) {
@@ -47,7 +46,7 @@ public final class C0794fj {
     }
 
     public C0794fj(EnumC0793fi enumC0793fi, EnumC0796fl enumC0796fl, boolean z, boolean z2) {
-        this.f2478i = HttpResponseCode.MULTIPLE_CHOICES;
+        this.f2478i = 300;
         this.f2471b = enumC0793fi;
         this.f2470a = enumC0796fl;
         this.f2472c = z;

@@ -1,5 +1,7 @@
 package com.cyo.comicrack.viewer;
 
+import com.cyo.comicrack.storage.ComicDocuments;
+import android.os.Build;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -72,13 +74,10 @@ import com.cyo.common.view.ProgressView;
 import com.p004a.p005a.C0357e;
 import com.p004a.p005a.p006a.C0246c;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -86,8 +85,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
-import twitter4j.HttpResponseCode;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -761,6 +758,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         super.mo1399a(bundle);
         Intent intent = getIntent();
         setContentView(C0804ft.reader);
+        SystemBarInsets.applyToContent(this);
         this.f2676s.m2395a(C0803fs.readerBottomBar_ref, android.R.color.black, 1);
         this.f2061aK = this.f2676s.m2396a(C0803fs.readerContainer, C0802fr.toolbar_background, 1, false, true);
         C1106a c1106a = this.f2676s;
@@ -884,7 +882,10 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
             } else {
                 c0505bM1422a = ComicRackApplication.f1954i.m1422a(intent);
                 if (c0505bM1422a == null && intent != null && (data = intent.getData()) != null) {
-                    c0505bM1422a = m1588d(data.getPath());
+                    if ("content".equals(data.getScheme())) {
+                        ComicDocuments.persistReadGrant(intent);
+                        c0505bM1422a = m1588d(data.toString());
+                    }
                 }
             }
             if (c0505bM1422a != null) {
@@ -903,6 +904,14 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
 
     /* renamed from: d */
     private static C0505b m1588d(String str) {
+        if (ComicDocuments.isDocument(str)) {
+            C0505b comic = new C0505b();
+            comic.f1655v = str;
+            return comic;
+        }
+        if (str == null) {
+            return null;
+        }
         File file = new File(str);
         if (!file.exists()) {
             return null;
@@ -1193,15 +1202,15 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                 int i3 = (int) (width * 0.2f);
                 int i4 = (int) (height * 0.2f);
                 switch (iM1584c % 3) {
-                    case TwitterResponse.NONE /* 0 */:
+                    case 0:
                         i = 0;
                         break;
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         int i5 = width - (i3 * 2);
                         i = i3;
                         i3 = i5;
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         i = width - i3;
                         break;
                     default:
@@ -1210,15 +1219,15 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                         break;
                 }
                 switch (iM1584c / 3) {
-                    case TwitterResponse.NONE /* 0 */:
+                    case 0:
                         i2 = 0;
                         break;
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         int i6 = height - (i4 * 2);
                         i2 = i4;
                         i4 = i6;
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         i2 = height - i4;
                         break;
                     default:
@@ -1331,13 +1340,13 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         int i;
         ArrayList arrayList = new ArrayList();
         switch (m1536V()[this.f2056aF.ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 i = C0802fr.btn_bright_system;
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 i = C0802fr.btn_bright_dark;
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 i = C0802fr.btn_bright_white;
                 break;
             default:
@@ -1378,7 +1387,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
     /* renamed from: a */
     private void m1564a(EnumC1164s enumC1164s, boolean z) {
         switch (m1537W()[enumC1164s.ordinal()]) {
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 this.f2034J.setImageResource(C0802fr.btn_fit_width);
                 break;
             case 4:
@@ -1410,15 +1419,15 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         SharedPreferences sharedPreferencesM1441e = ComicRackApplication.f1954i.m1441e();
         WindowManager.LayoutParams attributes = getWindow().getAttributes();
         switch (m1536V()[this.f2056aF.ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 attributes.screenBrightness = -1.0f;
                 this.f2045U.setImageResource(C0802fr.btn_bright_system);
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 this.f2045U.setImageResource(C0802fr.btn_bright_dark);
                 attributes.screenBrightness = C0950af.m1989a(sharedPreferencesM1441e.getInt("reader_screen_min_brightness", 20) / 100.0f, 0.01f, 1.0f);
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 this.f2045U.setImageResource(C0802fr.btn_bright_white);
                 attributes.screenBrightness = C0950af.m1989a(sharedPreferencesM1441e.getInt("reader_screen_max_brightness", 100) / 100.0f, 0.01f, 1.0f);
                 break;
@@ -1488,7 +1497,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
     private C0616r m1544a(AbstractC0587aa abstractC0587aa) {
         float f = 0.0f;
         switch (m1538X()[this.f2072ai.ordinal()]) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 f = 0.015f;
                 break;
         }
@@ -1505,8 +1514,30 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         readerActivity.m1554a(interfaceC0606h, i, c0794fj, true);
     }
 
+    private Runnable archivePin;
+
+    private void releaseArchivePin() {
+        if (archivePin != null) {
+            archivePin.run();
+            archivePin = null;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        try {
+            super.onDestroy();
+        } finally {
+            releaseArchivePin();
+        }
+    }
+
     /* renamed from: a */
     private void m1554a(InterfaceC0606h interfaceC0606h, int i, C0794fj c0794fj, boolean z) {
+        if (interfaceC0606h != null) {
+            releaseArchivePin();
+            archivePin = ComicDocuments.pinArchive(interfaceC0606h.mo1298a().f1655v);
+        }
         boolean z2;
         boolean z3 = false;
         C0628f.m1364b(this.f2093u);
@@ -1519,14 +1550,14 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
             m1520F();
         }
         switch (m1539Y()[interfaceC0606h.mo1298a().f1645ac.ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 z2 = ComicRackApplication.f1954i.m1441e().getBoolean("reader_reading_manga_default", false);
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
             default:
                 z2 = false;
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
             case 4:
                 z2 = true;
                 break;
@@ -1588,7 +1619,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                 }
                 return;
             }
-            ComicRackApplication.f1954i.m1426a(this, this.f2093u.m1340j(), z ? false : true, runnable);
+            ComicRackApplication.f1954i.showComicRatingDialog(this, this.f2093u.m1340j(), !z, runnable);
         }
     }
 
@@ -1629,10 +1660,10 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
             enumC0860hv = (EnumC0860hv) f2024av.get(enumC0860hv);
         }
         switch (m1540Z()[enumC0860hv.ordinal()]) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 m1528N();
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 if (!m1600g(-1)) {
                     m1532R();
                     break;
@@ -1694,13 +1725,13 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                 break;
             case 15:
                 switch (m1536V()[this.f2056aF.ordinal()]) {
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         this.f2056aF = EnumC0862hx.Minimum;
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         this.f2056aF = EnumC0862hx.Maximum;
                         break;
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         this.f2056aF = EnumC0862hx.System;
                         break;
                 }
@@ -1720,13 +1751,13 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                     this.f2079ap = this.f2079ap == EnumC0863hy.Landscape ? EnumC0863hy.Portrait : EnumC0863hy.Landscape;
                     m1523I();
                     switch (m1577aa()[this.f2079ap.ordinal()]) {
-                        case TwitterResponse.READ /* 1 */:
+                        case 1:
                             m1590d(C0806fv.reader_rotation_user);
                             break;
-                        case TwitterResponse.READ_WRITE /* 2 */:
+                        case 2:
                             m1590d(C0806fv.reader_rotation_portrait);
                             break;
-                        case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                        case 3:
                             m1590d(C0806fv.reader_rotation_landscape);
                             break;
                         case 4:
@@ -1739,8 +1770,11 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                 m1513A();
                 break;
             case 20:
-                boolean zM1996a = C0951ag.m1996a(this);
-                new AlertDialog.Builder(this).setTitle(C0806fv.snapshot).setItems(zM1996a ? new String[]{getString(C0806fv.save_to_gallery), getString(C0806fv.tweet), getString(C0806fv.menu_comiclist_share)} : new String[]{getString(C0806fv.save_to_gallery), getString(C0806fv.menu_comiclist_share)}, new DialogInterfaceOnClickListenerC0832gu(this, zM1996a)).show();
+                new AlertDialog.Builder(this)
+                        .setTitle(C0806fv.snapshot)
+                        .setItems(new String[]{getString(C0806fv.save_to_gallery), getString(C0806fv.menu_comiclist_share)},
+                                new SnapshotActionListener(this))
+                        .show();
                 break;
             case 21:
                 boolean z = m1634n() ? false : true;
@@ -1809,30 +1843,74 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         m1534T();
     }
 
-    /* renamed from: s */
-    static /* synthetic */ void m1612s(ReaderActivity readerActivity) {
-        String strM1525K = readerActivity.m1525K();
-        if (strM1525K != null) {
-            ContentValues contentValues = new ContentValues();
-            File file = new File(strM1525K);
-            long jLastModified = file.lastModified() / 1000;
-            contentValues.put("title", readerActivity.m1524J());
-            contentValues.put("_display_name", file.getName());
-            contentValues.put("description", readerActivity.getString(C0806fv.comicrack_snapshot));
-            contentValues.put("date_added", Long.valueOf(jLastModified));
-            contentValues.put("datetaken", Long.valueOf(jLastModified));
-            contentValues.put("date_modified", Long.valueOf(jLastModified));
-            contentValues.put("mime_type", "image/jpeg");
-            contentValues.put("orientation", (Integer) 0);
-            File parentFile = file.getParentFile();
-            String lowerCase = parentFile.toString().toLowerCase(C0998bi.f2929a);
-            String lowerCase2 = parentFile.getName().toLowerCase(C0998bi.f2929a);
-            contentValues.put("bucket_id", Integer.valueOf(lowerCase.hashCode()));
-            contentValues.put("bucket_display_name", lowerCase2);
-            contentValues.put("_size", Long.valueOf(file.length()));
-            contentValues.put("_data", file.getAbsolutePath());
-            readerActivity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-            readerActivity.m1593e(readerActivity.getString(C0806fv.snapshot_saved_to_gallery));
+    static void saveSnapshot(ReaderActivity reader) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            reader.saveSnapshotToGallery();
+        } else {
+            Intent createImage = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("image/jpeg")
+                    .putExtra(Intent.EXTRA_TITLE, "snapshot-" + System.currentTimeMillis() + ".jpg");
+            reader.startActivityForResult(createImage, CREATE_SNAPSHOT_DOCUMENT);
+        }
+    }
+
+    private static final int CREATE_SNAPSHOT_DOCUMENT = 1103;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
+        if (requestCode == CREATE_SNAPSHOT_DOCUMENT && resultCode == RESULT_OK
+                && result != null && result.getData() != null && this.f2095w != null) {
+            Bitmap snapshot = this.f2095w.m2500f();
+            if (snapshot == null) {
+                return;
+            }
+            try (java.io.OutputStream output = getContentResolver().openOutputStream(result.getData())) {
+                if (output != null && snapshot.compress(Bitmap.CompressFormat.JPEG, 90, output)) {
+                    m1593e(getString(R.string.snapshot_saved));
+                }
+            } catch (IOException | RuntimeException exception) {
+                android.util.Log.w("ComicRack", "Could not export snapshot", exception);
+            } finally {
+                snapshot.recycle();
+            }
+        }
+    }
+
+    private void saveSnapshotToGallery() {
+        Bitmap snapshot = this.f2095w.m2500f();
+        if (snapshot == null) {
+            return;
+        }
+        Uri destination = null;
+        boolean saved = false;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, "snapshot-" + System.currentTimeMillis() + ".jpg");
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/ComicRack SP");
+            values.put(MediaStore.Images.Media.IS_PENDING, 1);
+            destination = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            if (destination != null) {
+                try (java.io.OutputStream output = getContentResolver().openOutputStream(destination)) {
+                    saved = output != null && snapshot.compress(Bitmap.CompressFormat.JPEG, 90, output);
+                }
+                if (saved) {
+                    values.clear();
+                    values.put(MediaStore.Images.Media.IS_PENDING, 0);
+                    getContentResolver().update(destination, values, null, null);
+                    m1593e(getString(C0806fv.snapshot_saved_to_gallery));
+                }
+            }
+        } catch (IOException | RuntimeException exception) {
+            saved = false;
+            android.util.Log.w("ComicRack", "Could not save snapshot", exception);
+        } finally {
+            snapshot.recycle();
+            if (!saved && destination != null) {
+                getContentResolver().delete(destination, null, null);
+            }
         }
     }
 
@@ -1845,32 +1923,6 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
     private String m1524J() {
         C0505b c0505bMo1298a = this.f2093u.mo1298a();
         return String.valueOf(c0505bMo1298a.m1171c(false)) + " - " + getString(C0806fv.page_d, new Object[]{Integer.valueOf(c0505bMo1298a.f1574f + 1)});
-    }
-
-    /* renamed from: K */
-    private String m1525K() {
-        File file;
-        try {
-            String str = C0951ag.m1995a().mo2016a() + "/" + getString(C0806fv.comicrack_snapshots);
-            new File(str).mkdirs();
-            String str2 = String.valueOf(str) + "/snapshot";
-            int i = 1;
-            while (true) {
-                file = new File(String.valueOf(str2) + (i > 1 ? "(" + i + ")" : "") + ".jpg");
-                int i2 = i + 1;
-                if (!file.exists()) {
-                    break;
-                }
-                i = i2;
-            }
-            if (file.createNewFile() && m1576a(file)) {
-                return file.getAbsolutePath();
-            }
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     /* renamed from: a */
@@ -1904,33 +1956,6 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         }
     }
 
-    /* renamed from: t */
-    static /* synthetic */ InputStream m1613t(ReaderActivity readerActivity) {
-        return readerActivity.m1526L();
-    }
-
-    /* renamed from: L */
-    private InputStream m1526L() {
-        ByteArrayInputStream byteArrayInputStream;
-        Bitmap bitmapF = this.f2095w.m2500f();
-        if (bitmapF == null) {
-            return null;
-        }
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmapF.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
-            byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-            bitmapF.recycle();
-        } catch (Exception e) {
-            bitmapF.recycle();
-            byteArrayInputStream = null;
-        } catch (Throwable th) {
-            bitmapF.recycle();
-            throw th;
-        }
-        return byteArrayInputStream;
-    }
-
     /* renamed from: m */
     static /* synthetic */ void m1606m(ReaderActivity readerActivity) {
         readerActivity.m1527M();
@@ -1948,7 +1973,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
 
     /* renamed from: d */
     private void m1591d(boolean z) {
-        int i = HttpResponseCode.MULTIPLE_CHOICES;
+        int i = 300;
         if (z != this.f2062aL) {
             if (z) {
                 m1586c(false);
@@ -1967,7 +1992,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                 m1550a(this.f2098z, false, (Runnable) null);
                 m1550a(this.f2025A, false, (Runnable) new RunnableC0839ha(this));
                 m1550a(this.f2028D, false, (Runnable) null);
-                m1566a(true, HttpResponseCode.MULTIPLE_CHOICES);
+                m1566a(true, 300);
             }
             this.f2062aL = z;
         }
@@ -2039,12 +2064,12 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         this.f2095w.m2494b();
         if (!c0794fj.f2472c && C0950af.m1992b(this.f2095w.getContentLayout().f3690f, 1.0f, 0.01f)) {
             switch (m1578ab()[c0794fj.f2471b.ordinal()]) {
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     ArrayList arrayList = new ArrayList();
                     m1542a(arrayList, this.f2095w.getContentLayout());
                     this.f2095w.m2492a((C1165t) arrayList.get(arrayList.size() - 1), this.f2069af, 0.5f);
                     break;
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     ArrayList arrayList2 = new ArrayList();
                     m1542a(arrayList2, this.f2095w.getContentLayout());
                     this.f2095w.m2492a((C1165t) arrayList2.get(0), this.f2069af, 0.5f);
@@ -2499,10 +2524,10 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         int i = z ? 0 : 6;
         int i2 = z ? 1 : 7;
         switch (m1577aa()[this.f2079ap.ordinal()]) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 setRequestedOrientation(i2);
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 setRequestedOrientation(i);
                 break;
             case 4:

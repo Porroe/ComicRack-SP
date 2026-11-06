@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
-import twitter4j.HttpResponseCode;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.c.e.b */
@@ -63,7 +62,7 @@ public final class C1055b extends AbstractC1081d {
     private List f3170as = new ArrayList();
 
     /* renamed from: av */
-    private byte[] f3173av = new byte[HttpResponseCode.NOT_FOUND];
+    private byte[] f3173av = new byte[404];
 
     public C1055b(C1046a c1046a) {
         this.f3308e = c1046a;
@@ -224,7 +223,7 @@ public final class C1055b extends AbstractC1081d {
         int iH2;
         int i;
         byte[] bArr = new byte[20];
-        byte[] bArr2 = new byte[HttpResponseCode.NOT_FOUND];
+        byte[] bArr2 = new byte[404];
         if (this.f3330ak > this.f3310g - 25 && !m2315d()) {
             return false;
         }

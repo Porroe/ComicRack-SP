@@ -4,7 +4,6 @@ import com.cyo.common.p026c.p027a.C1018a;
 import com.cyo.common.p026c.p029c.C1024b;
 import java.util.List;
 import java.util.Vector;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.c.e.c.b */
@@ -482,10 +481,10 @@ public final class C1071b extends C1070a {
             List<C1076g> list = c1078i.f3418a;
             for (C1076g c1076g4 : list) {
                 switch (m2328a()[c1076g4.f3410a.ordinal()]) {
-                    case TwitterResponse.READ /* 1 */:
+                    case 1:
                         c1076g4.f3410a = c1076g4.f3411b ? EnumC1073d.VM_MOVB : EnumC1073d.VM_MOVD;
                         break;
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         c1076g4.f3410a = c1076g4.f3411b ? EnumC1073d.VM_CMPB : EnumC1073d.VM_CMPD;
                         break;
                     default:
@@ -505,7 +504,7 @@ public final class C1071b extends C1070a {
                                 break;
                             } else {
                                 switch (m2328a()[c1076g4.f3410a.ordinal()]) {
-                                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                                    case 3:
                                         c1076g4.f3410a = c1076g4.f3411b ? EnumC1073d.VM_ADDB : EnumC1073d.VM_ADDD;
                                         break;
                                     case 4:
@@ -575,7 +574,7 @@ public final class C1071b extends C1070a {
     public static int m2324a(C1070a c1070a) {
         int iM2321h = c1070a.m2321h();
         switch (49152 & iM2321h) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 c1070a.m2318c(6);
                 return (iM2321h >> 10) & 15;
             case 16384:

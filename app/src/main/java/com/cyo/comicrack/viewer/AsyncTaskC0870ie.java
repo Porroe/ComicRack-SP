@@ -80,27 +80,7 @@ final class AsyncTaskC0870ie extends AsyncTask {
 
     /* renamed from: b */
     private Boolean m1863b() {
-        while (!ComicRackApplication.f1954i.m1445i()) {
-            try {
-                SplashActivity.m1637a(this.f2645a, C0806fv.waiting_for_library_path, true);
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-        SplashActivity.m1637a(this.f2645a, 0, false);
-        if (SplashActivity.m1636a(this.f2645a) != null) {
-            SplashActivity.m1636a(this.f2645a).dismiss();
-        }
-        SplashActivity.m1639a(this.f2645a, true);
-        try {
-            ComicRackApplication.f1954i.m1427a(new C0871if(this));
-            SplashActivity.m1639a(this.f2645a, false);
-            return true;
-        } catch (Throwable th) {
-            SplashActivity.m1639a(this.f2645a, false);
-            throw th;
-        }
+        ComicRackApplication.f1954i.loadSavedLibrary();
+        return true;
     }
 }

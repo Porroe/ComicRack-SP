@@ -33,7 +33,6 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.a.a.e.a */
@@ -232,9 +231,9 @@ public final class C0358a {
             return null;
         }
         switch (activeNetworkInfo.getType()) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 return "ed";
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 return "wi";
             default:
                 return "unknown";

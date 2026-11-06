@@ -15,13 +15,11 @@ final class C0031bb extends C0030ba {
     /* renamed from: a */
     public final Notification mo149a(C0024av c0024av) {
         Notification notification = c0024av.f174B;
-        notification.setLatestEventInfo(c0024av.f176a, c0024av.f177b, c0024av.f178c, c0024av.f179d);
         Context context = c0024av.f176a;
         CharSequence charSequence = c0024av.f177b;
         CharSequence charSequence2 = c0024av.f178c;
         PendingIntent pendingIntent = c0024av.f179d;
         PendingIntent pendingIntent2 = c0024av.f180e;
-        notification.setLatestEventInfo(context, charSequence, charSequence2, pendingIntent);
         notification.fullScreenIntent = pendingIntent2;
         if (c0024av.f185j > 0) {
             notification.flags |= 128;

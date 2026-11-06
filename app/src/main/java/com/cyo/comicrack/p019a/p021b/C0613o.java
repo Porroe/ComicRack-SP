@@ -1,5 +1,6 @@
 package com.cyo.comicrack.p019a.p021b;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.cyo.comicrack.p019a.C0628f;
@@ -47,13 +48,21 @@ public final class C0613o extends AbstractC0614p {
     @Override // com.cyo.comicrack.p019a.p021b.InterfaceC0606h
     /* renamed from: b */
     public final C0505b mo1303b() {
+        try (ComicDocuments.ArchiveFile archiveFile = ComicDocuments.openArchive(this.f1821b.f1655v)) {
+            return readComicMetadata(archiveFile.file());
+        } catch (IOException | RuntimeException exception) {
+            return null;
+        }
+    }
+
+    private C0505b readComicMetadata(File archiveFile) {
         C0505b c0505bM1113a;
         ZipFile zipFile;
         ZipFile zipFile2;
         C0505b c0505bM1114a;
         String str = this.f1821b.f1655v;
         File fileB = m1327b(str);
-        if (fileB.exists()) {
+        if (!ComicDocuments.isDocument(str) && fileB.exists()) {
             c0505bM1113a = C0505b.m1113a(fileB);
             if (c0505bM1113a != null && c0505bM1113a.m1166E()) {
                 c0505bM1113a.f1655v = str;
@@ -63,7 +72,7 @@ public final class C0613o extends AbstractC0614p {
             c0505bM1113a = null;
         }
         try {
-            zipFile = new ZipFile(str);
+            zipFile = new ZipFile(archiveFile);
         } catch (Exception e) {
             return null;
         }
@@ -86,9 +95,9 @@ public final class C0613o extends AbstractC0614p {
             Collections.sort(arrayList);
             if (c0505bM1114a == null) {
                 c0505bM1114a = new C0505b();
-                c0505bM1114a.m1169a(C0633k.m1375a(str));
+                c0505bM1114a.m1169a(C0633k.m1375a(ComicDocuments.displayName(str)));
             } else if (C0998bi.m2081a(c0505bM1114a.f1657x)) {
-                c0505bM1114a.f1657x = C0633k.m1375a(str).f1915a;
+                c0505bM1114a.f1657x = C0633k.m1375a(ComicDocuments.displayName(str)).f1915a;
             }
             int size = arrayList.size();
             for (int i = 0; i < size; i++) {
@@ -164,12 +173,20 @@ public final class C0613o extends AbstractC0614p {
 
     @Override // com.cyo.comicrack.p019a.p021b.AbstractC0608j
     /* renamed from: a */
-    protected final Bitmap mo1317a(C0537ce c0537ce, int i) {
+    protected final Bitmap mo1317a(C0537ce page, int requestedSize) {
+        try (ComicDocuments.ArchiveFile archiveFile = ComicDocuments.openArchive(this.f1821b.f1655v)) {
+            return decodeZipPage(archiveFile.file(), page, requestedSize);
+        } catch (IOException | RuntimeException exception) {
+            return null;
+        }
+    }
+
+    private Bitmap decodeZipPage(File archiveFile, C0537ce c0537ce, int i) {
         ZipFile zipFile;
         ZipFile zipFile2;
         boolean z = i <= 256;
         try {
-            zipFile = new ZipFile(this.f1821b.f1655v);
+            zipFile = new ZipFile(archiveFile);
             try {
                 try {
                     ZipEntry zipEntryM1323a = m1323a(zipFile, c0537ce.f1665c);
@@ -301,7 +318,7 @@ public final class C0613o extends AbstractC0614p {
     @Override // com.cyo.comicrack.p019a.p021b.InterfaceC0606h
     /* renamed from: g */
     public final boolean mo1312g() {
-        return !this.f1828e;
+        return !this.f1828e && !ComicDocuments.isDocument(this.f1821b.f1655v);
     }
 
     @Override // com.cyo.comicrack.p019a.p021b.AbstractC0614p, com.cyo.comicrack.p019a.p021b.InterfaceC0606h

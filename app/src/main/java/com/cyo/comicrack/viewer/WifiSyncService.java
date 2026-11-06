@@ -39,7 +39,6 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Timer;
-import twitter4j.HttpResponseCode;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -689,8 +688,8 @@ public class WifiSyncService extends Service {
         Socket socket = null;
         try {
             socket = new Socket();
-            socket.setSoTimeout(HttpResponseCode.INTERNAL_SERVER_ERROR);
-            socket.connect(new InetSocketAddress(address, port), HttpResponseCode.INTERNAL_SERVER_ERROR);
+            socket.setSoTimeout(500);
+            socket.connect(new InetSocketAddress(address, port), 500);
             socket.getOutputStream().write(m1669a(context, syncing));
             return true;
         } catch (Exception e) {

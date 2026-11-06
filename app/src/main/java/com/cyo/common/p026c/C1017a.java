@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.c.a */
@@ -221,7 +220,7 @@ public class C1017a implements Closeable {
                     C1028b c1028b = new C1028b(bArr);
                     c1028b.m2146a(jMo2140a);
                     switch (m2123i()[c1028b.m2152f().ordinal()]) {
-                        case TwitterResponse.READ /* 1 */:
+                        case 1:
                             int i = c1028b.m2149c() ? 7 : 6;
                             byte[] bArr2 = new byte[i];
                             this.f2994c.mo2139a(bArr2, i);
@@ -232,14 +231,14 @@ public class C1017a implements Closeable {
                                 throw new C1020a(EnumC1021b.rarEncryptedException);
                             }
                             continue;
-                        case TwitterResponse.READ_WRITE /* 2 */:
+                        case 2:
                             this.f2998g = new C1038l(c1028b);
                             if (!this.f2998g.m2164g()) {
                                 throw new C1020a(EnumC1021b.badRarArchive);
                             }
                             this.f2997f.add(this.f2998g);
                             continue;
-                        case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                        case 3:
                         case 6:
                         case 7:
                         case 9:
@@ -248,7 +247,7 @@ public class C1017a implements Closeable {
                             this.f2994c.mo2139a(bArr3, 4);
                             C1029c c1029c = new C1029c(c1028b, bArr3);
                             switch (m2123i()[c1029c.m2152f().ordinal()]) {
-                                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                                case 3:
                                 case 9:
                                     int iE = (c1029c.m2151e() - 7) - 4;
                                     byte[] bArr4 = new byte[iE];
@@ -268,18 +267,18 @@ public class C1017a implements Closeable {
                                     this.f2994c.mo2139a(bArr5, 3);
                                     C1042p c1042p = new C1042p(c1029c, bArr5);
                                     switch (m2122h()[EnumC1043q.m2166a(c1042p.f3095h).ordinal()]) {
-                                        case TwitterResponse.READ /* 1 */:
+                                        case 1:
                                             byte[] bArr6 = new byte[10];
                                             this.f2994c.mo2139a(bArr6, 10);
                                             this.f2997f.add(new C1031e(c1042p, bArr6));
                                             break;
-                                        case TwitterResponse.READ_WRITE /* 2 */:
+                                        case 2:
                                             int iE2 = ((c1042p.m2151e() - 7) - 4) - 3;
                                             byte[] bArr7 = new byte[iE2];
                                             this.f2994c.mo2139a(bArr7, iE2);
                                             this.f2997f.add(new C1044r(c1042p, bArr7));
                                             break;
-                                        case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                                        case 3:
                                             byte[] bArr8 = new byte[8];
                                             this.f2994c.mo2139a(bArr8, 8);
                                             this.f2997f.add(new C1036j(c1042p, bArr8));

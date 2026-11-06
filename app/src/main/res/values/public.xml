@@ -634,18 +634,6 @@
     <public type="string" name="fast" id="0x7f090181" />
     <public type="string" name="random" id="0x7f090182" />
     <public type="string" name="close_advertisment" id="0x7f090183" />
-    <public type="string" name="authenticate_on_twitter" id="0x7f090184" />
-    <public type="string" name="preference_category_social_title" id="0x7f090185" />
-    <public type="string" name="general_twitter_reset_title" id="0x7f090186" />
-    <public type="string" name="general_twitter_reset_summary" id="0x7f090187" />
-    <public type="string" name="share_on_twitter" id="0x7f090188" />
-    <public type="string" name="tweet_sent" id="0x7f090189" />
-    <public type="string" name="tweet_failed" id="0x7f09018a" />
-    <public type="string" name="general_twitter_include_thumb_title" id="0x7f09018b" />
-    <public type="string" name="general_twitter_include_thumb_summary" id="0x7f09018c" />
-    <public type="string" name="tweet" id="0x7f09018d" />
-    <public type="string" name="tweet_snapshot_caption" id="0x7f09018e" />
-    <public type="string" name="tweet_snapshot_text" id="0x7f09018f" />
     <public type="string" name="reached_start_of_book" id="0x7f090190" />
     <public type="string" name="reached_end_of_book" id="0x7f090191" />
     <public type="string" name="repeat_open_next_book_in_list" id="0x7f090192" />
@@ -929,7 +917,6 @@
     <public type="id" name="comicListThumbnailSummary" id="0x7f0c008e" />
     <public type="id" name="comicRating" id="0x7f0c008f" />
     <public type="id" name="comicRatingReview" id="0x7f0c0090" />
-    <public type="id" name="comicRatingTweet" id="0x7f0c0091" />
     <public type="id" name="widgetCover" id="0x7f0c0092" />
     <public type="id" name="widgetComicRating" id="0x7f0c0093" />
     <public type="id" name="widgetCaptionOverlay" id="0x7f0c0094" />

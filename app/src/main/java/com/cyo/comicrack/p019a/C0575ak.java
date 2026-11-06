@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.a.ak */
@@ -211,9 +210,9 @@ public class C0575ak extends C0945aa implements InterfaceC0571ag {
     /* renamed from: c */
     public static Comparator m1236c(int i) {
         switch (i) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 return new C0533ca();
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 return new C0528bw();
             case 4:
                 return new C0531bz();
@@ -233,7 +232,7 @@ public class C0575ak extends C0945aa implements InterfaceC0571ag {
         Comparator c0579ao;
         List listX = c0575ak.m1986x();
         switch (i) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 c0579ao = new C0579ao();
                 break;
             default:

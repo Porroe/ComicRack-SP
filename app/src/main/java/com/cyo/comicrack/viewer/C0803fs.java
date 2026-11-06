@@ -98,7 +98,6 @@ public final class C0803fs {
     public static final int comicListThumbnailSummary = 2131493006;
     public static final int comicRating = 2131493007;
     public static final int comicRatingReview = 2131493008;
-    public static final int comicRatingTweet = 2131493009;
     public static final int comicStackEmptyView = 2131493027;
     public static final int comicStackView = 2131493026;
     public static final int comicStackViewFrame = 2131493025;

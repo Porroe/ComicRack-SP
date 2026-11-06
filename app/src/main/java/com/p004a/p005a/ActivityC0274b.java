@@ -28,7 +28,6 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.a.a.b */
@@ -282,13 +281,13 @@ public class ActivityC0274b extends Activity implements View.OnClickListener {
                                 JSONObject jSONObject2 = jSONObject.getJSONObject(string);
                                 int i3 = jSONObject2.getInt("t");
                                 switch (i3) {
-                                    case TwitterResponse.READ /* 1 */:
+                                    case 1:
                                         intent.putExtra(string, jSONObject2.getBoolean("v"));
                                         break;
-                                    case TwitterResponse.READ_WRITE /* 2 */:
+                                    case 2:
                                         intent.putExtra(string, jSONObject2.getDouble("v"));
                                         break;
-                                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                                    case 3:
                                         intent.putExtra(string, jSONObject2.getInt("v"));
                                         break;
                                     case 4:

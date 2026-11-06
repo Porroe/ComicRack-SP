@@ -18,8 +18,6 @@ import com.cyo.common.view.C1106a;
 import com.cyo.common.view.C1145bl;
 import com.cyo.common.view.C1151f;
 import com.p004a.p012b.p013a.p014a.p015a.ActivityC0424m;
-import twitter4j.MediaEntity;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.ip */
@@ -57,6 +55,10 @@ public class ActivityC0881ip extends ActivityC0424m {
     @Override // com.p004a.p012b.p013a.p014a.p015a.ActivityC0424m, android.support.v4.app.ActivityC0076l, android.app.Activity
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::onBackPressed);
+        }
         m1871l();
         ComicRackApplication comicRackApplication = ComicRackApplication.f1954i;
         this.f2676s = new C1106a(this, ComicRackApplication.m1417l());
@@ -119,11 +121,11 @@ public class ActivityC0881ip extends ActivityC0424m {
         super.onActivityResult(i, i2, intent);
         if (i == 1) {
             switch (i2) {
-                case TwitterResponse.NONE /* 0 */:
-                case MediaEntity.Size.FIT /* 100 */:
+                case 0:
+                case SplashActivity.RESULT_FOLDER_SELECTION_CANCELLED:
                     m1872m();
                     return;
-                case MediaEntity.Size.CROP /* 101 */:
+                case SplashActivity.RESULT_LICENSE_CHECK_FAILED:
                     new AlertDialog.Builder(this).setTitle(C0806fv.license_check).setIcon(C0802fr.icon).setMessage(getString(C0806fv.failed_to_check_android_market_license)).setCancelable(false).setPositiveButton(C0806fv.close, new DialogInterfaceOnClickListenerC0882iq(this)).show();
                     break;
             }
@@ -158,6 +160,7 @@ public class ActivityC0881ip extends ActivityC0424m {
         this.f2678u = true;
         if (m1873n()) {
             mo1485j();
+            ComicRackApplication.f1954i.refreshAfterStartup(this);
         }
         if (this.f2676s != null) {
             this.f2676s.m2402c();
@@ -313,10 +316,6 @@ public class ActivityC0881ip extends ActivityC0424m {
         ComicRackApplication.f1954i.m1436b();
         ComicRackApplication.f1954i.m1437b(this);
         m1880t();
-        if (ComicRackApplication.f1954i.m1441e().getBoolean("general_twitter_reset", false)) {
-            ComicRackApplication.f1954i.m1441e().edit().remove("general_twitter_reset").commit();
-            ComicRackApplication.f1954i.m1447n().f2882a.m2072a();
-        }
     }
 
     /* renamed from: i */

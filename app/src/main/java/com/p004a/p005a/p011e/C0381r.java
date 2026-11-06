@@ -17,9 +17,6 @@ public final class C0381r {
     public static void m925a(WebSettings webSettings, C0332bu c0332bu) {
         Context context = (Context) c0332bu.f967f.m898a();
         C0331bt c0331bt = (C0331bt) ((C0330bs) c0332bu.f965d.m898a()).f945b.m898a();
-        webSettings.setAppCacheEnabled(true);
-        webSettings.setAppCacheMaxSize(((Long) c0331bt.f955i.m899a()).longValue());
-        webSettings.setAppCachePath(new File(context.getCacheDir(), "admob").getAbsolutePath());
         webSettings.setDatabaseEnabled(true);
         webSettings.setDatabasePath(context.getDatabasePath("admob").getAbsolutePath());
         webSettings.setDomStorageEnabled(true);

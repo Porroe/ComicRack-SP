@@ -17,7 +17,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -155,14 +154,14 @@ public final class DrawerLayout extends ViewGroup {
             (iM491a == 3 ? this.f562i : this.f563j).m586e();
         }
         switch (i) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 View viewM511a = m511a(iM491a);
                 if (viewM511a != null) {
                     m515d(viewM511a);
                     break;
                 }
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 View viewM511a2 = m511a(iM491a);
                 if (viewM511a2 != null) {
                     m509h(viewM511a2);
@@ -556,7 +555,7 @@ public final class DrawerLayout extends ViewGroup {
         this.f562i.m583b(motionEvent);
         this.f563j.m583b(motionEvent);
         switch (motionEvent.getAction() & 255) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 float x = motionEvent.getX();
                 float y = motionEvent.getY();
                 this.f574u = x;
@@ -564,7 +563,7 @@ public final class DrawerLayout extends ViewGroup {
                 this.f571r = false;
                 this.f572s = false;
                 return true;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 float x2 = motionEvent.getX();
                 float y2 = motionEvent.getY();
                 View viewM582b = this.f562i.m582b((int) x2, (int) y2);
@@ -581,10 +580,10 @@ public final class DrawerLayout extends ViewGroup {
                     this.f571r = false;
                 }
                 return true;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
             default:
                 return true;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 m500a(true);
                 this.f571r = false;
                 this.f572s = false;

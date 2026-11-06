@@ -1,6 +1,5 @@
 package com.cyo.common.p026c.p030d;
 
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.c.d.h */
@@ -28,22 +27,22 @@ public final class C1034h {
                 i4 = i8;
             }
             switch (i3 >> 6) {
-                case TwitterResponse.NONE /* 0 */:
+                case 0:
                     i8 = i4 + 1;
                     stringBuffer.append((char) (bArr[i4] & 255));
                     i7++;
                     break;
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                     i8 = i4 + 1;
                     stringBuffer.append((char) ((bArr[i4] & 255) + (i6 << 8)));
                     i7++;
                     break;
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     stringBuffer.append((char) ((bArr[i4] & 255) + ((bArr[i4 + 1] & 255) << 8)));
                     i7++;
                     i8 = i4 + 2;
                     break;
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     int i10 = i4 + 1;
                     int i11 = bArr[i4] & 255;
                     if ((i11 & 128) != 0) {

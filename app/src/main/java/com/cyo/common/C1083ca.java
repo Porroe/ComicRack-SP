@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.ca */
@@ -41,7 +40,7 @@ public class C1083ca {
             String name = null;
             while (eventType != 1) {
                 switch (eventType) {
-                    case TwitterResponse.READ_WRITE /* 2 */:
+                    case 2:
                         name = xmlPullParser.getName();
                         m2351a(obj, xmlPullParser);
                         if (interfaceC1085cc == null) {
@@ -50,7 +49,7 @@ public class C1083ca {
                             interfaceC1085cc.mo1154a(obj, name, xmlPullParser);
                             break;
                         }
-                    case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                    case 3:
                         if (str != null && str.equals(xmlPullParser.getName())) {
                             return true;
                         }

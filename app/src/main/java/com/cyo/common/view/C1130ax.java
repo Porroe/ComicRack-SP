@@ -3,7 +3,6 @@ package com.cyo.common.view;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 import java.io.File;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.view.ax */
@@ -24,10 +23,10 @@ final class C1130ax implements PopupMenu.OnMenuItemClickListener {
     @Override // android.widget.PopupMenu.OnMenuItemClickListener
     public final boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 ViewOnClickListenerC1129aw.m2410a(this.f3597a).m2407a(ViewOnClickListenerC1129aw.m2410a(this.f3597a).f3574c);
                 break;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 ViewOnClickListenerC1129aw.m2410a(this.f3597a).m2407a(ViewOnClickListenerC1129aw.m2410a(this.f3597a).f3575d);
                 break;
             default:

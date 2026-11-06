@@ -1,28 +1,23 @@
-import com.android.build.gradle.tasks.PackageApplication
-
 plugins {
     id 'com.android.application'
 }
 
 android {
     namespace 'com.cyo.comicrack.viewer'
-    compileSdk 21
+    compileSdk 37
+    buildToolsVersion "37.0.0"
+    useLibrary "org.apache.http.legacy"
 
     defaultConfig {
         applicationId 'com.cyo.comicracksp'
-        minSdk 8
-        multiDexEnabled true
-        targetSdk 21
+        minSdk 26
+        targetSdk 37
         versionCode 103
         versionName '1.80'
     }
 
     flavorDimensions += 'implementation'
     productFlavors {
-        bytecode {
-            dimension 'implementation'
-            isDefault = true
-        }
         source {
             dimension 'implementation'
         }
@@ -31,12 +26,12 @@ android {
     sourceSets {
         main.java.setSrcDirs([])
         source.java.srcDir('src/main/java')
-        source.java.exclude('twitter4j/**')
     }
 
     androidResources {
         additionalParameters += ['--stable-ids', file('stable-resource-ids.txt').absolutePath]
     }
+
 
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -46,28 +41,6 @@ android {
 }
 
 dependencies {
-    // The APK includes Twitter4J 4.0.2. Use the published library for the source build.
-    sourceImplementation 'org.twitter4j:twitter4j-core:4.0.2'
     sourceImplementation 'com.github.junrar:junrar:8.1.2'
-    sourceImplementation 'androidx.multidex:multidex:2.0.1'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.0.4'
-}
-
-def originalApk = rootProject.layout.projectDirectory.file('../ComicRack.1.80.Cracked.apk')
-def originalDexDirectory = layout.buildDirectory.dir('original-dex')
-def extractOriginalDex = tasks.register('extractOriginalDex', Sync) {
-    from(zipTree(originalApk.asFile)) {
-        include 'classes.dex'
-    }
-    into(originalDexDirectory)
-}
-
-// Replace the generated DEX inputs after AGP 8.5.2 registers its packaging tasks.
-afterEvaluate {
-    tasks.withType(PackageApplication).configureEach {
-        if (name.startsWith('packageBytecode')) {
-            dependsOn(extractOriginalDex)
-            dexFolders.setFrom(originalDexDirectory)
-        }
-    }
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'
 }

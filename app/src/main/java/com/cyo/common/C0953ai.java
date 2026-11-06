@@ -21,7 +21,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.cyo.common.p022a.C0944o;
 import java.io.File;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 @TargetApi(8)
@@ -156,11 +155,11 @@ class C0953ai implements InterfaceC0994be {
     public boolean mo2033a(Context context, EnumC0993bd enumC0993bd) {
         int i = context.getResources().getConfiguration().screenLayout & 15;
         switch (m2010b()[enumC0993bd.ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 return true;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 return i >= 2;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 return i >= 3;
             default:
                 return false;

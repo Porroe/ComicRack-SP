@@ -1,5 +1,8 @@
 package com.cyo.comicrack.viewer;
 
+import com.cyo.comicrack.storage.ComicDocuments;
+import android.net.Uri;
+import android.content.Intent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
@@ -23,11 +26,14 @@ import com.cyo.common.EnumC0993bd;
 import com.cyo.common.view.Sidebar;
 import java.util.ArrayList;
 import java.util.Stack;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
 public class LibraryActivity extends AbstractActivityC0773ep implements InterfaceC0786fb {
+    private static final int OPEN_COMIC = 1001;
+    private static final int CHOOSE_LIBRARY_FOLDER = 1002;
+    private static final int REFRESH_LIBRARY = 1003;
+
 
     /* renamed from: o */
     private InterfaceC0753dw f1990o;
@@ -73,6 +79,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
         this.f2415n = true;
         m1878r();
         setContentView(C0804ft.library);
+        SystemBarInsets.applyToContent(this);
         this.f2676s.m2395a(C0803fs.libraryContainer, C0800fp.comic_list_background_dark, -1);
         this.f1993u = (C0772eo) this.f2675r.f2681a;
         if (this.f1993u == null) {
@@ -178,6 +185,9 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
     @Override // com.cyo.comicrack.viewer.AbstractActivityC0773ep, com.cyo.comicrack.viewer.ActivityC0881ip, android.app.Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        menu.add(0, OPEN_COMIC, 0, R.string.open_comic_file);
+        menu.add(0, CHOOSE_LIBRARY_FOLDER, 0, R.string.choose_comics_folder);
+        menu.add(0, REFRESH_LIBRARY, 0, R.string.refresh_comics_library);
         menu.add(0, 13, 0, C0806fv.quit).setIcon(C0802fr.ic_menu_stop);
         return true;
     }
@@ -187,7 +197,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
     public final boolean mo1480a(C0756dz c0756dz) {
         C0575ak c0575ak = c0756dz.m1814a() instanceof C0575ak ? (C0575ak) c0756dz.m1814a() : null;
         switch (c0756dz.f2391a) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (c0575ak != null && !(c0575ak instanceof C0572ah)) {
                     m960a("Library", "Comic List", "Show", 0);
                     m1479a(c0575ak, false, false, true);
@@ -235,11 +245,46 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
 
     @Override // com.cyo.comicrack.viewer.ActivityC0881ip, android.app.Activity
     public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case OPEN_COMIC:
+                startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                        .addCategory(Intent.CATEGORY_OPENABLE).setType("*/*"), OPEN_COMIC);
+                return true;
+            case CHOOSE_LIBRARY_FOLDER:
+                chooseLibraryFolder();
+                return true;
+            case REFRESH_LIBRARY:
+                ComicRackApplication.f1954i.m1429a(this);
+                return true;
+        }
         if (C0951ag.m2004d() && (menuItem.getItemId() == 16908332 || menuItem.getItemId() == 100)) {
             m1471a(!m1478n(), true);
             return true;
         }
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    void chooseLibraryFolder() {
+        startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), CHOOSE_LIBRARY_FOLDER);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
+        if (resultCode != RESULT_OK || result == null || result.getData() == null) {
+            return;
+        }
+        if (requestCode == CHOOSE_LIBRARY_FOLDER) {
+            Uri folder = ComicDocuments.persistReadGrant(result);
+            if (folder != null) {
+                ComicRackApplication.f1954i.setLibraryFolder("general_library_path", folder);
+                ComicRackApplication.f1954i.m1429a(this);
+            }
+        } else if (requestCode == OPEN_COMIC) {
+            ComicDocuments.persistReadGrant(result);
+            startActivity(new Intent(this, ReaderActivity.class).setData(result.getData())
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION));
+        }
     }
 
     @Override // com.cyo.comicrack.viewer.InterfaceC0786fb
@@ -325,7 +370,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
 
     /* renamed from: d */
     static /* synthetic */ void m1474d(LibraryActivity libraryActivity) {
-        new AlertDialog.Builder(libraryActivity).setTitle(C0806fv.empty_ecomics_folder).setMessage(libraryActivity.getString(C0806fv.current_ecomic_folder_empty, new Object[]{ComicRackApplication.f1954i.f1956g})).setPositiveButton(C0806fv.select_folder, new DialogInterfaceOnClickListenerC0767ej(libraryActivity)).setNeutralButton(C0806fv.do_not_show_again, new DialogInterfaceOnClickListenerC0769el(libraryActivity)).setNegativeButton(android.R.string.ok, new DialogInterfaceOnClickListenerC0770em(libraryActivity)).show();
+        new AlertDialog.Builder(libraryActivity).setTitle(C0806fv.empty_ecomics_folder).setMessage(libraryActivity.getString(C0806fv.current_ecomic_folder_empty, new Object[]{ComicRackApplication.f1954i.f1956g})).setPositiveButton(C0806fv.select_folder, (dialog, button) -> libraryActivity.chooseLibraryFolder()).setNeutralButton(C0806fv.do_not_show_again, new DialogInterfaceOnClickListenerC0769el(libraryActivity)).setNegativeButton(android.R.string.ok, new DialogInterfaceOnClickListenerC0770em(libraryActivity)).show();
     }
 
     /* renamed from: m */

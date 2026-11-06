@@ -1,5 +1,6 @@
 package com.cyo.comicrack.p019a.p020a;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import java.io.FileInputStream;
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
@@ -301,7 +302,7 @@ public final class C0505b extends C0535cc {
     /* renamed from: o */
     public final String m1149o() {
         try {
-            return new File(this.f1655v).getName();
+            return ComicDocuments.displayName(this.f1655v);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -491,73 +492,4 @@ public final class C0505b extends C0535cc {
         return this.f1625J > 0;
     }
 
-    /* renamed from: a */
-    public final String m1120a(String str, float f) {
-        String string;
-        if (C0998bi.m2081a(this.f1657x)) {
-            string = null;
-        } else {
-            StringBuilder sb = new StringBuilder(C0998bi.m2078a(this.f1657x, 25));
-            if (sb.length() == 0) {
-                string = null;
-            } else {
-                if (!C0998bi.m2081a(this.f1658y)) {
-                    if (Character.isDigit(sb.charAt(sb.length() - 1))) {
-                        sb.append("_");
-                    }
-                    sb.append(C0998bi.m2088d(this.f1658y));
-                }
-                string = sb.toString();
-            }
-        }
-        if (string == null) {
-            return null;
-        }
-        String str2 = str == null ? this.f1624I : str;
-        if (f <= 0.0f) {
-            f = this.f1576h;
-        }
-        StringBuilder sb2 = new StringBuilder();
-        if (f > 0.0f) {
-            sb2.append(m1118b(f));
-            sb2.append(" ");
-        }
-        sb2.append("#");
-        sb2.append(string);
-        sb2.append(" ");
-        sb2.append("#comicrack");
-        sb2.append(" ");
-        if (!C0998bi.m2081a(str2)) {
-            int length = 143 - sb2.length();
-            if (str2.length() > length) {
-                str2 = String.valueOf(str2.substring(0, length - 3)) + "...";
-            }
-            sb2.insert(0, " ");
-            sb2.insert(0, str2);
-        }
-        return sb2.toString();
-    }
-
-    /* renamed from: b */
-    private static String m1118b(float f) {
-        StringBuilder sb = new StringBuilder();
-        int i = (int) f;
-        for (int i2 = 0; i2 < i; i2++) {
-            sb.append("*");
-        }
-        float f2 = f - i;
-        if (f2 >= 0.75f) {
-            sb.append("¾");
-        } else if (f2 >= 0.5f) {
-            sb.append("½");
-        } else if (f2 >= 0.25f) {
-            sb.append("¼");
-        }
-        return sb.toString();
-    }
-
-    /* renamed from: r */
-    public final String m1152r() {
-        return m1120a((String) null, -1.0f);
-    }
 }

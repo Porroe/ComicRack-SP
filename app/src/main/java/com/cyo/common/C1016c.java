@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -51,9 +53,9 @@ public final class C1016c {
         if (!file.exists() || !file.isDirectory()) {
             throw new IOException();
         }
-        Map mapM2116b = m2116b(m2118c());
-        if (mapM2116b != null) {
-            this.f2985c = mapM2116b;
+        Map<String, C1089f> savedEntries = readCacheIndex(m2118c());
+        if (savedEntries != null) {
+            this.f2985c = savedEntries;
         }
         m2113a(file, this.f2985c);
     }
@@ -167,8 +169,6 @@ public final class C1016c {
         if (this.f2988f != 0) {
             this.f2983a = System.currentTimeMillis();
             if (this.f2988f > 1024 || z) {
-                this.f2988f = 0;
-                this.f2983a = 0L;
                 float fM2360a = 0.0f;
                 Iterator it = this.f2985c.values().iterator();
                 while (true) {
@@ -193,7 +193,10 @@ public final class C1016c {
                     this.f2985c.remove(c1089f.f3468a);
                     f2 = fM2360a2;
                 }
-                m2114a(m2118c());
+                if (writeCacheIndex(new File(m2118c()))) {
+                    this.f2988f = 0;
+                    this.f2983a = 0L;
+                }
             }
         }
     }
@@ -203,44 +206,54 @@ public final class C1016c {
         return this.f2986d + "/cache.idx";
     }
 
-    /* renamed from: a */
-    private void m2114a(String str) {
+    private static final int CACHE_INDEX_VERSION = 2;
+
+    private boolean writeCacheIndex(File indexFile) {
+        File pendingIndex = null;
         try {
             m2117b();
-            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(str), 32768));
-            dataOutputStream.writeInt(2);
-            dataOutputStream.writeInt(this.f2985c.size());
-            for (Object entry : this.f2985c.values()) {
-                C1089f c1089f = (C1089f) entry;
-                C1095l.m2371a(dataOutputStream, c1089f.f3468a);
-                C1095l.m2371a(dataOutputStream, c1089f.f3469b);
-                dataOutputStream.writeLong(c1089f.f3471d);
-                dataOutputStream.writeInt(c1089f.f3470c);
+            pendingIndex = File.createTempFile("cache-index-", ".tmp", this.f2986d);
+            try (DataOutputStream output = new DataOutputStream(
+                    new BufferedOutputStream(new FileOutputStream(pendingIndex), 32768))) {
+                output.writeInt(CACHE_INDEX_VERSION);
+                output.writeInt(this.f2985c.size());
+                for (Object entry : this.f2985c.values()) {
+                    C1089f cacheEntry = (C1089f) entry;
+                    C1095l.m2371a(output, cacheEntry.f3468a);
+                    C1095l.m2371a(output, cacheEntry.f3469b);
+                    output.writeLong(cacheEntry.f3471d);
+                    output.writeInt(cacheEntry.f3470c);
+                }
             }
-            dataOutputStream.close();
-        } catch (Exception e) {
+            Files.move(pendingIndex.toPath(), indexFile.toPath(),
+                    StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (IOException exception) {
+            return false;
+        } finally {
+            if (pendingIndex != null) {
+                pendingIndex.delete();
+            }
         }
     }
 
-    /* renamed from: b */
-    private static Map m2116b(String str) {
-        try {
-            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(str), 32768));
-            HashMap map = new HashMap();
-            try {
-                if (dataInputStream.readInt() != 2) {
-                    return null;
-                }
-                int i = dataInputStream.readInt();
-                for (int i2 = 0; i2 < i; i2++) {
-                    String strM2367a = C1095l.m2367a(dataInputStream);
-                    map.put(strM2367a, new C1089f(strM2367a, dataInputStream.readLong(), C1095l.m2367a(dataInputStream), dataInputStream.readInt()));
-                }
-                return map;
-            } finally {
-                dataInputStream.close();
+    private static Map<String, C1089f> readCacheIndex(String indexPath) {
+        try (DataInputStream input = new DataInputStream(
+                new BufferedInputStream(new FileInputStream(indexPath), 32768))) {
+            if (input.readInt() != CACHE_INDEX_VERSION) {
+                return null;
             }
-        } catch (Exception e) {
+            int entryCount = input.readInt();
+            Map<String, C1089f> entries = new HashMap<>();
+            for (int index = 0; index < entryCount; index++) {
+                String key = C1095l.m2367a(input);
+                String thumbnailPath = C1095l.m2367a(input);
+                long lastAccessTime = input.readLong();
+                int byteCount = input.readInt();
+                entries.put(key, new C1089f(key, lastAccessTime, thumbnailPath, byteCount));
+            }
+            return entries;
+        } catch (IOException | RuntimeException exception) {
             return null;
         }
     }

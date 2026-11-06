@@ -36,17 +36,19 @@ final class C0604f implements InterfaceC0625c {
 
     @Override // com.cyo.comicrack.p019a.InterfaceC0625c
     /* renamed from: a */
-    public final void mo1295a(C0505b c0505b) {
-        if (c0505b.f1587s != 0 && this.f1807b.contains(c0505b.f1655v)) {
-            InterfaceC0606h interfaceC0606hM1354a = C0628f.m1354a(c0505b, false);
-            c0505b.f1586r = interfaceC0606hM1354a.mo1313h();
-            if (interfaceC0606hM1354a.mo1314i() == c0505b.f1585q) {
-                this.f1808c.add(c0505b);
-                this.f1807b.remove(c0505b.f1655v);
-                if (this.f1809d != null) {
-                    this.f1809d.mo1349a(this.f1810e, this.f1808c.size());
-                }
-            }
+    public final void mo1295a(C0505b comic) {
+        if (comic.f1587s == 0 || !this.f1807b.contains(comic.f1655v)) {
+            return;
+        }
+        InterfaceC0606h comicProvider = C0628f.m1354a(comic, false);
+        if (comicProvider == null || comicProvider.mo1314i() != comic.f1585q) {
+            return;
+        }
+        comic.f1586r = comicProvider.mo1313h();
+        this.f1808c.add(comic);
+        this.f1807b.remove(comic.f1655v);
+        if (this.f1809d != null) {
+            this.f1809d.mo1349a(this.f1810e, this.f1808c.size());
         }
     }
 }

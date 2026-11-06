@@ -2,7 +2,6 @@ package com.cyo.common;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 @TargetApi(9)
@@ -56,14 +55,14 @@ class C0955ak extends C0953ai {
     public final boolean mo2033a(Context context, EnumC0993bd enumC0993bd) {
         int i = context.getResources().getConfiguration().screenLayout & 15;
         switch (m2042b()[enumC0993bd.ordinal()]) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (i < 2) {
                     break;
                 }
                 break;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 if (i < 3) {
                     break;
                 }

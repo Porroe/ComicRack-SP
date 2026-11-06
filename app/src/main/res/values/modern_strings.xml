@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="open_comic_file">Open comic file</string>
+    <string name="choose_comics_folder">Choose comics folder</string>
+    <string name="refresh_comics_library">Refresh library</string>
+    <string name="folder_access_unavailable">Folder unavailable. Choose a folder to restore access.</string>
+    <string name="snapshot_saved">Snapshot saved</string>
+</resources>

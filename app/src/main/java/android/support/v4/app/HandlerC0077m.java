@@ -2,7 +2,6 @@ package android.support.v4.app;
 
 import android.os.Handler;
 import android.os.Message;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: android.support.v4.app.m */
@@ -19,13 +18,13 @@ final class HandlerC0077m extends Handler {
     @Override // android.os.Handler
     public final void handleMessage(Message message) {
         switch (message.what) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 if (this.f286a.f278f) {
                     this.f286a.m184a(false);
                     break;
                 }
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 this.f286a.m182a();
                 this.f286a.f274b.m232d();
                 break;

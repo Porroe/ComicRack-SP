@@ -1,5 +1,6 @@
 package com.cyo.comicrack.p019a.p021b;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -45,14 +46,15 @@ public final class C0609k extends AbstractC0614p {
     @Override // com.cyo.comicrack.p019a.p021b.InterfaceC0606h
     /* renamed from: g */
     public final boolean mo1312g() {
-        return true;
+        return !ComicDocuments.isDocument(this.f1821b.f1655v);
     }
 
     @Override
     /* renamed from: b */
     public final C0505b mo1303b() {
         String path = this.f1821b.f1655v;
-        try (Archive archive = new Archive(new File(path))) {
+        try (ComicDocuments.ArchiveFile archiveFile = ComicDocuments.openArchive(path);
+                Archive archive = new Archive(archiveFile.file())) {
             List<C0537ce> pages = new ArrayList<>();
             for (FileHeader entry : archive.getFileHeaders()) {
                 String name = entry.getFileName();
@@ -66,7 +68,7 @@ public final class C0609k extends AbstractC0614p {
 
             Collections.sort(pages);
             C0505b comic = new C0505b();
-            comic.m1169a(C0633k.m1375a(path));
+            comic.m1169a(C0633k.m1375a(ComicDocuments.displayName(path)));
             comic.f1570b = C0628f.m1372e();
             comic.f1655v = path;
             comic.m1165D().addAll(pages);
@@ -84,8 +86,8 @@ public final class C0609k extends AbstractC0614p {
     /* renamed from: a */
     protected final Bitmap mo1317a(C0537ce page, int requestedSize) {
         InterfaceC0612n pageData = null;
-        try {
-            File file = new File(this.f1821b.f1655v);
+        try (ComicDocuments.ArchiveFile archiveFile = ComicDocuments.openArchive(this.f1821b.f1655v)) {
+            File file = archiveFile.file();
             if (f1823d) {
                 pageData = extractPage(file, page.f1665c);
             } else {
@@ -158,7 +160,8 @@ public final class C0609k extends AbstractC0614p {
         if (!super.mo1310e()) {
             return false;
         }
-        try (Archive archive = new Archive(new File(this.f1821b.f1655v))) {
+        try (ComicDocuments.ArchiveFile archiveFile = ComicDocuments.openArchive(this.f1821b.f1655v);
+                Archive archive = new Archive(archiveFile.file())) {
             return !archive.isEncrypted();
         } catch (IOException | RarException | RuntimeException e) {
             return false;

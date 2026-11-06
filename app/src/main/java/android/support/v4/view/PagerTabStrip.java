@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -174,12 +173,12 @@ public class PagerTabStrip extends C0148ai {
         float x = motionEvent.getX();
         float y = motionEvent.getY();
         switch (action) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 this.f395s = x;
                 this.f396t = y;
                 this.f394r = false;
                 break;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 if (x >= this.f483c.getLeft() - this.f387k) {
                     if (x > this.f483c.getRight() + this.f387k) {
                         this.f481a.setCurrentItem(this.f481a.getCurrentItem() + 1);
@@ -190,7 +189,7 @@ public class PagerTabStrip extends C0148ai {
                     break;
                 }
                 break;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 if (Math.abs(x - this.f395s) > this.f397u || Math.abs(y - this.f396t) > this.f397u) {
                     this.f394r = true;
                     break;

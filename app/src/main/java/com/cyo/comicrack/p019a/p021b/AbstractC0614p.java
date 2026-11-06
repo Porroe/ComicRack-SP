@@ -1,7 +1,8 @@
 package com.cyo.comicrack.p019a.p021b;
 
+import com.cyo.comicrack.storage.ComicDocuments;
 import java.io.IOException;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import com.cyo.comicrack.p019a.C0633k;
 import com.cyo.comicrack.p019a.p020a.C0505b;
 import java.io.File;
@@ -29,14 +30,14 @@ public abstract class AbstractC0614p extends AbstractC0608j {
     @Override // com.cyo.comicrack.p019a.p021b.InterfaceC0606h
     /* renamed from: i */
     public long mo1314i() {
-        return new File(this.f1821b.f1655v).lastModified();
+        return ComicDocuments.lastModified(this.f1821b.f1655v);
     }
 
     @Override // com.cyo.comicrack.p019a.p021b.InterfaceC0606h
     /* renamed from: a */
     public final boolean mo1302a(String str, boolean z) {
         C0505b c0505b = this.f1821b;
-        if (str == null) {
+        if (str == null || ComicDocuments.isDocument(c0505b.f1655v)) {
             return false;
         }
         String strTrim = str.trim();
@@ -82,7 +83,7 @@ public abstract class AbstractC0614p extends AbstractC0608j {
         if (str == null) {
             return 0L;
         }
-        return new File(str).lastModified();
+        return ComicDocuments.lastModified(str);
     }
 
     /* renamed from: b */
@@ -92,6 +93,9 @@ public abstract class AbstractC0614p extends AbstractC0608j {
 
     /* renamed from: c */
     public static boolean m1328c(String str) {
+        if (ComicDocuments.isDocument(str)) {
+            return false;
+        }
         File file = new File(str);
         File fileM1327b = m1327b(str);
         boolean zDelete = file.delete();
@@ -103,11 +107,15 @@ public abstract class AbstractC0614p extends AbstractC0608j {
 
     /* renamed from: a */
     public static boolean m1326a(String path, byte[] signature) {
-        FileInputStream input = null;
+        InputStream input = null;
         try {
-            input = new FileInputStream(path);
+            input = ComicDocuments.openStream(path);
             byte[] bytes = new byte[signature.length];
-            input.read(bytes);
+            for (int index = 0; index < bytes.length; index++) {
+                int value = input.read();
+                if (value == -1) return false;
+                bytes[index] = (byte) value;
+            }
             return java.util.Arrays.equals(bytes, signature);
         } catch (Exception e) {
             e.printStackTrace();

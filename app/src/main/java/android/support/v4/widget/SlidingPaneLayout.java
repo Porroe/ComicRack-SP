@@ -17,7 +17,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
@@ -327,13 +326,13 @@ public final class SlidingPaneLayout extends ViewGroup {
         }
         this.f599q.m583b(motionEvent);
         switch (motionEvent.getAction() & 255) {
-            case TwitterResponse.NONE /* 0 */:
+            case 0:
                 float x = motionEvent.getX();
                 float y = motionEvent.getY();
                 this.f596n = x;
                 this.f597o = y;
                 return true;
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 if (m523b(this.f590h)) {
                     float x2 = motionEvent.getX();
                     float y2 = motionEvent.getY();
@@ -392,7 +391,7 @@ public final class SlidingPaneLayout extends ViewGroup {
     protected final boolean drawChild(Canvas canvas, View view, long j) {
         boolean zDrawChild;
         C0233p c0233p = (C0233p) view.getLayoutParams();
-        int iSave = canvas.save(2);
+        int iSave = canvas.save();
         if (this.f589g && !c0233p.f621b && this.f590h != null) {
             canvas.getClipBounds(this.f602t);
             if (m522b()) {

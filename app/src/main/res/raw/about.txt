@@ -25,7 +25,6 @@ Also, thanks to intelligent optimizations, you can put about twice as much eComi
 • When used together with ComicRack for Windows it supports CBZ, CBR, CB7, CBT, PDF, DJVU and WebComics
 • Live Wallpaper
 • App Widget
-• Twitter integration
 
 <freeversionlimits><b>Live Wallpaper:</b>
 

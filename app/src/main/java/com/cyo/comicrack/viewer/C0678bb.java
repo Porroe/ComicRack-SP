@@ -19,7 +19,6 @@ import com.cyo.common.view.FastThumbView;
 import com.cyo.common.view.ProgressView;
 import com.cyo.common.view.SimpleRatingBar;
 import java.io.File;
-import twitter4j.HttpResponseCode;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.bb */
@@ -96,7 +95,7 @@ public class C0678bb extends AbstractC0949ae {
         if (simpleRatingBar != null) {
             Resources resources2 = view.getResources();
             simpleRatingBar.setFullIndicator(resources2.getDrawable(C0802fr.rating_star_full));
-            simpleRatingBar.setFullIndicatorAlpha(HttpResponseCode.OK);
+            simpleRatingBar.setFullIndicatorAlpha(200);
             simpleRatingBar.setEmptyIndicator(resources2.getDrawable(C0802fr.rating_star_empty));
             simpleRatingBar.setEmptyIndicatorAlpha(150);
             simpleRatingBar.setMaxRating(5);

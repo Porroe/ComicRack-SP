@@ -31,7 +31,6 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: android.support.v4.app.r */
@@ -435,13 +434,13 @@ final class LayoutInflaterFactoryC0082r extends AbstractC0081q implements Layout
                 return null;
             }
             switch (c) {
-                case TwitterResponse.READ /* 1 */:
+                case 1:
                     ActivityC0076l activityC0076l = this.f311o;
                     return m196a(1.125f, 1.0f, 0.0f, 1.0f);
-                case TwitterResponse.READ_WRITE /* 2 */:
+                case 2:
                     ActivityC0076l activityC0076l2 = this.f311o;
                     return m196a(1.0f, 0.975f, 1.0f, 0.0f);
-                case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+                case 3:
                     ActivityC0076l activityC0076l3 = this.f311o;
                     return m196a(0.975f, 1.0f, 0.0f, 1.0f);
                 case 4:

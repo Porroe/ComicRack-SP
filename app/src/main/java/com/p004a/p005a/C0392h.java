@@ -1,7 +1,6 @@
 package com.p004a.p005a;
 
 import android.content.Context;
-import twitter4j.HttpResponseCode;
 
 /* compiled from: DontLook */
 /* renamed from: com.a.a.h */
@@ -15,7 +14,7 @@ public final class C0392h {
     public static final C0392h f1093b = new C0392h(320, 50, "mb");
 
     /* renamed from: c */
-    public static final C0392h f1094c = new C0392h(HttpResponseCode.MULTIPLE_CHOICES, 250, "as");
+    public static final C0392h f1094c = new C0392h(300, 250, "as");
 
     /* renamed from: d */
     public static final C0392h f1095d = new C0392h(468, 60, "as");

@@ -1,6 +1,5 @@
 package com.cyo.common.p022a;
 
-import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.a.i */
@@ -53,11 +52,11 @@ public enum EnumC0938i {
     /* renamed from: a */
     public static EnumC0938i m1968a(byte b) {
         switch (b) {
-            case TwitterResponse.READ /* 1 */:
+            case 1:
                 return Rotate90;
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 return Rotate180;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 return Rotate270;
             default:
                 return None;
@@ -67,9 +66,9 @@ public enum EnumC0938i {
     /* renamed from: a */
     public final byte m1970a() {
         switch (m1969b()[ordinal()]) {
-            case TwitterResponse.READ_WRITE /* 2 */:
+            case 2:
                 return (byte) 1;
-            case TwitterResponse.READ_WRITE_DIRECTMESSAGES /* 3 */:
+            case 3:
                 return (byte) 2;
             case 4:
                 return (byte) 3;
