@@ -21,8 +21,8 @@ import com.cyo.common.C0951ag;
 import com.cyo.common.p022a.AbstractC0934e;
 import com.cyo.common.p022a.p023a.C0923j;
 import com.cyo.common.p022a.p023a.InterfaceC0929p;
-import com.cyo.common.view.AbstractC1159n;
-import com.cyo.common.view.C1161p;
+import com.cyo.common.view.ContentAnimation;
+import com.cyo.common.view.ContentAnimationQueue;
 import com.cyo.common.view.C1165t;
 import com.cyo.common.view.EnumC1164s;
 import java.util.Timer;
@@ -71,7 +71,7 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
     private GestureDetector f2356l;
 
     /* renamed from: m */
-    private C1161p f2357m;
+    private ContentAnimationQueue f2357m;
 
     /* renamed from: n */
     private BroadcastReceiver f2358n;
@@ -140,7 +140,7 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
     }
 
     /* renamed from: c */
-    static /* synthetic */ C1161p m1771c(SharedPreferencesOnSharedPreferenceChangeListenerC0744dn sharedPreferencesOnSharedPreferenceChangeListenerC0744dn) {
+    static /* synthetic */ ContentAnimationQueue m1771c(SharedPreferencesOnSharedPreferenceChangeListenerC0744dn sharedPreferencesOnSharedPreferenceChangeListenerC0744dn) {
         return sharedPreferencesOnSharedPreferenceChangeListenerC0744dn.f2357m;
     }
 
@@ -157,7 +157,7 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
     /* renamed from: a */
     public final void m1784a() {
         this.f2347c = System.currentTimeMillis();
-        this.f2357m = new C1161p();
+        this.f2357m = new ContentAnimationQueue();
         this.f2357m.f3668d = false;
         this.f2357m.f3667c = false;
         this.f2356l = new GestureDetector(this.f2345a, new C0745do(this));
@@ -248,7 +248,7 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
         int iNextInt;
         C0742dl c0742dlM1760a = this.f2346b.m1760a();
         C0750dt c0750dt = new C0750dt(this, m1768b(abstractC0587aa), m1768b(abstractC0587aa), abstractC0587aa, c0742dlM1760a.f2336a);
-        C1161p c1161p = this.f2357m;
+        ContentAnimationQueue c1161p = this.f2357m;
         if (c0742dlM1760a.m1762a()) {
             iNextInt = (c0742dlM1760a.f2337b <= c0742dlM1760a.f2338c ? 0 : CoverWallpaperService.m1466a().nextInt(c0742dlM1760a.f2337b - c0742dlM1760a.f2338c)) + c0742dlM1760a.f2338c;
         } else {
@@ -347,7 +347,7 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
         }
         C0923j c0923j = this.f2364t;
         if (this.f2352h && this.f2355k == null) {
-            AbstractC1159n[] abstractC1159nArrM2444a = this.f2357m.m2444a();
+            ContentAnimation[] abstractC1159nArrM2444a = this.f2357m.m2444a();
             int i = 0;
             while (true) {
                 if (i >= abstractC1159nArrM2444a.length) {
@@ -431,9 +431,9 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
     /* renamed from: d */
     public final void mo1790d() {
         if (this.f2357m != null) {
-            C1161p c1161p = this.f2357m;
+            ContentAnimationQueue c1161p = this.f2357m;
             synchronized (c1161p.f3665a) {
-                for (AbstractC1159n abstractC1159n : c1161p.f3665a) {
+                for (ContentAnimation abstractC1159n : c1161p.f3665a) {
                     if (abstractC1159n.m2430e() && abstractC1159n.frameTimeOverrideMillis == 0) {
                         abstractC1159n.frameTimeOverrideMillis = AnimationUtils.currentAnimationTimeMillis();
                     }
@@ -446,9 +446,9 @@ final class SharedPreferencesOnSharedPreferenceChangeListenerC0744dn implements 
     /* renamed from: e */
     public final void mo1791e() {
         if (this.f2357m != null) {
-            C1161p c1161p = this.f2357m;
+            ContentAnimationQueue c1161p = this.f2357m;
             synchronized (c1161p.f3665a) {
-                for (AbstractC1159n abstractC1159n : c1161p.f3665a) {
+                for (ContentAnimation abstractC1159n : c1161p.f3665a) {
                     if (abstractC1159n.frameTimeOverrideMillis != 0) {
                         abstractC1159n.startTimeMillis += AnimationUtils.currentAnimationTimeMillis() - abstractC1159n.frameTimeOverrideMillis;
                         abstractC1159n.frameTimeOverrideMillis = 0L;

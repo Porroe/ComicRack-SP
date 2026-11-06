@@ -8,7 +8,7 @@ import com.cyo.common.p022a.AbstractC0934e;
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.view.n */
 /* loaded from: classes.dex */
-public abstract class AbstractC1159n {
+public abstract class ContentAnimation {
 
     /* renamed from: a */
     private long frameTimeMillis;
@@ -58,11 +58,11 @@ public abstract class AbstractC1159n {
                 InterfaceC1160o interfaceC1160o = this.f3663m;
             }
         }
-        float fM2424b = m2424b(true);
+        float progress = calculateProgress(true);
         if (this.f3664n) {
-            fM2424b = 1.0f - fM2424b;
+            progress = 1.0f - progress;
         }
-        mo1793a(fM2424b);
+        mo1793a(progress);
         mo1792a();
         if (m2429d()) {
             this.f3657c = true;
@@ -74,7 +74,7 @@ public abstract class AbstractC1159n {
     }
 
     /* renamed from: b */
-    private float m2424b(boolean clampProgress) {
+    private float calculateProgress(boolean clampProgress) {
         float progress;
         if (this.f3658d) {
             progress = this.manualProgress;
@@ -93,12 +93,12 @@ public abstract class AbstractC1159n {
 
     /* renamed from: c */
     public final boolean m2428c() {
-        return m2424b(false) >= 0.0f;
+        return calculateProgress(false) >= 0.0f;
     }
 
     /* renamed from: d */
     public final boolean m2429d() {
-        return m2428c() && m2424b(false) > 1.0f;
+        return m2428c() && calculateProgress(false) > 1.0f;
     }
 
     /* renamed from: e */
@@ -146,10 +146,10 @@ public abstract class AbstractC1159n {
     }
 
     /* renamed from: b */
-    public final void m2426b(float f) {
-        this.manualProgress = f;
+    public final void setManualProgress(float progress) {
+        this.manualProgress = progress;
         if (this.f3658d) {
-            mo1793a(m2424b(true));
+            mo1793a(calculateProgress(true));
             mo1792a();
         }
     }
@@ -158,7 +158,7 @@ public abstract class AbstractC1159n {
     public final void m2425a(boolean z) {
         this.f3658d = z;
         if (z) {
-            mo1793a(m2424b(true));
+            mo1793a(calculateProgress(true));
         }
     }
 }

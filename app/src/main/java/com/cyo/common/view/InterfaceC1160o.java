@@ -5,5 +5,5 @@ package com.cyo.common.view;
 /* loaded from: classes.dex */
 public interface InterfaceC1160o {
     /* renamed from: a */
-    void mo2433a(AbstractC1159n abstractC1159n);
+    void mo2433a(ContentAnimation abstractC1159n);
 }

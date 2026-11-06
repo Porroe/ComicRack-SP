@@ -15,7 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Scroller;
 import android.widget.ZoomButtonsController;
-import com.cyo.comicrack.viewer.C0795fk;
+import com.cyo.comicrack.viewer.PageTransitionAnimation;
 import com.cyo.common.C0950af;
 import com.cyo.common.p022a.AbstractC0934e;
 import com.cyo.common.p022a.C0932c;
@@ -26,7 +26,7 @@ import java.util.Iterator;
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.view.v */
 /* loaded from: classes.dex */
-public class GestureDetectorOnDoubleTapListenerC1167v extends View implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener, ZoomButtonsController.OnZoomListener, InterfaceC1163r {
+public class AnimatedContentView extends View implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener, ZoomButtonsController.OnZoomListener, InterfaceC1163r {
 
     /* renamed from: a */
     private Scroller f3698a;
@@ -50,7 +50,7 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
     public C1165t f3704g;
 
     /* renamed from: h */
-    public C1161p f3705h;
+    public ContentAnimationQueue f3705h;
 
     /* renamed from: i */
     float manualPosition;
@@ -95,11 +95,11 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
     private int f3719v;
 
     /* renamed from: a */
-    static /* synthetic */ C1165t m2483a(GestureDetectorOnDoubleTapListenerC1167v gestureDetectorOnDoubleTapListenerC1167v) {
+    static /* synthetic */ C1165t m2483a(AnimatedContentView gestureDetectorOnDoubleTapListenerC1167v) {
         return gestureDetectorOnDoubleTapListenerC1167v.f3704g;
     }
 
-    public GestureDetectorOnDoubleTapListenerC1167v(Context context, AttributeSet attributeSet) {
+    public AnimatedContentView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         this.f3699b = 1.1f;
         this.f3700c = 1.0f;
@@ -107,7 +107,7 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
         this.f3702e = 0.25f;
         this.f3703f = true;
         this.f3704g = new C1165t();
-        this.f3705h = new C1161p();
+        this.f3705h = new ContentAnimationQueue();
         this.f3715r = 2.0f;
         this.f3716s = EnumC1109ac.None;
         this.f3719v = C0932c.m1960a(0, -16777216);
@@ -117,7 +117,7 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
         this.f3705h.f3666b = this;
     }
 
-    public GestureDetectorOnDoubleTapListenerC1167v(Context context) {
+    public AnimatedContentView(Context context) {
         this(context, null);
     }
 
@@ -269,11 +269,11 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
 
     /* renamed from: b */
     public final void m2494b() {
-        C1161p c1161p = this.f3705h;
+        ContentAnimationQueue c1161p = this.f3705h;
         synchronized (c1161p.f3665a) {
             Iterator it = c1161p.f3665a.iterator();
             while (it.hasNext()) {
-                ((AbstractC1159n) it.next()).f3663m = null;
+                ((ContentAnimation) it.next()).f3663m = null;
             }
             c1161p.f3665a.clear();
         }
@@ -285,7 +285,7 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
     }
 
     /* renamed from: a */
-    public void mo1508a(AbstractC1159n abstractC1159n) {
+    public void mo1508a(ContentAnimation abstractC1159n) {
         if (this.f3711n != null) {
             this.f3711n.mo1508a(abstractC1159n);
         }
@@ -617,12 +617,12 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
 
     /* renamed from: c */
     public final void m2497c(boolean z) {
-        C1161p c1161p = this.f3705h;
+        ContentAnimationQueue c1161p = this.f3705h;
         c1161p.f3670f = z;
         synchronized (c1161p.f3665a) {
             Iterator it = c1161p.f3665a.iterator();
             while (it.hasNext()) {
-                ((AbstractC1159n) it.next()).m2425a(z);
+                ((ContentAnimation) it.next()).m2425a(z);
             }
         }
         if (z) {
@@ -632,18 +632,18 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
             synchronized (c1161p.f3665a) {
                 Iterator it2 = c1161p.f3665a.iterator();
                 while (it2.hasNext()) {
-                    ((AbstractC1159n) it2.next()).m2432g();
+                    ((ContentAnimation) it2.next()).m2432g();
                 }
             }
             c1161p.m2450f();
             return;
         }
         synchronized (c1161p.f3665a) {
-            for (int size = c1161p.f3665a.size() - 1; size >= 0 && ((AbstractC1159n) c1161p.f3665a.get(size)).manualProgress <= 0.0f; size--) {
+            for (int size = c1161p.f3665a.size() - 1; size >= 0 && ((ContentAnimation) c1161p.f3665a.get(size)).manualProgress <= 0.0f; size--) {
                 c1161p.f3665a.remove(size);
             }
             Collections.reverse(c1161p.f3665a);
-            for (AbstractC1159n abstractC1159n : c1161p.f3665a) {
+            for (ContentAnimation abstractC1159n : c1161p.f3665a) {
                 abstractC1159n.f3664n = true;
                 abstractC1159n.m2432g();
             }
@@ -657,22 +657,22 @@ public class GestureDetectorOnDoubleTapListenerC1167v extends View implements Ge
     }
 
     /* renamed from: a */
-    public final float m2487a(float dragProgress) {
-        C1161p animationQueue = this.f3705h;
-        AbstractC1159n pageTransition = animationQueue.m2442a(C0795fk.class);
+    public final float setManualTransitionProgress(float dragProgress) {
+        ContentAnimationQueue animationQueue = this.f3705h;
+        ContentAnimation pageTransition = animationQueue.m2442a(PageTransitionAnimation.class);
         int transitionIndex = animationQueue.f3665a.indexOf(pageTransition);
-        long transitionEndMillis = transitionIndex == -1 ? 0L : animationQueue.m2441a(transitionIndex);
+        long transitionEndMillis = transitionIndex == -1 ? 0L : animationQueue.getEndTimeMillis(transitionIndex);
         this.manualPosition = C0950af.m1989a(dragProgress, 0.0f, 1.0f);
         long remainingMillis = (long) (transitionEndMillis * this.manualPosition);
-        long queueDurationMillis = animationQueue.m2451g();
+        long queueDurationMillis = animationQueue.getTotalDurationMillis();
         animationQueue.manualTimelineProgress = queueDurationMillis > 0
                 ? (float) remainingMillis / queueDurationMillis : 0.0f;
         synchronized (animationQueue.f3665a) {
-            for (AbstractC1159n animation : animationQueue.f3665a) {
+            for (ContentAnimation animation : animationQueue.f3665a) {
                 float animationProgress = animation.durationMillis > 0
                         ? (float) remainingMillis / animation.durationMillis
                         : (remainingMillis >= 0 ? 1.0f : 0.0f);
-                animation.m2426b(animationProgress);
+                animation.setManualProgress(animationProgress);
                 remainingMillis -= animation.durationMillis;
             }
         }

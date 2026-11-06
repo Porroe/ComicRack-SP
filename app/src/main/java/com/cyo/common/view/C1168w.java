@@ -13,9 +13,9 @@ final class C1168w {
     ScaleGestureDetector f3720a;
 
     /* renamed from: b */
-    final /* synthetic */ GestureDetectorOnDoubleTapListenerC1167v f3721b;
+    final /* synthetic */ AnimatedContentView f3721b;
 
-    public C1168w(GestureDetectorOnDoubleTapListenerC1167v gestureDetectorOnDoubleTapListenerC1167v, Context context) {
+    public C1168w(AnimatedContentView gestureDetectorOnDoubleTapListenerC1167v, Context context) {
         this.f3721b = gestureDetectorOnDoubleTapListenerC1167v;
         this.f3720a = new ScaleGestureDetector(context, new ScaleGestureDetectorOnScaleGestureListenerC1169x(this, (byte) 0));
         m2503a(false);

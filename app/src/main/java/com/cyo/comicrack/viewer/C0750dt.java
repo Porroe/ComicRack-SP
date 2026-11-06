@@ -4,14 +4,14 @@ import android.graphics.Paint;
 import android.view.animation.DecelerateInterpolator;
 import com.cyo.comicrack.p019a.p021b.AbstractC0587aa;
 import com.cyo.common.p022a.AbstractC0934e;
-import com.cyo.common.view.AbstractC1159n;
+import com.cyo.common.view.ContentAnimation;
 import com.cyo.common.view.C1165t;
 import com.cyo.common.view.EnumC1164s;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.dt */
 /* loaded from: classes.dex */
-final class C0750dt extends AbstractC1159n {
+final class C0750dt extends ContentAnimation {
 
     /* renamed from: a */
     final DecelerateInterpolator f2373a = new DecelerateInterpolator();
@@ -55,7 +55,7 @@ final class C0750dt extends AbstractC1159n {
         this.f2374b = abstractC0587aa;
     }
 
-    @Override // com.cyo.common.view.AbstractC1159n
+    @Override // com.cyo.common.view.ContentAnimation
     /* renamed from: a */
     protected final void mo1793a(float f) {
         this.f2383q = this.f2373a.getInterpolation(f);
@@ -65,12 +65,12 @@ final class C0750dt extends AbstractC1159n {
         this.f2378f.f2371c = this.f2376d.f2371c + ((this.f2377e.f2371c - this.f2376d.f2371c) * this.f2383q);
     }
 
-    @Override // com.cyo.common.view.AbstractC1159n
+    @Override // com.cyo.common.view.ContentAnimation
     /* renamed from: a */
     protected final void mo1792a() {
     }
 
-    @Override // com.cyo.common.view.AbstractC1159n
+    @Override // com.cyo.common.view.ContentAnimation
     /* renamed from: a */
     public final void mo1794a(AbstractC0934e abstractC0934e) {
         super.mo1794a(abstractC0934e);

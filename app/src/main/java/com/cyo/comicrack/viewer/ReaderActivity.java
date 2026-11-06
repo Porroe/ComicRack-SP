@@ -58,7 +58,7 @@ import com.cyo.common.EnumC0993bd;
 import com.cyo.common.InterfaceC0991bb;
 import com.cyo.common.p022a.C0933d;
 import com.cyo.common.p022a.C0939j;
-import com.cyo.common.view.AbstractC1159n;
+import com.cyo.common.view.ContentAnimation;
 import com.cyo.common.view.C1106a;
 import com.cyo.common.view.C1145bl;
 import com.cyo.common.view.C1151f;
@@ -831,7 +831,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
         }
         this.f2095w.setOnTapListener(this);
         this.f2095w.setOnContentAnimationListener(this);
-        this.f2095w.setOnManualScrollListener(new C0859hu(this, (byte) 0));
+        this.f2095w.setOnManualScrollListener(new PageDragListener(this, (byte) 0));
         this.f2095w.f3699b = 1.1f;
         if (C0951ag.m2000b()) {
             this.f2095w.setOnGetSizeListener(new C0837gz(this));
@@ -2396,10 +2396,10 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
 
     @Override // com.cyo.common.view.InterfaceC1163r
     /* renamed from: a */
-    public final void mo1508a(AbstractC1159n abstractC1159n) {
+    public final void mo1508a(ContentAnimation abstractC1159n) {
         if (this.f2093u != null && this.f2093u.m1340j() != null && this.f2095w.getPageBitmap() != null) {
-            if (abstractC1159n instanceof C0795fk) {
-                C0795fk c0795fk = (C0795fk) abstractC1159n;
+            if (abstractC1159n instanceof PageTransitionAnimation) {
+                PageTransitionAnimation c0795fk = (PageTransitionAnimation) abstractC1159n;
                 C0794fj c0794fj = c0795fk.f2481a;
                 if (!c0795fk.f3664n) {
                     if (c0794fj.f2476g != c0794fj.f2475f) {

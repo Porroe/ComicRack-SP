@@ -21,8 +21,8 @@ final class ScaleGestureDetectorOnScaleGestureListenerC1169x implements ScaleGes
 
     @Override // android.view.ScaleGestureDetector.OnScaleGestureListener
     public final boolean onScale(ScaleGestureDetector scaleGestureDetector) {
-        PointF pointFM2467b = GestureDetectorOnDoubleTapListenerC1167v.m2483a(this.f3722a.f3721b).m2467b(scaleGestureDetector.getFocusX(), scaleGestureDetector.getFocusY());
-        this.f3722a.f3721b.m2489a(pointFM2467b.x, pointFM2467b.y, (GestureDetectorOnDoubleTapListenerC1167v.m2483a(this.f3722a.f3721b).f3690f * scaleGestureDetector.getCurrentSpan()) / scaleGestureDetector.getPreviousSpan(), false);
+        PointF pointFM2467b = AnimatedContentView.m2483a(this.f3722a.f3721b).m2467b(scaleGestureDetector.getFocusX(), scaleGestureDetector.getFocusY());
+        this.f3722a.f3721b.m2489a(pointFM2467b.x, pointFM2467b.y, (AnimatedContentView.m2483a(this.f3722a.f3721b).f3690f * scaleGestureDetector.getCurrentSpan()) / scaleGestureDetector.getPreviousSpan(), false);
         return true;
     }
 

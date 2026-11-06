@@ -18,15 +18,15 @@ import com.cyo.common.C0950af;
 import com.cyo.common.C0951ag;
 import com.cyo.common.p022a.C0932c;
 import com.cyo.common.p022a.C0944o;
-import com.cyo.common.view.AbstractC1159n;
+import com.cyo.common.view.ContentAnimation;
 import com.cyo.common.view.C1165t;
 import com.cyo.common.view.EnumC1164s;
-import com.cyo.common.view.GestureDetectorOnDoubleTapListenerC1167v;
+import com.cyo.common.view.AnimatedContentView;
 import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* loaded from: classes.dex */
-public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
+public class PageView extends AnimatedContentView {
 
     /* renamed from: a */
     public static final EnumC0790ff f1997a = EnumC0790ff.Page;
@@ -123,11 +123,11 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
         this(context, null);
     }
 
-    @Override // com.cyo.common.view.GestureDetectorOnDoubleTapListenerC1167v, com.cyo.common.view.InterfaceC1163r
+    @Override // com.cyo.common.view.AnimatedContentView, com.cyo.common.view.InterfaceC1163r
     /* renamed from: a */
-    public final void mo1508a(AbstractC1159n abstractC1159n) {
-        if (abstractC1159n instanceof C0795fk) {
-            C0795fk c0795fk = (C0795fk) abstractC1159n;
+    public final void mo1508a(ContentAnimation abstractC1159n) {
+        if (abstractC1159n instanceof PageTransitionAnimation) {
+            PageTransitionAnimation c0795fk = (PageTransitionAnimation) abstractC1159n;
             if (!c0795fk.f3664n) {
                 this.f2000k = false;
                 c0795fk.f2484d = this.f1999j;
@@ -160,14 +160,14 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.cyo.common.view.GestureDetectorOnDoubleTapListenerC1167v
+    @Override // com.cyo.common.view.AnimatedContentView
     /* renamed from: a */
     public final void mo1506a(Canvas canvas, Matrix matrix, boolean z) {
         super.mo1506a(canvas, matrix, z);
         if (this.f1999j != null) {
             Paint paintM1489a = m1489a(canvas, z);
             canvas.concat(matrix);
-            m1491a(this.f1999j, canvas, paintM1489a);
+            drawPageWithEdges(this.f1999j, canvas, paintM1489a);
         }
     }
 
@@ -189,7 +189,7 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.cyo.common.view.GestureDetectorOnDoubleTapListenerC1167v
+    @Override // com.cyo.common.view.AnimatedContentView
     /* renamed from: a */
     public final void mo1505a(Canvas canvas) {
         super.mo1505a(canvas);
@@ -243,7 +243,7 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
                 c1165tA.f3688d = false;
             }
             m2492a(c1165tA, true, this.f3699b);
-            this.f3705h.m2440a(new C0795fk(this, abstractC0587aa, c0794fj), c0794fj.f2478i);
+            this.f3705h.m2440a(new PageTransitionAnimation(this, abstractC0587aa, c0794fj), c0794fj.f2478i);
             m1494a(abstractC0587aa, enumC0793fi, c0794fj.f2474e);
             if (interfaceC0792fh != null) {
                 contentLayout = interfaceC0792fh.mo1843a(scale, fitting, splitDoublePages);
@@ -267,7 +267,7 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
             m2496c();
             return;
         }
-        mo1508a(new C0795fk(this, abstractC0587aa, c0794fj));
+        mo1508a(new PageTransitionAnimation(this, abstractC0587aa, c0794fj));
         m1494a(this.f1999j, enumC0793fi, c0794fj.f2474e);
         if (this.f3704g.f3686b <= 0 && this.f3704g.f3687c <= 0) {
             this.f3704g.f3686b = this.f3704g.f3691g;
@@ -359,7 +359,7 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
     }
 
     /* renamed from: a */
-    private Rect m1491a(AbstractC0587aa pageBitmap, Canvas canvas, Paint paint) {
+    private Rect drawPageWithEdges(AbstractC0587aa pageBitmap, Canvas canvas, Paint paint) {
         Rect pageClip = null;
         C0944o pageSize = new C0944o(pageBitmap.mo1273b(), pageBitmap.mo1274c());
         C0944o canvasSize = new C0944o(canvas.getWidth(), canvas.getHeight());
@@ -465,48 +465,48 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
                     Matrix matrixM2481o = c1165t2.m2481o();
                     matrixM2481o.postTranslate((-c1165t2.f3686b) * f, 0.0f);
                     canvas.concat(matrixM2481o);
-                    pageView.m1491a(abstractC0587aa, canvas, paint);
+                    pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
                 }
                 canvas.restore();
                 Matrix matrixM2481o2 = c1165t3.m2481o();
                 matrixM2481o2.postTranslate(c1165t3.f3686b - (c1165t3.f3686b * f), 0.0f);
                 canvas.concat(matrixM2481o2);
-                pageView.m1491a(abstractC0587aa2, canvas, paint);
+                pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
                 return;
             }
             Matrix matrixM2481o3 = c1165t2.m2481o();
             matrixM2481o3.postTranslate(c1165t2.f3686b * f, 0.0f);
             canvas.concat(matrixM2481o3);
-            pageView.m1491a(abstractC0587aa, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
             canvas.restore();
             Matrix matrixM2481o4 = c1165t3.m2481o();
             matrixM2481o4.postTranslate((c1165t3.f3686b * f) + (-c1165t3.f3686b), 0.0f);
             canvas.concat(matrixM2481o4);
-            pageView.m1491a(abstractC0587aa2, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
             return;
         }
         if (enumC0793fi != EnumC0793fi.Forward) {
             Matrix matrixM2481o5 = c1165t3.m2481o();
             matrixM2481o5.postTranslate((c1165t3.f3686b * f) + (-c1165t3.f3686b), 0.0f);
             canvas.concat(matrixM2481o5);
-            pageView.m1491a(abstractC0587aa2, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
             canvas.restore();
             Matrix matrixM2481o6 = c1165t2.m2481o();
             matrixM2481o6.postTranslate(c1165t2.f3686b * f, 0.0f);
             canvas.concat(matrixM2481o6);
-            pageView.m1491a(abstractC0587aa, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
             return;
         }
         Matrix matrixM2481o7 = c1165t3.m2481o();
         matrixM2481o7.postTranslate(c1165t3.f3686b - (c1165t3.f3686b * f), 0.0f);
         canvas.concat(matrixM2481o7);
-        pageView.m1491a(abstractC0587aa2, canvas, paint);
+        pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
         canvas.restore();
         if (f < 1.0f) {
             Matrix matrixM2481o8 = c1165t2.m2481o();
             matrixM2481o8.postTranslate((-c1165t2.f3686b) * f, 0.0f);
             canvas.concat(matrixM2481o8);
-            pageView.m1491a(abstractC0587aa, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
         }
     }
 
@@ -548,13 +548,13 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
         if (z) {
             if (enumC0793fi == EnumC0793fi.Forward) {
                 canvas.concat(c1165t2.m2481o());
-                pageView.m1491a(abstractC0587aa, canvas, paint);
+                pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
                 canvas.restore();
                 float fMin = Math.min(f, 1.0f);
                 Matrix matrixM2481o = c1165t3.m2481o();
                 matrixM2481o.postTranslate(c1165t3.f3686b - (fMin * c1165t3.f3686b), 0.0f);
                 canvas.concat(matrixM2481o);
-                Rect rectM1491a = pageView.m1491a(abstractC0587aa2, canvas, paint);
+                Rect rectM1491a = pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
                 if (rectM1491a != null) {
                     m1493a(canvas, rectM1491a.left, rectM1491a.top, rectM1491a.left - m1498b(abstractC0587aa2), rectM1491a.bottom);
                     return;
@@ -562,13 +562,13 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
                 return;
             }
             canvas.concat(c1165t3.m2481o());
-            pageView.m1491a(abstractC0587aa2, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
             canvas.restore();
             float fMin2 = Math.min(f, 1.0f);
             Matrix matrixM2481o2 = c1165t2.m2481o();
             matrixM2481o2.postTranslate(c1165t2.f3686b * fMin2, 0.0f);
             canvas.concat(matrixM2481o2);
-            Rect rectM1491a2 = pageView.m1491a(abstractC0587aa, canvas, paint);
+            Rect rectM1491a2 = pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
             if (rectM1491a2 != null) {
                 m1493a(canvas, rectM1491a2.left, rectM1491a2.top, rectM1491a2.left - m1498b(abstractC0587aa), rectM1491a2.bottom);
                 return;
@@ -577,13 +577,13 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
         }
         if (enumC0793fi == EnumC0793fi.Forward) {
             canvas.concat(c1165t3.m2481o());
-            pageView.m1491a(abstractC0587aa2, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
             canvas.restore();
             if (f < 1.0f) {
                 Matrix matrixM2481o3 = c1165t2.m2481o();
                 matrixM2481o3.postTranslate((-c1165t2.f3686b) * f, 0.0f);
                 canvas.concat(matrixM2481o3);
-                Rect rectM1491a3 = pageView.m1491a(abstractC0587aa, canvas, paint);
+                Rect rectM1491a3 = pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
                 if (rectM1491a3 != null) {
                     m1493a(canvas, rectM1491a3.right, rectM1491a3.top, rectM1491a3.right + m1498b(abstractC0587aa), rectM1491a3.bottom);
                     return;
@@ -593,13 +593,13 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
             return;
         }
         canvas.concat(c1165t2.m2481o());
-        pageView.m1491a(abstractC0587aa, canvas, paint);
+        pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
         canvas.restore();
         float fMin3 = Math.min(f, 1.0f);
         Matrix matrixM2481o4 = c1165t3.m2481o();
         matrixM2481o4.postTranslate((1.0f - fMin3) * (-c1165t3.f3686b), 0.0f);
         canvas.concat(matrixM2481o4);
-        Rect rectM1491a4 = pageView.m1491a(abstractC0587aa2, canvas, paint);
+        Rect rectM1491a4 = pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
         if (rectM1491a4 != null) {
             m1493a(canvas, rectM1491a4.right, rectM1491a4.top, rectM1491a4.right + m1498b(abstractC0587aa), rectM1491a4.bottom);
         }
@@ -622,7 +622,7 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
             Matrix matrixM2481o = c1165t2.m2481o();
             matrixM2481o.postTranslate(c1165t2.f3686b * fMin, 0.0f);
             canvas.concat(matrixM2481o);
-            pageView.m1491a(abstractC0587aa, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
             canvas.restore();
             Matrix matrixM2481o2 = c1165t3.m2481o();
             matrixM2481o2.postTranslate((-c1165t3.f3686b) / 2, (-c1165t3.f3686b) / 2);
@@ -630,7 +630,7 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
             matrixM2481o2.postTranslate(c1165t3.f3686b / 2, c1165t3.f3686b / 2);
             paint.setAlpha((int) (255.0f * fMax));
             canvas.concat(matrixM2481o2);
-            pageView.m1491a(abstractC0587aa2, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
             return;
         }
         Matrix matrixM2481o3 = c1165t3.m2481o();
@@ -639,14 +639,14 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
         matrixM2481o3.postTranslate(c1165t3.f3686b / 2, c1165t3.f3686b / 2);
         canvas.concat(matrixM2481o3);
         paint.setAlpha((int) (255.0f * fMax));
-        pageView.m1491a(abstractC0587aa2, canvas, paint);
+        pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint);
         canvas.restore();
         if (f < 1.0f) {
             Matrix matrixM2481o4 = c1165t2.m2481o();
             matrixM2481o4.postTranslate((-c1165t2.f3686b) * fMin, 0.0f);
             canvas.concat(matrixM2481o4);
             paint.setAlpha((int) (255.0f * (1.0f - (fMin / 2.0f))));
-            pageView.m1491a(abstractC0587aa, canvas, paint);
+            pageView.drawPageWithEdges(abstractC0587aa, canvas, paint);
         }
     }
 
@@ -659,11 +659,11 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
         Paint paint2 = paint == null ? new Paint() : new Paint(paint);
         canvas.save();
         canvas.concat(c1165t.m2481o());
-        pageView.m1491a(abstractC0587aa, canvas, paint2);
+        pageView.drawPageWithEdges(abstractC0587aa, canvas, paint2);
         canvas.restore();
         canvas.concat(c1165t2.m2481o());
         paint2.setAlpha((int) (255.0f * f));
-        pageView.m1491a(abstractC0587aa2, canvas, paint2);
+        pageView.drawPageWithEdges(abstractC0587aa2, canvas, paint2);
     }
 
     /* renamed from: a */
@@ -688,7 +688,7 @@ public class PageView extends GestureDetectorOnDoubleTapListenerC1167v {
                 c1165t2.f3691g = abstractC0587aa2.mo1273b();
                 c1165t2.f3692h = abstractC0587aa2.mo1274c();
                 canvas.concat(c1165t2.m2481o());
-                pageView.m1491a(abstractC0587aa2, canvas, (Paint) null);
+                pageView.drawPageWithEdges(abstractC0587aa2, canvas, (Paint) null);
                 return;
             }
             c0791fg = new C0791fg(abstractC0587aa, 1.0f - fM1989a, (C0620v.m1333a(abstractC0587aa) ? !z : z) ? 1 : 0);

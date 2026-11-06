@@ -6,7 +6,7 @@ import android.view.animation.OvershootInterpolator;
 /* compiled from: DontLook */
 /* renamed from: com.cyo.common.view.bb */
 /* loaded from: classes.dex */
-public abstract class AbstractC1135bb extends AbstractC1159n {
+public abstract class AbstractC1135bb extends ContentAnimation {
 
     /* renamed from: a */
     private OvershootInterpolator f3603a;
@@ -29,7 +29,7 @@ public abstract class AbstractC1135bb extends AbstractC1159n {
         matrix2.getValues(this.f3606d);
     }
 
-    @Override // com.cyo.common.view.AbstractC1159n
+    @Override // com.cyo.common.view.ContentAnimation
     /* renamed from: a */
     public final void mo1793a(float f) {
         float interpolation = this.f3603a.getInterpolation(f);

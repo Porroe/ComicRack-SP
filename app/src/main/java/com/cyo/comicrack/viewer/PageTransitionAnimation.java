@@ -4,14 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.animation.DecelerateInterpolator;
 import com.cyo.comicrack.p019a.p021b.AbstractC0587aa;
-import com.cyo.common.view.AbstractC1159n;
+import com.cyo.common.view.ContentAnimation;
 import com.cyo.common.view.C1165t;
 import twitter4j.TwitterResponse;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.fk */
 /* loaded from: classes.dex */
-public class C0795fk extends AbstractC1159n {
+public class PageTransitionAnimation extends ContentAnimation {
 
     /* renamed from: h */
     private static /* synthetic */ int[] f2480h;
@@ -75,14 +75,14 @@ public class C0795fk extends AbstractC1159n {
         return iArr;
     }
 
-    C0795fk(PageView pageView, AbstractC0587aa abstractC0587aa, C0794fj c0794fj) {
+    PageTransitionAnimation(PageView pageView, AbstractC0587aa abstractC0587aa, C0794fj c0794fj) {
         this.f2485e = pageView;
         this.f2483c = abstractC0587aa;
         this.f2481a = c0794fj;
         this.f2482b = pageView.getContentLayout();
     }
 
-    @Override // com.cyo.common.view.AbstractC1159n
+    @Override // com.cyo.common.view.ContentAnimation
     /* renamed from: a */
     protected final void mo1793a(float f) {
         if (!this.f2481a.f2473d) {
@@ -91,13 +91,13 @@ public class C0795fk extends AbstractC1159n {
         this.f2487g = f;
     }
 
-    @Override // com.cyo.common.view.AbstractC1159n
+    @Override // com.cyo.common.view.ContentAnimation
     /* renamed from: a */
     protected final void mo1792a() {
         this.f2485e.invalidate();
     }
 
-    @Override // com.cyo.common.view.AbstractC1159n
+    @Override // com.cyo.common.view.ContentAnimation
     /* renamed from: a */
     public final void mo1846a(Canvas canvas) {
         super.mo1846a(canvas);

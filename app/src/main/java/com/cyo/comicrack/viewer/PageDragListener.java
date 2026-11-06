@@ -12,7 +12,7 @@ import com.cyo.common.view.InterfaceC1108ab;
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.hu */
 /* loaded from: classes.dex */
-final class C0859hu implements InterfaceC1108ab {
+final class PageDragListener implements InterfaceC1108ab {
 
     /* renamed from: a */
     final /* synthetic */ ReaderActivity f2586a;
@@ -32,11 +32,11 @@ final class C0859hu implements InterfaceC1108ab {
     /* renamed from: f */
     private VelocityTracker f2591f;
 
-    private C0859hu(ReaderActivity readerActivity) {
+    private PageDragListener(ReaderActivity readerActivity) {
         this.f2586a = readerActivity;
     }
 
-    /* synthetic */ C0859hu(ReaderActivity readerActivity, byte b) {
+    /* synthetic */ PageDragListener(ReaderActivity readerActivity, byte b) {
         this(readerActivity);
     }
 
@@ -94,7 +94,7 @@ final class C0859hu implements InterfaceC1108ab {
             ReaderActivity.m1580b(this.f2586a).m2497c(false);
             return EnumC1109ac.Cancel;
         }
-        ReaderActivity.m1580b(this.f2586a).m2487a(0.0f);
+        ReaderActivity.m1580b(this.f2586a).setManualTransitionProgress(0.0f);
         return EnumC1109ac.Ok;
     }
 
@@ -111,11 +111,11 @@ final class C0859hu implements InterfaceC1108ab {
                 ReaderActivity.m1580b(this.f2586a).setManualResumeMode(EnumC1162q.Reverse);
             }
         }
-        float fA = ReaderActivity.m1580b(this.f2586a).m2487a(fM1855a);
-        if (fA > 0.005f) {
+        float dragProgress = ReaderActivity.m1580b(this.f2586a).setManualTransitionProgress(fM1855a);
+        if (dragProgress > 0.005f) {
             this.f2590e = true;
         }
-        if (this.f2590e && C0950af.m1992b(fA, 0.0f, 0.005f)) {
+        if (this.f2590e && C0950af.m1992b(dragProgress, 0.0f, 0.005f)) {
             ReaderActivity.m1580b(this.f2586a).m2501g();
         }
     }
@@ -133,7 +133,7 @@ final class C0859hu implements InterfaceC1108ab {
         } else if (manualPosition > 1.0f - fM1993a && f < 1000.0f) {
             ReaderActivity.m1580b(this.f2586a).setManualResumeMode(EnumC1162q.Forward);
         }
-        ReaderActivity.m1580b(this.f2586a).m2487a(C0950af.m1989a(manualPosition, 0.01f, 0.99f));
+        ReaderActivity.m1580b(this.f2586a).setManualTransitionProgress(C0950af.m1989a(manualPosition, 0.01f, 0.99f));
         ReaderActivity.m1580b(this.f2586a).m2497c(false);
     }
 }

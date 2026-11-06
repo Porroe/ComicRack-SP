@@ -1,6 +1,6 @@
 package com.cyo.comicrack.viewer;
 
-import com.cyo.common.view.AbstractC1159n;
+import com.cyo.common.view.ContentAnimation;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.fe */
@@ -16,6 +16,6 @@ final class RunnableC0789fe implements Runnable {
 
     @Override // java.lang.Runnable
     public final void run() {
-        this.f2458a.mo1508a((AbstractC1159n) null);
+        this.f2458a.mo1508a((ContentAnimation) null);
     }
 }
