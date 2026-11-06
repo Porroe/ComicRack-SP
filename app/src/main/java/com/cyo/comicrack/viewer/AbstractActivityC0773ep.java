@@ -1,9 +1,12 @@
 package com.cyo.comicrack.viewer;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import com.cyo.comicrack.p019a.C0575ak;
 import com.cyo.comicrack.p019a.C0635m;
 import com.cyo.comicrack.p019a.InterfaceC0571ag;
@@ -15,6 +18,61 @@ import com.cyo.common.C0951ag;
 /* renamed from: com.cyo.comicrack.viewer.ep */
 /* loaded from: classes.dex */
 public abstract class AbstractActivityC0773ep extends ActivityC0881ip implements InterfaceC0787fc {
+
+    private Boolean materialLibrary;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        if (LibraryInterface.isMaterial(this)) {
+            boolean dark = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                    == Configuration.UI_MODE_NIGHT_YES;
+            setTheme(dark ? android.R.style.Theme_Material : android.R.style.Theme_Material_Light);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+    final boolean initializeLibraryInterface() {
+        materialLibrary = LibraryInterface.isMaterial(this);
+        return materialLibrary;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (materialLibrary != null && materialLibrary != LibraryInterface.isMaterial(this)) {
+            recreate();
+            return;
+        }
+        EditText search = LibraryInterface.getToolbarSearch(this);
+        if (search != null && search.length() == 0) {
+            C0575ak collection = getDisplayedLibraryCollection();
+            if (C0635m.isSearchResult(collection)) {
+                search.setText(collection.mo1211f());
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!LibraryInterface.closeToolbarSearch(this)) {
+            super.onBackPressed();
+        }
+    }
+
+    abstract C0575ak getDisplayedLibraryCollection();
+
+    void clearMaterialSearch() {
+        if (C0635m.isSearchResult(getDisplayedLibraryCollection())) {
+            C0575ak allComics = ComicRackApplication.f1954i.m1438c().getAllComics();
+            if (allComics != null) {
+                showUnfilteredLibrary(allComics);
+            }
+        }
+    }
+
+    void showUnfilteredLibrary(C0575ak allComics) {
+        mo1400a(allComics, false);
+    }
 
     /* renamed from: n */
     public boolean f2415n;

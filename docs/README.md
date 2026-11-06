@@ -2,7 +2,7 @@
 
 ## Build and install
 
-Open the Android project root in Android Studio. Use JDK 17, the included Gradle 9.6.0 wrapper, Android Gradle Plugin 9.4.1, Android SDK Platform 37, and Build Tools 37.0.0. The app ID is `com.cyo.comicracksp`. The minimum SDK is 26 and the compile and target SDK are both 37. The Java source build uses Junrar 8.1.2 for CBR extraction and `desugar_jdk_libs_nio` 2.1.5.
+Open the Android project root in Android Studio. Use JDK 17, the included Gradle 9.6.0 wrapper, Android Gradle Plugin 9.4.1, Android SDK Platform 37, and Build Tools 37.0.0. The app ID is `com.cyo.comicracksp`. The minimum SDK is 26 and the compile and target SDK are both 37. The Java source build uses Material Components for Android 1.13.0 for the library and Settings, Junrar 8.1.2 for CBR extraction and `desugar_jdk_libs_nio` 2.1.5.
 
 ```sh
 ./gradlew :app:assembleSourceDebug
@@ -21,8 +21,15 @@ adb install -r app/build/outputs/apk/source/debug/app-source-debug.apk
 - [ComicDocuments.java](../app/src/main/java/com/cyo/comicrack/storage/ComicDocuments.java) handles Storage Access Framework document trees and individual comics. Folder selection persists read grants and stores tree URIs in preferences. The scanner queries child documents and opens archives via content URIs. Reselect a folder if its grant is revoked. Keep network-backed or slow document providers in mind when touching this path.
 - [ArchiveCache.java](../app/src/main/java/com/cyo/comicrack/storage/ArchiveCache.java) stages document archives in app-private cache for readers that need seekable files. It enforces a 1 GiB size limit and seven-day idle expiration. The cover thumbnail cache is separate and reuses thumbnails across launches. Reading progress and metadata continue to use the existing SQLite database.
 - [ComicRackApplication.java](../app/src/main/java/com/cyo/comicrack/viewer/ComicRackApplication.java) builds the startup library from SQLite records for folders with valid read grants, then schedules a background scan. Explicit refresh uses the same scan path with progress feedback. Keep the saved library usable when a provider is slow. Room and migration from the original app are deferred.
-- [ComicRackPreferencesActivity.java](../app/src/main/java/com/cyo/comicrack/viewer/ComicRackPreferencesActivity.java) connects the existing settings screens to the Android folder picker. [SplashActivity.java](../app/src/main/java/com/cyo/comicrack/viewer/SplashActivity.java) starts library initialization directly, and the first launch skips automatic About. The menu still opens About.
-- [SystemBarInsets.java](../app/src/main/java/com/cyo/comicrack/viewer/SystemBarInsets.java) applies modern system bar insets to legacy layouts. A broader UI and Settings redesign is still pending. Twitter integration was removed, including its settings, entry points, resources, and bundled Twitter4J code. Legacy Wi-Fi sync still assumes a writable filesystem path and is outside the document-tree flow.
+- [SplashActivity.java](../app/src/main/java/com/cyo/comicrack/viewer/SplashActivity.java) starts library initialization directly, and the first launch skips automatic About. The menu still opens About.
+- [SystemBarInsets.java](../app/src/main/java/com/cyo/comicrack/viewer/SystemBarInsets.java) applies modern system bar insets to legacy layouts. Twitter integration was removed, including its settings, entry points, resources, and bundled Twitter4J code. Legacy Wi-Fi sync still assumes a writable filesystem path and is outside the document-tree flow.
+
+## Library and Settings UI
+
+- [LibraryInterface.java](../app/src/main/java/com/cyo/comicrack/viewer/LibraryInterface.java) applies Material 3 library styling to the existing activities and adapters. Material is the default. **Settings → Library interface → Classic** stores the opt-in in the shared `classic_library_interface` preference. Library activities recreate when returning from Settings after the choice changes. The reader uses its existing layout in either mode.
+- The Material toolbar expands the existing `TextInputEditText` as a collapsible menu action. Search calls the existing library search handler. The clear action empties the query and restores **All comics** when results are showing. The Material Cover, Detail, and Stack selector uses the existing view-mode settings and grouping logic.
+- Continue Reading uses the recently opened collection and the comic’s saved page. It loads the cover through the same asynchronous thumbnail path as the grid and hides the card when there is no recent comic. Both library layouts share comic records and reading progress.
+- [ComicRackPreferencesActivity.java](../app/src/main/java/com/cyo/comicrack/viewer/ComicRackPreferencesActivity.java) hosts the existing preference groups and folder picker in a Material 3 Settings activity. The library and Settings use [Google Material Symbols Outlined](https://github.com/google/material-design-icons/tree/master/symbols/web) under the [Apache 2.0 license](material-symbols-license.txt). The wider tablet series-detail pane is still pending. Secondary dialogs use existing Android controls.
 
 ## Device checks
 
@@ -30,7 +37,8 @@ Use a clean test install for first-launch checks and a populated library for sca
 
 1. Confirm startup reaches the folder prompt without showing About or Terms. Select a folder and reopen the app to check that the grant persists.
 2. Open a CBZ and a CBR from the library and from **Open comic file**. Turn a page, drag to preview the next page, then reopen a comic and check its saved position.
-3. Cycle Cover, Detail, and Stack in a populated library. Open ComicRack Settings and Display Settings. Check that covers are reused after a restart and that refresh picks up changes in the folder.
-4. Exercise folder reselection after losing access and use a sizable library when checking scan performance.
+3. In Material mode, verify that search starts collapsed. Open it, submit a query, clear it, and confirm **All comics** returns. Close the field and check that the toolbar icon reappears. Verify the cover and saved page in Continue Reading.
+4. Cycle Cover, Detail, and Stack and switch between Material and Classic. Reopen Settings and verify that the choice persists. Check cover reuse after a restart and that refresh picks up folder changes.
+5. Exercise folder reselection after losing access and use a sizable library when checking scan performance.
 
 The original recovery pass exercised stored, compressed, and solid RAR4 fixtures and CBZ reading on Android 14. Later Android 16 tablet checks covered the scoped-storage library, cover reuse across restart, Stack view switching, and first launch without About or Terms. Record the device, Android version, and archive types for new checks. RAR5, Wi-Fi sync, and a full compatibility matrix remain unverified.

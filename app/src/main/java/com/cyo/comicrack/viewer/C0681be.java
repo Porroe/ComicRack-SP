@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.cyo.comicrack.p019a.C0572ah;
 import com.cyo.comicrack.p019a.C0575ak;
@@ -35,6 +36,8 @@ import com.cyo.common.C0998bi;
 import com.cyo.common.C0999bj;
 import com.cyo.common.C1006bq;
 import com.cyo.common.InterfaceC0952ah;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.cyo.common.InterfaceC0966av;
 import com.cyo.common.InterfaceC0992bc;
 import com.cyo.common.InterfaceC0994be;
@@ -64,6 +67,10 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
     /* renamed from: i */
     private TextView f2194i;
 
+    private MaterialButtonToggleGroup viewModeSelector;
+    private final int[] viewModeButtonIds = new int[3];
+    private boolean updatingViewModeSelector;
+
     public C0681be() {
         super(C0804ft.comic_list_fragment, C0803fs.comicListGrid, C0803fs.comicListCaption, C0803fs.comicListClickCaption, C0803fs.comicListCaptionText, C0803fs.comicListCaptionTextSmall, C0803fs.comicListCaptionDescription);
     }
@@ -80,10 +87,70 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
         this.f2194i.setOnClickListener(new ViewOnClickListenerC0693bq(this));
         this.f2194i.setOnLongClickListener(new ViewOnLongClickListenerC0700bx(this));
         this.f2192g.setOnClickListener(new ViewOnClickListenerC0701by(this));
+        if (LibraryInterface.isMaterial(viewMo25a.getContext())) {
+            configureMaterialViewMode((LinearLayout) viewMo25a);
+        }
         InterfaceC0994be interfaceC0994beM1995a = C0951ag.m1995a();
         m55i();
         this.f2191aj = interfaceC0994beM1995a.mo2014a(m1837ad(), this);
         return viewMo25a;
+    }
+
+    private void configureMaterialViewMode(LinearLayout root) {
+        LibraryInterface.styleComicList(root);
+        Context theme = LibraryInterface.theme(root.getContext());
+        viewModeSelector = new MaterialButtonToggleGroup(theme);
+        viewModeSelector.setSingleSelection(true);
+        viewModeSelector.setSelectionRequired(true);
+        int[] labels = {R.string.cover, R.string.detail, R.string.stack};
+        for (int mode = 0; mode < labels.length; mode++) {
+            MaterialButton button = new MaterialButton(theme, null,
+                    com.google.android.material.R.attr.materialButtonOutlinedStyle);
+            button.setId(View.generateViewId());
+            viewModeButtonIds[mode] = button.getId();
+            button.setText(labels[mode]);
+            button.setSingleLine(true);
+            button.setMinWidth(0);
+            button.setPaddingRelative(0, button.getPaddingTop(), 0, button.getPaddingBottom());
+            button.setOnLongClickListener(new ViewOnLongClickListenerC0700bx(this));
+            viewModeSelector.addView(button, new LinearLayout.LayoutParams(0, -2, 1));
+        }
+        viewModeSelector.addOnButtonCheckedListener((group, checkedId, checked) -> {
+            if (!checked || updatingViewModeSelector) {
+                return;
+            }
+            for (int mode = 0; mode < viewModeButtonIds.length; mode++) {
+                if (viewModeButtonIds[mode] == checkedId) {
+                    m1723a(m1714Q() + mode, true);
+                    return;
+                }
+            }
+        });
+        LinearLayout.LayoutParams selectorLayout = new LinearLayout.LayoutParams(-1, -2);
+        selectorLayout.setMarginStart(LibraryInterface.dp(theme, 12));
+        selectorLayout.setMarginEnd(LibraryInterface.dp(theme, 12));
+        root.addView(viewModeSelector, 1, selectorLayout);
+        f2194i.setVisibility(View.GONE);
+    }
+
+    private void updateMaterialViewMode(int mode) {
+        if (viewModeSelector == null) {
+            return;
+        }
+        updatingViewModeSelector = true;
+        try {
+            viewModeSelector.findViewById(viewModeButtonIds[2])
+                    .setVisibility(m1715R().f2268b < 7 ? View.VISIBLE : View.GONE);
+            viewModeSelector.check(viewModeButtonIds[mode < viewModeButtonIds.length ? mode : 1]);
+        } finally {
+            updatingViewModeSelector = false;
+        }
+    }
+
+    @Override
+    public void mo49f() {
+        viewModeSelector = null;
+        super.mo49f();
     }
 
     @Override // com.cyo.comicrack.viewer.AbstractC0782ey, android.support.v4.app.Fragment
@@ -693,6 +760,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
             }
             textView.setText(i2);
         }
+        updateMaterialViewMode(i & 255);
         if (z) {
             m1833Z();
         }

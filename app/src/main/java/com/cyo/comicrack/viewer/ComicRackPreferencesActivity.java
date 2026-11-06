@@ -1,30 +1,38 @@
 package com.cyo.comicrack.viewer;
 
-import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
-import com.cyo.comicrack.storage.ComicDocuments;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
 import com.cyo.comicrack.p019a.C0628f;
+import com.cyo.comicrack.storage.ComicDocuments;
 import com.cyo.common.C0951ag;
 import com.cyo.common.view.C1136bc;
-import com.p004a.p012b.p013a.p014a.p015a.C0425n;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.color.DynamicColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
-/* compiled from: DontLook */
-@TargetApi(11)
-/* loaded from: classes.dex */
-public class ComicRackPreferencesActivity extends C0425n {
+public class ComicRackPreferencesActivity extends AppCompatActivity {
+    private static final String ACTIVE_SECTION = "active_settings_section";
+    private MaterialToolbar toolbar;
+    private View home;
+    private View detail;
+    private int activeSectionTitle;
+
     private static final int CHOOSE_PRIMARY_FOLDER = 1101;
     private static final int CHOOSE_ADDITIONAL_FOLDER = 1102;
     private static final String PRIMARY_FOLDER_KEY = "general_library_path";
@@ -103,98 +111,137 @@ public class ComicRackPreferencesActivity extends C0425n {
     /* renamed from: l */
     private static List f1980l;
 
-    /* renamed from: m */
-    private static int f1981m = -1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        DynamicColors.applyToActivityIfAvailable(this);
+        f1969a = loadLabels(f1969a, C0798fn.readerAction);
+        f1970b = loadLabels(f1970b, C0798fn.readerActionValues);
+        f1971c = loadLabels(f1971c, C0798fn.backgroundColorStyles);
+        f1972d = loadLabels(f1972d, C0798fn.backgroundColorStylesValues);
+        f1975g = loadLabels(f1975g, C0798fn.transitionStyles);
+        f1976h = loadLabels(f1976h, C0798fn.transitionStylesValues);
+        f1973e = loadLabels(f1973e, C0798fn.autoCropType);
+        f1974f = loadLabels(f1974f, C0798fn.autoCropTypeValues);
+        f1977i = loadLabels(f1977i, C0798fn.readerRotation);
+        f1978j = loadLabels(f1978j, C0798fn.readerRotationValues);
+        f1979k = loadLabels(f1979k, C0798fn.autoChange);
+        f1980l = loadLabels(f1980l, C0798fn.autoChangeValues);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.material_settings);
+        SystemBarInsets.applyToContent(this);
 
-    /* renamed from: n */
-    private List f1982n;
+        toolbar = findViewById(R.id.settingsToolbar);
+        home = findViewById(R.id.settingsHome);
+        detail = findViewById(R.id.settingsDetail);
+        ViewGroup sections = findViewById(R.id.settingsSections);
+        addSection(sections, R.drawable.ic_settings_folder_open, R.string.settings_library_title,
+                getText(R.string.settings_library_summary), GeneralFragment::new);
+        addSection(sections, R.drawable.ic_settings_menu_book, R.string.preferences_header_display_title,
+                getText(R.string.preferences_header_display_summary), DisplayFragment::new);
+        addSection(sections, R.drawable.ic_settings_tune, R.string.preferences_header_input_title,
+                getText(R.string.preferences_header_input_summary), InputFragment::new);
+        addSection(sections, R.drawable.ic_settings_wallpaper, R.string.preferences_header_wallpaper_title,
+                getText(R.string.preferences_header_wallpaper_summary), WallpaperFragment::new);
+        addSection(sections, R.drawable.ic_settings_info, R.string.about,
+                getString(R.string.settings_about_summary, C0951ag.m2003d(this)), null);
 
-    @Override // com.p004a.p012b.p013a.p014a.p015a.C0425n, android.preference.PreferenceActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        f1969a = m1452a(f1969a, C0798fn.readerAction);
-        f1970b = m1452a(f1970b, C0798fn.readerActionValues);
-        f1971c = m1452a(f1971c, C0798fn.backgroundColorStyles);
-        f1972d = m1452a(f1972d, C0798fn.backgroundColorStylesValues);
-        f1975g = m1452a(f1975g, C0798fn.transitionStyles);
-        f1976h = m1452a(f1976h, C0798fn.transitionStylesValues);
-        f1973e = m1452a(f1973e, C0798fn.autoCropType);
-        f1974f = m1452a(f1974f, C0798fn.autoCropTypeValues);
-        f1977i = m1452a(f1977i, C0798fn.readerRotation);
-        f1978j = m1452a(f1978j, C0798fn.readerRotationValues);
-        f1979k = m1452a(f1979k, C0798fn.autoChange);
-        f1980l = m1452a(f1980l, C0798fn.autoChangeValues);
-        super.onCreate(bundle);
-        if (!C0951ag.m2004d()) {
-            addPreferencesFromResource(C0809fy.preferences_general);
-            addPreferencesFromResource(C0809fy.preferences_reader);
-            addPreferencesFromResource(C0809fy.preferences_input);
-            PreferenceScreen preferenceScreen = getPreferenceScreen();
-            m1458c(preferenceScreen);
-            PreferenceCategory preferenceCategory = new PreferenceCategory(this);
-            preferenceCategory.setTitle(C0806fv.preferences_header_input_title);
-            preferenceCategory.setSummary(C0806fv.preferences_header_input_summary);
-            preferenceScreen.addPreference(preferenceCategory);
-            m1453a(preferenceCategory, "preference_category_tapping");
-            m1453a(preferenceCategory, "preference_category_longtap");
-            m1453a(preferenceCategory, "preference_category_navpanel");
-            m1453a(preferenceCategory, "preference_category_navpanel_long");
-            m1453a(preferenceCategory, "preference_category_keyboard");
-            m1456b(preferenceScreen);
-            bindLibraryFolders(preferenceScreen);
+        View interfaceRow = addSettingsRow(sections, R.drawable.ic_settings_tune,
+                R.string.library_interface_title, getText(libraryInterfaceLabel()));
+        interfaceRow.setOnClickListener(view -> chooseLibraryInterface(interfaceRow));
+
+        if (savedInstanceState != null) {
+            activeSectionTitle = savedInstanceState.getInt(ACTIVE_SECTION);
         }
+        updateVisibleSection();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                closeSection();
+            }
+        });
+        toolbar.setNavigationOnClickListener(view -> closeSection());
     }
 
-    @Override // android.app.Activity
+    private void addSection(ViewGroup sections, int icon, int title, CharSequence summary,
+                            Supplier<PreferenceFragment> fragmentFactory) {
+        View row = addSettingsRow(sections, icon, title, summary);
+        row.setOnClickListener(view -> {
+            if (fragmentFactory == null) {
+                C0649a.m1695a(this, null);
+                return;
+            }
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.settingsDetail, fragmentFactory.get())
+                    .commit();
+            activeSectionTitle = title;
+            updateVisibleSection();
+        });
+    }
+
+    private View addSettingsRow(ViewGroup sections, int icon, int title, CharSequence summary) {
+        View row = getLayoutInflater().inflate(R.layout.material_settings_section, sections, false);
+        ((ImageView) row.findViewById(R.id.settingsSectionIcon)).setImageResource(icon);
+        ((TextView) row.findViewById(R.id.settingsSectionTitle)).setText(title);
+        ((TextView) row.findViewById(R.id.settingsSectionSummary)).setText(summary);
+        sections.addView(row);
+        return row;
+    }
+
+    private int libraryInterfaceLabel() {
+        return LibraryInterface.isMaterial(this) ? R.string.library_interface_material
+                : R.string.library_interface_classic;
+    }
+
+    private void chooseLibraryInterface(View row) {
+        CharSequence[] choices = {getText(R.string.library_interface_material),
+                getText(R.string.library_interface_classic)};
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.library_interface_title)
+                .setSingleChoiceItems(choices, LibraryInterface.isMaterial(this) ? 0 : 1,
+                        (dialog, choice) -> {
+                            LibraryInterface.setMaterial(this, choice == 0);
+                            ((TextView) row.findViewById(R.id.settingsSectionSummary))
+                                    .setText(libraryInterfaceLabel());
+                            dialog.dismiss();
+                        })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void updateVisibleSection() {
+        boolean showingHome = activeSectionTitle == 0;
+        home.setVisibility(showingHome ? View.VISIBLE : View.GONE);
+        detail.setVisibility(showingHome ? View.GONE : View.VISIBLE);
+        toolbar.setTitle(showingHome ? R.string.settings_title : activeSectionTitle);
+    }
+
+    private void closeSection() {
+        if (activeSectionTitle == 0) {
+            finish();
+            return;
+        }
+        Fragment currentSection = getFragmentManager().findFragmentById(R.id.settingsDetail);
+        if (currentSection != null) {
+            getFragmentManager().beginTransaction().remove(currentSection).commit();
+        }
+        activeSectionTitle = 0;
+        updateVisibleSection();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putInt(ACTIVE_SECTION, activeSectionTitle);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         CoverWallpaperService.m1467a(this, ComicRackApplication.f1954i.m1441e());
     }
 
-    /* renamed from: a */
-    private List m1452a(List list, int i) {
-        return list != null ? list : Arrays.asList(getResources().getStringArray(i));
-    }
-
-    /* renamed from: a */
-    private void m1453a(PreferenceCategory preferenceCategory, String str) {
-        PreferenceManager preferenceManager = getPreferenceManager();
-        PreferenceScreen preferenceScreen = getPreferenceScreen();
-        PreferenceCategory preferenceCategory2 = (PreferenceCategory) preferenceScreen.findPreference(str);
-        PreferenceScreen preferenceScreenCreatePreferenceScreen = preferenceManager.createPreferenceScreen(this);
-        preferenceScreenCreatePreferenceScreen.setTitle(preferenceCategory2.getTitle());
-        preferenceScreenCreatePreferenceScreen.setSummary(preferenceCategory2.getSummary());
-        for (int i = 0; i < preferenceCategory2.getPreferenceCount(); i++) {
-            preferenceScreenCreatePreferenceScreen.addPreference(preferenceCategory2.getPreference(i));
-        }
-        preferenceCategory2.removeAll();
-        preferenceScreen.removePreference(preferenceCategory2);
-        preferenceCategory.addPreference(preferenceScreenCreatePreferenceScreen);
-    }
-
-    @Override // android.preference.PreferenceActivity
-    public void onBuildHeaders(List list) {
-        loadHeadersFromResource(C0809fy.preferences_headers, list);
-        this.f1982n = list;
-    }
-
-    /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.p004a.p012b.p013a.p014a.p015a.C0425n, android.app.Activity
-    public void onStart() {
-        super.onStart();
-        if (!C0951ag.m2004d() || f1981m == -1 || this.f1982n == null || f1981m >= this.f1982n.size()) {
-            return;
-        }
-        try {
-            switchToHeader((PreferenceActivity.Header) this.f1982n.get(f1981m));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override // android.preference.PreferenceActivity
-    public void onHeaderClick(PreferenceActivity.Header header, int i) {
-        super.onHeaderClick(header, i);
-        f1981m = i;
+    private List loadLabels(List labels, int resourceId) {
+        return labels != null ? labels : Arrays.asList(getResources().getStringArray(resourceId));
     }
 
     /* compiled from: DontLook */
@@ -337,8 +384,4 @@ public class ComicRackPreferencesActivity extends C0425n {
         return true;
     }
 
-    @Override // android.preference.PreferenceActivity
-    protected boolean isValidFragment(String str) {
-        return true;
-    }
 }

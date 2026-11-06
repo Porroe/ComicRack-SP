@@ -25,6 +25,8 @@ import java.io.File;
 /* loaded from: classes.dex */
 public class C0678bb extends AbstractC0949ae {
 
+    private final Context materialTheme;
+
     /* renamed from: c */
     private int f2184c;
 
@@ -33,6 +35,7 @@ public class C0678bb extends AbstractC0949ae {
 
     public C0678bb(Context context, C0575ak c0575ak, int i) {
         super(context, c0575ak);
+        materialTheme = LibraryInterface.isMaterial(context) ? LibraryInterface.theme(context) : null;
         this.f2184c = i;
         this.f2185d = new C0582ar(c0575ak.m1247w());
     }
@@ -42,6 +45,9 @@ public class C0678bb extends AbstractC0949ae {
         int iY;
         if (view == null) {
             view = LayoutInflater.from(this.f2839a).inflate(this.f2184c, viewGroup, false);
+            if (materialTheme != null) {
+                LibraryInterface.styleComicTile(view, materialTheme);
+            }
         }
         FastThumbView fastThumbView = (FastThumbView) view.findViewById(C0803fs.comicListThumbnailImage);
         TextView textView = (TextView) view.findViewById(C0803fs.comicListThumbnailCaption);
@@ -85,8 +91,20 @@ public class C0678bb extends AbstractC0949ae {
             Resources resources = view.getResources();
             progressView.setPercent1(0);
             progressView.setPercent2(0);
-            progressView.setColor1(resources.getColor(C0800fp.read_current));
-            progressView.setColor2(resources.getColor(C0800fp.read_maximum));
+            if (materialTheme == null) {
+                progressView.setColor1(resources.getColor(C0800fp.read_current));
+                progressView.setColor2(resources.getColor(C0800fp.read_maximum));
+            } else {
+                int primary = com.google.android.material.color.MaterialColors.getColor(materialTheme,
+                        androidx.appcompat.R.attr.colorPrimary, 0);
+                int track = com.google.android.material.color.MaterialColors.getColor(materialTheme,
+                        com.google.android.material.R.attr.colorSurfaceContainerHighest, 0);
+                progressView.setColor1(primary);
+                progressView.setColor2(primary);
+                progressView.setBackgroundColor(track);
+                progressView.setVisibility(c0572ah != null && c0572ah.m1225n() > 0
+                        ? View.VISIBLE : View.INVISIBLE);
+            }
             if (c0572ah != null) {
                 progressView.setPercent1(c0572ah.m1224m());
                 progressView.setPercent2(c0572ah.m1225n());
@@ -99,9 +117,10 @@ public class C0678bb extends AbstractC0949ae {
             simpleRatingBar.setEmptyIndicator(resources2.getDrawable(C0802fr.rating_star_empty));
             simpleRatingBar.setEmptyIndicatorAlpha(150);
             simpleRatingBar.setMaxRating(5);
-            simpleRatingBar.setRating(0.0f);
-            if (c0572ah != null) {
-                simpleRatingBar.setRating(c0572ah.m1230s());
+            float rating = c0572ah == null ? 0f : c0572ah.m1230s();
+            simpleRatingBar.setRating(rating);
+            if (materialTheme != null) {
+                simpleRatingBar.setVisibility(rating > 0 ? View.VISIBLE : View.GONE);
             }
         }
         if (fastThumbView != null) {

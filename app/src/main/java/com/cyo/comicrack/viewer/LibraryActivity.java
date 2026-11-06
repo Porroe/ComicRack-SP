@@ -3,6 +3,7 @@ package com.cyo.comicrack.viewer;
 import com.cyo.comicrack.storage.ComicDocuments;
 import android.net.Uri;
 import android.content.Intent;
+import android.content.DialogInterface;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
@@ -79,6 +80,9 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
         this.f2415n = true;
         m1878r();
         setContentView(C0804ft.library);
+        if (initializeLibraryInterface()) {
+            LibraryInterface.installHeader(this, C0803fs.libraryContainer);
+        }
         SystemBarInsets.applyToContent(this);
         this.f2676s.m2395a(C0803fs.libraryContainer, C0800fp.comic_list_background_dark, -1);
         this.f1993u = (C0772eo) this.f2675r.f2681a;
@@ -180,6 +184,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
     /* renamed from: j */
     protected final void mo1485j() {
         super.mo1485j();
+        LibraryInterface.updateResumeCard(this);
     }
 
     @Override // com.cyo.comicrack.viewer.AbstractActivityC0773ep, com.cyo.comicrack.viewer.ActivityC0881ip, android.app.Activity
@@ -240,6 +245,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
     /* renamed from: e */
     public final boolean mo1401e() {
         m1477m();
+        LibraryInterface.updateResumeCard(this);
         return true;
     }
 
@@ -262,6 +268,31 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
             return true;
         }
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    C0575ak getDisplayedLibraryCollection() {
+        return f1991p == null ? null : f1991p.mo1807e();
+    }
+
+    @Override
+    void showUnfilteredLibrary(C0575ak allComics) {
+        m1481b(allComics.mo1210e(), true);
+        m1479a(allComics, true, true, false);
+    }
+
+    void toggleLibrarySidebar() {
+        m1471a(!m1478n(), true);
+    }
+
+    void addMaterialLibraryMenu(Menu menu) {
+        menu.add(0, OPEN_COMIC, 0, R.string.open_comic_file);
+        menu.add(0, CHOOSE_LIBRARY_FOLDER, 0, R.string.choose_comics_folder);
+        menu.add(0, REFRESH_LIBRARY, 0, R.string.refresh_comics_library);
+        if (ComicRackApplication.f1954i.m1433a()) {
+            menu.add(0, 14, 0, R.string.request_wifi_sync);
+        }
+        menu.add(0, 13, 0, R.string.quit);
     }
 
     void chooseLibraryFolder() {
@@ -370,7 +401,23 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
 
     /* renamed from: d */
     static /* synthetic */ void m1474d(LibraryActivity libraryActivity) {
-        new AlertDialog.Builder(libraryActivity).setTitle(C0806fv.empty_ecomics_folder).setMessage(libraryActivity.getString(C0806fv.current_ecomic_folder_empty, new Object[]{ComicRackApplication.f1954i.f1956g})).setPositiveButton(C0806fv.select_folder, (dialog, button) -> libraryActivity.chooseLibraryFolder()).setNeutralButton(C0806fv.do_not_show_again, new DialogInterfaceOnClickListenerC0769el(libraryActivity)).setNegativeButton(android.R.string.ok, new DialogInterfaceOnClickListenerC0770em(libraryActivity)).show();
+        CharSequence message = libraryActivity.getString(C0806fv.current_ecomic_folder_empty,
+                ComicRackApplication.f1954i.f1956g);
+        DialogInterface.OnClickListener chooseFolder = (dialog, button) -> libraryActivity.chooseLibraryFolder();
+        DialogInterface.OnClickListener suppressPrompt = new DialogInterfaceOnClickListenerC0769el(libraryActivity);
+        DialogInterface.OnClickListener dismissPrompt = new DialogInterfaceOnClickListenerC0770em(libraryActivity);
+        if (LibraryInterface.isMaterial(libraryActivity)) {
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(LibraryInterface.theme(libraryActivity))
+                    .setTitle(C0806fv.empty_ecomics_folder).setMessage(message)
+                    .setPositiveButton(C0806fv.select_folder, chooseFolder)
+                    .setNeutralButton(C0806fv.do_not_show_again, suppressPrompt)
+                    .setNegativeButton(android.R.string.ok, dismissPrompt).show();
+        } else {
+            new AlertDialog.Builder(libraryActivity).setTitle(C0806fv.empty_ecomics_folder).setMessage(message)
+                    .setPositiveButton(C0806fv.select_folder, chooseFolder)
+                    .setNeutralButton(C0806fv.do_not_show_again, suppressPrompt)
+                    .setNegativeButton(android.R.string.ok, dismissPrompt).show();
+        }
     }
 
     /* renamed from: m */

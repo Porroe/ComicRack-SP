@@ -31,6 +31,18 @@ import java.util.List;
 /* renamed from: com.cyo.comicrack.a.m */
 /* loaded from: classes.dex */
 public final class C0635m extends C0575ak implements InterfaceC1093j {
+    private static final String ALL_COMICS_ID = "3D8E0FCA-079F-4E69-B2C2-56BE06153769";
+    private static final String SEARCH_LIST_ID = "3D8E0FCA-079F-4E69-B2CD-56BE06153769";
+
+    public C0575ak getAllComics() {
+        return (C0575ak) m1242b(ALL_COMICS_ID, false);
+    }
+
+    public static boolean isSearchResult(C0575ak collection) {
+        return collection != null && collection.mo1210e() != null
+                && SEARCH_LIST_ID.equals(collection.mo1210e().f1750p);
+    }
+
 
     /* renamed from: a */
     public static int f1920a = 0;
@@ -156,9 +168,17 @@ public final class C0635m extends C0575ak implements InterfaceC1093j {
         return null;
     }
 
+    public C0575ak getRecentlyOpenedComics() {
+        C0580ap recentComics = (C0580ap) m1242b("3D8E0FCA-079F-4E69-B2CE-56BE06153769", false);
+        if (recentComics != null) {
+            recentComics.mo1252j();
+        }
+        return recentComics;
+    }
+
     /* renamed from: b */
     private C0575ak m1386b() {
-        return (C0575ak) m1242b("3D8E0FCA-079F-4E69-B2CD-56BE06153769", false);
+        return (C0575ak) m1242b(SEARCH_LIST_ID, false);
     }
 
     /* renamed from: a */
@@ -259,7 +279,7 @@ public final class C0635m extends C0575ak implements InterfaceC1093j {
         }
         C0575ak c0575ak = new C0575ak(context.getString(C0806fv.ecomics), context.getString(C0806fv.all_ecomics), C0802fr.icon_page_library, "3D8E0FCA-079F-4E69-B2C1-56BE06153769");
         c0635m.m1237a((InterfaceC0571ag) c0575ak);
-        C0575ak c0575ak2 = new C0575ak(context.getString(C0806fv.all_ecomics), null, 0, "3D8E0FCA-079F-4E69-B2C2-56BE06153769");
+        C0575ak c0575ak2 = new C0575ak(context.getString(C0806fv.all_ecomics), null, 0, ALL_COMICS_ID);
         C0575ak.m1235a(c0575ak2, 1, false);
         c0575ak.m1237a((InterfaceC0571ag) c0575ak2);
         Iterator it2 = c0635m.f1931k.iterator();
@@ -301,7 +321,7 @@ public final class C0635m extends C0575ak implements InterfaceC1093j {
             }
         }
         int iM1376a = c0635m.m1376a(context, m1378a(interfaceC0624z, 14, iM1378a3), 14, interfaceC0624z);
-        C0575ak c0575ak4 = new C0575ak(context.getString(C0806fv.searches), context.getString(C0806fv.search_history), C0802fr.icon_page_search, "3D8E0FCA-079F-4E69-B2CD-56BE06153769");
+        C0575ak c0575ak4 = new C0575ak(context.getString(C0806fv.searches), context.getString(C0806fv.search_history), C0802fr.icon_page_search, SEARCH_LIST_ID);
         c0575ak4.f1751q = true;
         c0635m.m1237a((InterfaceC0571ag) c0575ak4);
         Iterator it5 = iterable3.iterator();

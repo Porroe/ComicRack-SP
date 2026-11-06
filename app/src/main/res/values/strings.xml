@@ -99,7 +99,7 @@ No more hassling around with cables."</string>
     <string name="general_allow_tracking_summary">Send usage statistics to help improve ComicRack</string>
     <string name="general_allow_tracking_title">Usage statistics</string>
     <string name="general_comics_location_title">Main comic folder</string>
-    <string name="general_comics_location_summary">Contains synced and manually added comics. Must be writeable.</string>
+    <string name="general_comics_location_summary">Choose the folder that contains your comics.</string>
     <string name="general_comics_2nd_location_title">Additional comic folder</string>
     <string name="general_comics_2nd_location_summary">Contains manually added comics. Can be readonly.</string>
     <string name="general_enable_wireless_title">Wireless synchronization</string>

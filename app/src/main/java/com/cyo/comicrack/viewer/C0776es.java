@@ -87,6 +87,9 @@ public class C0776es extends AbstractC0782ey {
                 }
             }
         }
+        if (LibraryInterface.isMaterial(viewMo25a.getContext())) {
+            LibraryInterface.styleSidebar(viewMo25a);
+        }
         return viewMo25a;
     }
 
@@ -125,7 +128,12 @@ public class C0776es extends AbstractC0782ey {
     /* renamed from: c */
     public final void m1826c(boolean z) {
         if (this.f2423i != null) {
-            this.f2423i.setImageResource(z ? C0802fr.btn_pin_on : C0802fr.btn_pin_off);
+            if (LibraryInterface.isMaterial(this.f2423i.getContext())) {
+                this.f2423i.setAlpha(z ? 1f : 0.6f);
+                this.f2423i.setSelected(z);
+            } else {
+                this.f2423i.setImageResource(z ? C0802fr.btn_pin_on : C0802fr.btn_pin_off);
+            }
         }
     }
 

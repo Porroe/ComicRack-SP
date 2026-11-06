@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ComicRack.Settings" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:colorAccent">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+    </style>
+    <string name="settings_title">Settings</string>
+    <string name="settings_back">Back</string>
+    <string name="settings_library_title">Library</string>
+    <string name="settings_library_summary">Comics folders and startup</string>
+    <string name="settings_about_summary">Version %1$s</string>
+    <string name="library_interface_title">Library interface</string>
+    <string name="library_interface_material">Material</string>
+    <string name="library_interface_classic">Classic</string>
+    <string name="library_navigation">Library lists</string>
+    <string name="library_search_hint">Search your comics</string>
+    <string name="library_pin_lists">Pin library lists</string>
+    <string name="library_resume_progress">%1$s · Page %2$d of %3$d</string>
+    <string name="library_clear_search">Clear search</string>
+    <item name="materialLibrarySearchAction" type="id" />
+    <string name="library_close_search">Close search field</string>
+</resources>

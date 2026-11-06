@@ -97,7 +97,7 @@ Kein rumgestecke mehr mit Kabeln."</string>
     <string name="general_allow_tracking_summary">Sende Nutzungs-Statistiken um ComicRack zu verbessern</string>
     <string name="general_allow_tracking_title">Nutzungs-Statistik</string>
     <string name="general_comics_location_title">Haupt Comic Verzeichnis</string>
-    <string name="general_comics_location_summary">Enthält synchronisierte und manuell hinzugefügte Comics. Muss beschreibar sein.</string>
+    <string name="general_comics_location_summary">Wähle den Ordner mit deinen Comics.</string>
     <string name="general_comics_2nd_location_title">Zusätzliches Comic Verzeichnis</string>
     <string name="general_comics_2nd_location_summary">Verzeichnis für manuell verwaltete Comics. Kann schreibgeschützt sein.</string>
     <string name="general_enable_wireless_title">Wifi Synchronisation</string>

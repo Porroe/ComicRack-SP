@@ -22,11 +22,14 @@ import java.util.Random;
 /* loaded from: classes.dex */
 public final class C0774eq extends AbstractC0949ae {
 
+    private final Context materialTheme;
+
     /* renamed from: c */
     private boolean f2416c;
 
     public C0774eq(Context context, C0575ak c0575ak) {
         super(context, c0575ak);
+        materialTheme = LibraryInterface.isMaterial(context) ? LibraryInterface.theme(context) : null;
         this.f2416c = true;
     }
 
@@ -34,6 +37,10 @@ public final class C0774eq extends AbstractC0949ae {
     public final View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
             view = LayoutInflater.from(this.f2839a).inflate(C0804ft.library_list_thumbnail, (ViewGroup) null);
+            if (materialTheme != null) {
+                LibraryInterface.styleTile(view, materialTheme, C0803fs.libraryListThumbnailCaption,
+                        C0803fs.libraryListThumbnailDescription);
+            }
         }
         InterfaceC0571ag interfaceC0571ag = (InterfaceC0571ag) getItem(i);
         C0775er c0775er = (C0775er) view.getTag();

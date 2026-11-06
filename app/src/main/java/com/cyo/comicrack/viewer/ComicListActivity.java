@@ -19,6 +19,10 @@ public class ComicListActivity extends AbstractActivityC0773ep {
     public final void mo1399a(Bundle bundle) {
         super.mo1399a(bundle);
         setContentView(C0804ft.comic_list);
+        if (initializeLibraryInterface()) {
+            LibraryInterface.installHeader(this, C0803fs.comicListContainer);
+            SystemBarInsets.applyToContent(this);
+        }
         this.f2676s.m2395a(C0803fs.comicListContainer, C0800fp.comic_list_background_dark, -1);
         this.f1947o = new C0874ii(this, C0681be.class, C0803fs.comicListPager, C0803fs.comicListPagerTitle, null);
         this.f1947o.mo1810h();
@@ -29,6 +33,11 @@ public class ComicListActivity extends AbstractActivityC0773ep {
         this.f1947o.mo1801a(intent != null ? intent.getStringExtra("comic_folder_id") : null, false);
         C0951ag.m1995a().mo2018a((Activity) this);
         m1821a(intent);
+    }
+
+    @Override
+    C0575ak getDisplayedLibraryCollection() {
+        return f1947o == null ? null : f1947o.mo1807e();
     }
 
     @Override // com.cyo.comicrack.viewer.ActivityC0881ip, android.app.Activity
@@ -42,6 +51,9 @@ public class ComicListActivity extends AbstractActivityC0773ep {
 
     @Override // com.cyo.comicrack.viewer.ActivityC0881ip, android.support.v4.app.ActivityC0076l, android.app.Activity
     public void onBackPressed() {
+        if (LibraryInterface.closeToolbarSearch(this)) {
+            return;
+        }
         C0681be c0681be = (C0681be) this.f1947o.mo1803b();
         if (c0681be == null || !c0681be.m1732b()) {
             super.onBackPressed();
