@@ -1318,7 +1318,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
 
     /* renamed from: A */
     private void m1513A() {
-        m1567a(false, (Runnable) new RunnableC0817gf(this));
+        finishReadingOrShowManualRating(false, (Runnable) new RunnableC0817gf(this));
     }
 
     @Override // com.cyo.comicrack.viewer.ActivityC0881ip
@@ -1602,24 +1602,15 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
             this.f2090o.cancel();
             this.f2090o = null;
         }
-        m1567a(false, (Runnable) new RunnableC0827gp(this, asyncTaskC0825gn));
+        finishReadingOrShowManualRating(false, (Runnable) new RunnableC0827gp(this, asyncTaskC0825gn));
     }
 
-    /* renamed from: a */
-    private void m1567a(boolean z, Runnable runnable) {
-        if (!m1624z()) {
-            if (runnable != null) {
-                runnable.run();
-            }
-        } else {
-            if (!z && (!ComicRackApplication.f1954i.m1441e().getBoolean("general_rate_comic", true) || this.f2093u.mo1298a().f1576h > 0.0f || !this.f2093u.mo1298a().m1143i())) {
-                if (runnable != null) {
-                    runnable.run();
-                    return;
-                }
-                return;
-            }
-            ComicRackApplication.f1954i.showComicRatingDialog(this, this.f2093u.m1340j(), !z, runnable);
+    private void finishReadingOrShowManualRating(boolean showManualRating, Runnable onComplete) {
+        if (showManualRating && m1624z()) {
+            ComicRackApplication.f1954i.showComicRatingDialog(
+                    this, this.f2093u.m1340j(), onComplete);
+        } else if (onComplete != null) {
+            onComplete.run();
         }
     }
 
@@ -1792,7 +1783,7 @@ public class ReaderActivity extends ActivityC0881ip implements InterfaceC1110ad,
                 }
                 break;
             case 23:
-                m1567a(true, (Runnable) null);
+                finishReadingOrShowManualRating(true, (Runnable) null);
                 break;
             case 24:
                 if (this.f2093u != null && this.f2093u.mo1298a() != null) {

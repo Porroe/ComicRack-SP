@@ -85,7 +85,7 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
     }
 
     /* compiled from: DontLook */
-    public class ConfigureActivity extends AbstractC0734dd {
+    public static class ConfigureActivity extends AbstractC0734dd {
         public ConfigureActivity() {
             super(ComicWidgetCoverProvider.f1983b, C0809fy.preferences_widget_cover);
         }
@@ -100,10 +100,10 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
     }
 
     /* compiled from: DontLook */
-    public class Version2x2 extends ComicWidgetCoverProvider {
+    public static class Version2x2 extends ComicWidgetCoverProvider {
 
         /* compiled from: DontLook */
-        public class ConfigureActivity extends AbstractC0734dd {
+        public static class ConfigureActivity extends AbstractC0734dd {
             public ConfigureActivity() {
                 super(Version2x2.class, C0809fy.preferences_widget_cover);
             }
@@ -115,10 +115,10 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
     }
 
     /* compiled from: DontLook */
-    public class Version4x2 extends ComicWidgetCoverProvider {
+    public static class Version4x2 extends ComicWidgetCoverProvider {
 
         /* compiled from: DontLook */
-        public class ConfigureActivity extends AbstractC0734dd {
+        public static class ConfigureActivity extends AbstractC0734dd {
             public ConfigureActivity() {
                 super(Version4x2.class, C0809fy.preferences_widget_cover);
             }
@@ -130,10 +130,10 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
     }
 
     /* compiled from: DontLook */
-    public class Version2x4 extends ComicWidgetCoverProvider {
+    public static class Version2x4 extends ComicWidgetCoverProvider {
 
         /* compiled from: DontLook */
-        public class ConfigureActivity extends AbstractC0734dd {
+        public static class ConfigureActivity extends AbstractC0734dd {
             public ConfigureActivity() {
                 super(Version2x4.class, C0809fy.preferences_widget_cover);
             }
@@ -145,10 +145,10 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
     }
 
     /* compiled from: DontLook */
-    public class Version4x4 extends ComicWidgetCoverProvider {
+    public static class Version4x4 extends ComicWidgetCoverProvider {
 
         /* compiled from: DontLook */
-        public class ConfigureActivity extends AbstractC0734dd {
+        public static class ConfigureActivity extends AbstractC0734dd {
             public ConfigureActivity() {
                 super(Version4x4.class, C0809fy.preferences_widget_cover);
             }
@@ -172,9 +172,9 @@ public class ComicWidgetCoverProvider extends AbstractC0733dc {
         C0505b c0505bM1350a = c0505bM1351a == null ? C0628f.m1350a(c0736df.f2307i, c0736df.f2311m) : c0505bM1351a;
         c0736df.f2310l = c0505bM1350a == null ? "" : c0505bM1350a.f1570b;
         c0736df.f2299a.edit().putString("current_comic_id", c0736df.f2310l).commit();
-        c0736df.f2303e.m1754a(context, remoteViews, C0803fs.widgetCover, c0505bM1350a);
-        c0736df.f2305g.m1754a(context, remoteViews, C0803fs.widgetCaptionOverlay, c0505bM1350a);
-        c0736df.f2304f.m1754a(context, remoteViews, C0803fs.widgetSmallCover, c0505bM1350a);
+        c0736df.f2303e.bindWidgetClickAction(context, remoteViews, C0803fs.widgetCover, c0505bM1350a);
+        c0736df.f2305g.bindWidgetClickAction(context, remoteViews, C0803fs.widgetCaptionOverlay, c0505bM1350a);
+        c0736df.f2304f.bindWidgetClickAction(context, remoteViews, C0803fs.widgetSmallCover, c0505bM1350a);
         if (c0505bM1350a == null) {
             remoteViews.setViewVisibility(C0803fs.widgetLoading, 0);
             remoteViews.setTextViewText(C0803fs.widgetLoading, context.getString(C0806fv.widget_no_comics));

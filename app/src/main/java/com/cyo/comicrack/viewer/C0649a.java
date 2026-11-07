@@ -31,45 +31,14 @@ public final class C0649a {
     @SuppressLint({"NewApi", "InflateParams"})
     /* renamed from: a */
     public static void m1695a(Activity activity, Runnable runnable) {
-        View viewInflate = activity.getLayoutInflater().inflate(C0804ft.about, (ViewGroup) null);
-        ((ViewPager) viewInflate.findViewById(C0803fs.aboutViewPager)).setAdapter(new C1144bk(new View[]{m1694a(activity, C0805fu.about), m1694a(activity, C0805fu.changes)}, new String[]{activity.getString(C0806fv.about), activity.getString(C0806fv.history)}));
-        AlertDialog.Builder negativeButton = C0951ag.m1995a().mo2038e(activity).setView(viewInflate).setCancelable(true).setPositiveButton(C0806fv.help, new DialogInterfaceOnClickListenerC0676b(activity)).setNegativeButton(C0806fv.close, (DialogInterface.OnClickListener) null);
-        if (C0628f.f1889k && ComicRackApplication.f1951d != null) {
-            negativeButton.setNeutralButton(C0806fv.buy_full, new DialogInterfaceOnClickListenerC0703c(activity));
-        }
-        if (!C0951ag.m2006e()) {
-            negativeButton.setTitle(C0806fv.app_name).setIcon(C0802fr.icon);
-        }
-        AlertDialog alertDialogCreate = negativeButton.create();
-        alertDialogCreate.setCanceledOnTouchOutside(true);
-        alertDialogCreate.setOnDismissListener(new DialogInterfaceOnDismissListenerC0730d(runnable));
-        alertDialogCreate.show();
-        C1146bm.m2420a(alertDialogCreate, 0.6f, EnumC0993bd.XLarge);
-    }
-
-    /* renamed from: b */
-    public static void m1697b(Activity activity, Runnable runnable) {
-        new AlertDialog.Builder(activity).setMessage(C0806fv.ask_tracking).setPositiveButton(C0806fv.yes, new DialogInterfaceOnClickListenerC0757e(activity)).setNegativeButton(C0806fv.f2496no, (DialogInterface.OnClickListener) null).setNeutralButton(C0806fv.do_not_ask_again, new DialogInterfaceOnClickListenerC0784f()).show().setOnDismissListener(new DialogInterfaceOnDismissListenerC0811g(activity, runnable));
+        AboutDialog.show(activity, runnable);
     }
 
     /* renamed from: a */
-    public static boolean m1696a() {
-        return ComicRackApplication.f1954i.m1441e().getBoolean("tracking_enabled", false);
-    }
-
-    /* renamed from: b */
-    public static boolean m1698b() {
-        return ComicRackApplication.f1954i.m1441e().getBoolean("ask_tracking_enabled", true);
-    }
-
-    /* renamed from: c */
-    public static void m1699c() {
-        ComicRackApplication.f1954i.m1441e().edit().putBoolean("ask_tracking_enabled", false).commit();
-    }
-
-    /* renamed from: a */
-    private static View m1694a(Activity activity, int i) {
+    static View createAboutContent(Context activity, int i) {
         C0865i c0865i = new C0865i(activity);
+        c0865i.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_BodyMedium);
+        c0865i.setPadding(0, LibraryInterface.dp(activity, 12), 0, LibraryInterface.dp(activity, 12));
         try {
             Context context = c0865i.getContext();
             String strReplace = C1095l.m2366a(context.getResources(), i).replace("<name>", context.getString(C0806fv.app_name)).replace("<version>", String.valueOf(C0951ag.m2003d(context)) + "." + C0951ag.m2005e(context)).replace("<copyright>", context.getString(C0806fv.copyright)).replace("<freeversion>", C0628f.f1889k ? C1095l.m2366a(context.getResources(), C0805fu.free_version) : "").replace("<freeversionlimits>", C0628f.f1889k ? C1095l.m2366a(context.getResources(), C0805fu.free_version_limits) : "").replace("<paidversion>", !C0628f.f1889k ? C1095l.m2366a(context.getResources(), C0805fu.paid_version) : "").replace("\n", "<br/>");

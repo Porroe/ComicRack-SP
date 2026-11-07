@@ -79,7 +79,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
         this.f2674q = !C0951ag.m1997a(this, EnumC0993bd.Large);
         this.f2415n = true;
         m1878r();
-        setContentView(C0804ft.library);
+        setContentView(LibraryInterface.isMaterial(this) ? R.layout.material_library : C0804ft.library);
         if (initializeLibraryInterface()) {
             LibraryInterface.installHeader(this, C0803fs.libraryContainer);
         }
@@ -109,7 +109,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
             if (findViewById(C0803fs.comicListPager) == null) {
                 this.f1990o.mo1802a(false);
             } else {
-                this.f1991p = new C0874ii(this, C0681be.class, C0803fs.comicListPager, C0803fs.comicListPagerTitle, new C0761ed(this));
+                this.f1991p = new C0874ii(this, C0681be.class, C0803fs.comicListPager, C0803fs.comicListPagerTitle, new LibraryCollectionPageListener(this));
                 this.f1990o.mo1802a(true);
                 this.f1991p.mo1805c().setPageMargin(getResources().getDimensionPixelSize(C0801fq.list_page_margin));
                 this.f1991p.mo1805c().setPageMarginDrawable(C0800fp.comic_list_background_dark);
@@ -130,11 +130,13 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
     protected final void mo1483h() {
         boolean z = true;
         super.mo1483h();
-        m1471a(m1878r().getBoolean("sidebar_visible", true) || this.f1991p == null, false);
-        if (!m1878r().getBoolean("sidebar_pinned", false) && this.f1991p != null) {
-            z = false;
+        if (!LibraryInterface.isMaterial(this)) {
+            m1471a(m1878r().getBoolean("sidebar_visible", true) || this.f1991p == null, false);
+            if (!m1878r().getBoolean("sidebar_pinned", false) && this.f1991p != null) {
+                z = false;
+            }
+            m1482b(z);
         }
-        m1482b(z);
         if (this.f1994v) {
             String string = m1878r().getString("current_library_list", null);
             String string2 = m1878r().getString("current_comic_list", null);
@@ -175,8 +177,10 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
         if (this.f1991p != null) {
             editorEdit.putString("current_comic_list", this.f1991p.mo1808f());
         }
-        editorEdit.putBoolean("sidebar_visible", m1478n());
-        editorEdit.putBoolean("sidebar_pinned", m1487l());
+        if (!LibraryInterface.isMaterial(this)) {
+            editorEdit.putBoolean("sidebar_visible", m1478n());
+            editorEdit.putBoolean("sidebar_pinned", m1487l());
+        }
         editorEdit.commit();
     }
 
@@ -185,15 +189,15 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
     protected final void mo1485j() {
         super.mo1485j();
         LibraryInterface.updateResumeCard(this);
+        LibraryInterface.updateCollectionTitle(this);
     }
 
     @Override // com.cyo.comicrack.viewer.AbstractActivityC0773ep, com.cyo.comicrack.viewer.ActivityC0881ip, android.app.Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, OPEN_COMIC, 0, R.string.open_comic_file);
-        menu.add(0, CHOOSE_LIBRARY_FOLDER, 0, R.string.choose_comics_folder);
-        menu.add(0, REFRESH_LIBRARY, 0, R.string.refresh_comics_library);
-        menu.add(0, 13, 0, C0806fv.quit).setIcon(C0802fr.ic_menu_stop);
+        if (!LibraryInterface.isMaterial(this)) {
+            menu.add(0, 13, 0, C0806fv.quit).setIcon(C0802fr.ic_menu_stop);
+        }
         return true;
     }
 
@@ -246,6 +250,7 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
     public final boolean mo1401e() {
         m1477m();
         LibraryInterface.updateResumeCard(this);
+        LibraryInterface.updateCollectionTitle(this);
         return true;
     }
 
@@ -283,16 +288,6 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
 
     void toggleLibrarySidebar() {
         m1471a(!m1478n(), true);
-    }
-
-    void addMaterialLibraryMenu(Menu menu) {
-        menu.add(0, OPEN_COMIC, 0, R.string.open_comic_file);
-        menu.add(0, CHOOSE_LIBRARY_FOLDER, 0, R.string.choose_comics_folder);
-        menu.add(0, REFRESH_LIBRARY, 0, R.string.refresh_comics_library);
-        if (ComicRackApplication.f1954i.m1433a()) {
-            menu.add(0, 14, 0, R.string.request_wifi_sync);
-        }
-        menu.add(0, 13, 0, R.string.quit);
     }
 
     void chooseLibraryFolder() {
@@ -399,25 +394,16 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
         }
     }
 
-    /* renamed from: d */
-    static /* synthetic */ void m1474d(LibraryActivity libraryActivity) {
-        CharSequence message = libraryActivity.getString(C0806fv.current_ecomic_folder_empty,
-                ComicRackApplication.f1954i.f1956g);
-        DialogInterface.OnClickListener chooseFolder = (dialog, button) -> libraryActivity.chooseLibraryFolder();
-        DialogInterface.OnClickListener suppressPrompt = new DialogInterfaceOnClickListenerC0769el(libraryActivity);
-        DialogInterface.OnClickListener dismissPrompt = new DialogInterfaceOnClickListenerC0770em(libraryActivity);
-        if (LibraryInterface.isMaterial(libraryActivity)) {
-            new com.google.android.material.dialog.MaterialAlertDialogBuilder(LibraryInterface.theme(libraryActivity))
-                    .setTitle(C0806fv.empty_ecomics_folder).setMessage(message)
-                    .setPositiveButton(C0806fv.select_folder, chooseFolder)
-                    .setNeutralButton(C0806fv.do_not_show_again, suppressPrompt)
-                    .setNegativeButton(android.R.string.ok, dismissPrompt).show();
-        } else {
-            new AlertDialog.Builder(libraryActivity).setTitle(C0806fv.empty_ecomics_folder).setMessage(message)
-                    .setPositiveButton(C0806fv.select_folder, chooseFolder)
-                    .setNeutralButton(C0806fv.do_not_show_again, suppressPrompt)
-                    .setNegativeButton(android.R.string.ok, dismissPrompt).show();
-        }
+    static void showEmptyLibraryPrompt(LibraryActivity activity) {
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(LibraryInterface.theme(activity))
+                .setTitle(R.string.library_empty_title)
+                .setMessage(R.string.library_empty_message)
+                .setPositiveButton(R.string.select_folder,
+                        (dialog, button) -> activity.chooseLibraryFolder())
+                .setNeutralButton(R.string.do_not_show_again, (dialog, button) ->
+                        activity.m1878r().edit().putBoolean("show_empty_folder_help", false).apply())
+                .setNegativeButton(R.string.library_not_now, null)
+                .show();
     }
 
     /* renamed from: m */
@@ -467,6 +453,9 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
             return;
         }
         this.f1991p.mo1801a(c0575ak == null ? null : c0575ak.f1750p, z3);
+        if (LibraryInterface.isMaterial(this) && c0575ak != null) {
+            LibraryInterface.setCollectionTitle(this, c0575ak);
+        }
         ((C0776es) this.f1990o.mo1803b()).m1840e(c0575ak);
         if (z2) {
             ((C0776es) this.f1990o.mo1803b()).m1830W();
@@ -509,6 +498,12 @@ public class LibraryActivity extends AbstractActivityC0773ep implements Interfac
             viewFindViewById.setLayoutParams(layoutParams);
             ((C0776es) this.f1990o.mo1803b()).m1826c(z);
         }
+    }
+
+    public boolean supportsSidebarPinning() {
+        return !LibraryInterface.isMaterial(this)
+                && findViewById(C0803fs.libraryListFragmentContainer) instanceof Sidebar
+                && findViewById(C0803fs.comicListPager) != null;
     }
 
     /* renamed from: l */

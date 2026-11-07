@@ -26,6 +26,8 @@ public final class C0874ii extends AbstractC0755dy {
     /* renamed from: j */
     private C0880io f2656j;
 
+    final MaterialCollectionTabs materialTabs;
+
     /* renamed from: k */
     private Timer f2657k;
 
@@ -38,6 +40,14 @@ public final class C0874ii extends AbstractC0755dy {
         this.f2654h = cls;
         this.f2652f = (ViewPager) this.f2386a.findViewById(i);
         this.f2653g = (PagerTabStrip) this.f2386a.findViewById(i2);
+        if (LibraryInterface.isMaterial(activityC0076l)) {
+            if (this.f2653g != null) {
+                this.f2653g.setVisibility(android.view.View.GONE);
+            }
+            this.f2653g = null;
+        }
+        materialTabs = LibraryInterface.isMaterial(activityC0076l)
+                ? new MaterialCollectionTabs(f2652f) : null;
         this.f2655i = interfaceC0754dx;
         if (this.f2653g != null) {
             this.f2653g.setTabIndicatorColorResource(C0800fp.list_caption_text);
@@ -52,6 +62,7 @@ public final class C0874ii extends AbstractC0755dy {
     protected final void mo1813i() throws Resources.NotFoundException {
         this.f2656j = new C0880io(this, this.f2390e);
         this.f2652f.setAdapter(this.f2656j);
+        if (materialTabs != null) { materialTabs.setAdapter(f2656j); }
     }
 
     @Override // com.cyo.comicrack.viewer.AbstractC0755dy

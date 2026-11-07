@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.cyo.comicrack.p019a.C0572ah;
 import com.cyo.comicrack.p019a.C0575ak;
@@ -36,8 +35,6 @@ import com.cyo.common.C0998bi;
 import com.cyo.common.C0999bj;
 import com.cyo.common.C1006bq;
 import com.cyo.common.InterfaceC0952ah;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.cyo.common.InterfaceC0966av;
 import com.cyo.common.InterfaceC0992bc;
 import com.cyo.common.InterfaceC0994be;
@@ -59,17 +56,15 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
     private InterfaceC0952ah f2191aj;
 
     /* renamed from: g */
-    private TextView f2192g;
+    private TextView closeStackButton;
 
     /* renamed from: h */
-    private TextView f2193h;
+    private TextView readFilterButton;
 
     /* renamed from: i */
-    private TextView f2194i;
+    private TextView viewModeButton;
 
-    private MaterialButtonToggleGroup viewModeSelector;
-    private final int[] viewModeButtonIds = new int[3];
-    private boolean updatingViewModeSelector;
+    private LibraryOptionsSheet libraryOptionsSheet;
 
     public C0681be() {
         super(C0804ft.comic_list_fragment, C0803fs.comicListGrid, C0803fs.comicListCaption, C0803fs.comicListClickCaption, C0803fs.comicListCaptionText, C0803fs.comicListCaptionTextSmall, C0803fs.comicListCaptionDescription);
@@ -79,16 +74,26 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
     /* renamed from: a */
     public final View mo25a(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         View viewMo25a = super.mo25a(layoutInflater, viewGroup, bundle);
-        this.f2192g = (TextView) viewMo25a.findViewById(C0803fs.closeButton);
-        this.f2193h = (TextView) viewMo25a.findViewById(C0803fs.filterButton);
-        this.f2194i = (TextView) viewMo25a.findViewById(C0803fs.styleButton);
-        this.f2192g.setVisibility(8);
-        this.f2193h.setOnClickListener(new ViewOnClickListenerC0682bf(this));
-        this.f2194i.setOnClickListener(new ViewOnClickListenerC0693bq(this));
-        this.f2194i.setOnLongClickListener(new ViewOnLongClickListenerC0700bx(this));
-        this.f2192g.setOnClickListener(new ViewOnClickListenerC0701by(this));
+        this.closeStackButton = (TextView) viewMo25a.findViewById(C0803fs.closeButton);
+        this.readFilterButton = (TextView) viewMo25a.findViewById(C0803fs.filterButton);
+        this.viewModeButton = (TextView) viewMo25a.findViewById(C0803fs.styleButton);
+        this.closeStackButton.setVisibility(8);
+        this.readFilterButton.setOnClickListener(new ViewOnClickListenerC0682bf(this));
+        this.viewModeButton.setOnClickListener(new ViewOnClickListenerC0693bq(this));
+        this.viewModeButton.setOnLongClickListener(new ViewOnLongClickListenerC0700bx(this));
+        this.closeStackButton.setOnClickListener(new ViewOnClickListenerC0701by(this));
         if (LibraryInterface.isMaterial(viewMo25a.getContext())) {
-            configureMaterialViewMode((LinearLayout) viewMo25a);
+            LibraryInterface.styleComicList(viewMo25a);
+            readFilterButton.setVisibility(View.GONE);
+            viewModeButton.setVisibility(View.GONE);
+            View caption = viewMo25a.findViewById(C0803fs.comicListClickCaption);
+            caption.setOnClickListener(null);
+            caption.setClickable(false);
+            caption.setFocusable(false);
+            caption.setBackground(null);
+            viewMo25a.findViewById(C0803fs.comicListCaptionTextContainer).setVisibility(View.GONE);
+            viewMo25a.findViewById(C0803fs.comicListCaption).setVisibility(View.GONE);
+            viewMo25a.findViewById(C0803fs.comicListCaptionImage).setVisibility(View.GONE);
         }
         InterfaceC0994be interfaceC0994beM1995a = C0951ag.m1995a();
         m55i();
@@ -96,60 +101,29 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
         return viewMo25a;
     }
 
-    private void configureMaterialViewMode(LinearLayout root) {
-        LibraryInterface.styleComicList(root);
-        Context theme = LibraryInterface.theme(root.getContext());
-        viewModeSelector = new MaterialButtonToggleGroup(theme);
-        viewModeSelector.setSingleSelection(true);
-        viewModeSelector.setSelectionRequired(true);
-        int[] labels = {R.string.cover, R.string.detail, R.string.stack};
-        for (int mode = 0; mode < labels.length; mode++) {
-            MaterialButton button = new MaterialButton(theme, null,
-                    com.google.android.material.R.attr.materialButtonOutlinedStyle);
-            button.setId(View.generateViewId());
-            viewModeButtonIds[mode] = button.getId();
-            button.setText(labels[mode]);
-            button.setSingleLine(true);
-            button.setMinWidth(0);
-            button.setPaddingRelative(0, button.getPaddingTop(), 0, button.getPaddingBottom());
-            button.setOnLongClickListener(new ViewOnLongClickListenerC0700bx(this));
-            viewModeSelector.addView(button, new LinearLayout.LayoutParams(0, -2, 1));
+    void showLibraryOptions() {
+        if (libraryOptionsSheet == null) {
+            libraryOptionsSheet = new LibraryOptionsSheet(this);
         }
-        viewModeSelector.addOnButtonCheckedListener((group, checkedId, checked) -> {
-            if (!checked || updatingViewModeSelector) {
-                return;
-            }
-            for (int mode = 0; mode < viewModeButtonIds.length; mode++) {
-                if (viewModeButtonIds[mode] == checkedId) {
-                    m1723a(m1714Q() + mode, true);
-                    return;
-                }
-            }
-        });
-        LinearLayout.LayoutParams selectorLayout = new LinearLayout.LayoutParams(-1, -2);
-        selectorLayout.setMarginStart(LibraryInterface.dp(theme, 12));
-        selectorLayout.setMarginEnd(LibraryInterface.dp(theme, 12));
-        root.addView(viewModeSelector, 1, selectorLayout);
-        f2194i.setVisibility(View.GONE);
+        libraryOptionsSheet.show();
     }
 
-    private void updateMaterialViewMode(int mode) {
-        if (viewModeSelector == null) {
-            return;
-        }
-        updatingViewModeSelector = true;
-        try {
-            viewModeSelector.findViewById(viewModeButtonIds[2])
-                    .setVisibility(m1715R().f2268b < 7 ? View.VISIBLE : View.GONE);
-            viewModeSelector.check(viewModeButtonIds[mode < viewModeButtonIds.length ? mode : 1]);
-        } finally {
-            updatingViewModeSelector = false;
-        }
+    void saveLibraryOptions() {
+        ComicRackApplication application = ComicRackApplication.f1954i;
+        application.m1441e().edit().putString("config", application.m1442f().toString()).apply();
+    }
+
+    void refreshLibraryOptions() {
+        m1833Z();
+        saveLibraryOptions();
     }
 
     @Override
     public void mo49f() {
-        viewModeSelector = null;
+        if (libraryOptionsSheet != null) {
+            libraryOptionsSheet.dismiss();
+            libraryOptionsSheet = null;
+        }
         super.mo49f();
     }
 
@@ -292,7 +266,7 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                 m1834a("ComicList", "Rate", "");
                 InterfaceC0606h interfaceC0606hM1354a = C0628f.m1354a(c0756dz.m1816c(), false);
                 if (interfaceC0606hM1354a != null) {
-                    ComicRackApplication.f1954i.showComicRatingDialog((Activity) m55i(), interfaceC0606hM1354a, false, (Runnable) new RunnableC0702bz(this));
+                    ComicRackApplication.f1954i.showComicRatingDialog((Activity) m55i(), interfaceC0606hM1354a, (Runnable) new RunnableC0702bz(this));
                 }
                 return true;
             default:
@@ -441,35 +415,8 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
     protected final void mo1725a(View view) {
         super.mo1725a(view);
         if (this.f2447c != null) {
-            ArrayList arrayList = new ArrayList();
+            ArrayList<C1006bq> arrayList = buildViewOptions(view.getContext(), m1713P() == 2);
             Context context = view.getContext();
-            if (m1716S().m1749a() != 2) {
-                arrayList.add(new C1006bq(m1708b(0), context.getString(C0806fv.not_sorted), context.getString(C0806fv.ecomics_are_in_the_original_order), 0));
-                arrayList.add(new C1006bq(m1708b(1), context.getString(C0806fv.sort_by_series), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_series), 1));
-                int iM1708b = m1708b(2);
-                if (iM1708b != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2C6-56BE06153769") != null) {
-                    arrayList.add(new C1006bq(iM1708b, context.getString(C0806fv.sort_by_story), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_story), 2));
-                }
-                int iM1708b2 = m1708b(3);
-                if (iM1708b2 != 0 || ComicRackApplication.f1954i.m1438c().f1933m) {
-                    arrayList.add(new C1006bq(iM1708b2, context.getString(C0806fv.sort_by_published), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_publishing_date), 3));
-                }
-                arrayList.add(new C1006bq(m1708b(4), context.getString(C0806fv.sort_by_filename), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_filename), 4));
-            } else {
-                arrayList.add(new C1006bq(m1710c(0), context.getString(C0806fv.stack_by_series), context.getString(C0806fv.stack_by_series_description), 1000));
-                int iM1710c = m1710c(1);
-                if (iM1710c != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2C6-56BE06153769") != null) {
-                    arrayList.add(new C1006bq(iM1710c, context.getString(C0806fv.stack_by_stories), context.getString(C0806fv.stack_by_stories_description), 1001));
-                }
-                int iM1710c2 = m1710c(2);
-                if (iM1710c2 != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2CB-56BE06153769") != null) {
-                    arrayList.add(new C1006bq(iM1710c2, context.getString(C0806fv.stack_by_folders), context.getString(C0806fv.stack_by_folders_description), 1002));
-                }
-                int iM1710c3 = m1710c(3);
-                if (iM1710c3 != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2CC-56BE06153769") != null) {
-                    arrayList.add(new C1006bq(iM1710c3, context.getString(C0806fv.stack_by_publishers), context.getString(C0806fv.stack_by_publishers_description), 1003));
-                }
-            }
             boolean z = m1714Q() == 256;
             int i = z ? 0 : 256;
             arrayList.add(new C1006bq(z ? C0802fr.round_marker : 0, context.getString(C0806fv.compact_view), context.getString(C0806fv.compact_view_desciption), 10001));
@@ -477,6 +424,38 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
             c0999bj.f2946d = new C0694br(this, i);
             c0999bj.m2096a(view, view.getHeight());
         }
+    }
+
+    ArrayList<C1006bq> buildViewOptions(Context context, boolean stackMode) {
+        ArrayList<C1006bq> options = new ArrayList<>();
+        if (!stackMode) {
+            options.add(new C1006bq(m1708b(0), context.getString(C0806fv.not_sorted), context.getString(C0806fv.ecomics_are_in_the_original_order), 0));
+            options.add(new C1006bq(m1708b(1), context.getString(C0806fv.sort_by_series), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_series), 1));
+            int storySortMarker = m1708b(2);
+            if (storySortMarker != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2C6-56BE06153769") != null) {
+                options.add(new C1006bq(storySortMarker, context.getString(C0806fv.sort_by_story), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_story), 2));
+            }
+            int publishedSortMarker = m1708b(3);
+            if (publishedSortMarker != 0 || ComicRackApplication.f1954i.m1438c().f1933m) {
+                options.add(new C1006bq(publishedSortMarker, context.getString(C0806fv.sort_by_published), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_publishing_date), 3));
+            }
+            options.add(new C1006bq(m1708b(4), context.getString(C0806fv.sort_by_filename), context.getString(C0806fv.sorts_all_ecomics_in_the_list_by_filename), 4));
+        } else {
+            options.add(new C1006bq(m1710c(0), context.getString(C0806fv.stack_by_series), context.getString(C0806fv.stack_by_series_description), 1000));
+            int storyGroupMarker = m1710c(1);
+            if (storyGroupMarker != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2C6-56BE06153769") != null) {
+                options.add(new C1006bq(storyGroupMarker, context.getString(C0806fv.stack_by_stories), context.getString(C0806fv.stack_by_stories_description), 1001));
+            }
+            int folderGroupMarker = m1710c(2);
+            if (folderGroupMarker != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2CB-56BE06153769") != null) {
+                options.add(new C1006bq(folderGroupMarker, context.getString(C0806fv.stack_by_folders), context.getString(C0806fv.stack_by_folders_description), 1002));
+            }
+            int publisherGroupMarker = m1710c(3);
+            if (publisherGroupMarker != 0 || ComicRackApplication.f1954i.m1438c().m1244c("3D8E0FCA-079F-4E69-B2CC-56BE06153769") != null) {
+                options.add(new C1006bq(publisherGroupMarker, context.getString(C0806fv.stack_by_publishers), context.getString(C0806fv.stack_by_publishers_description), 1003));
+            }
+        }
+        return options;
     }
 
     /* renamed from: a */
@@ -522,11 +501,15 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
             }
             interfaceC0966avAd.mo2045a(dimensionPixelSize);
         }
-        if (this.f2192g != null && !this.f2190a) {
-            this.f2192g.setVisibility(m1715R().f2268b == 0 ? 8 : 0);
+        if (this.closeStackButton != null && !this.f2190a) {
+            this.closeStackButton.setVisibility(m1715R().f2268b == 0 ? 8 : 0);
+            if (LibraryInterface.isMaterial(m55i())) {
+                m62t().findViewById(C0803fs.comicListCaption)
+                        .setVisibility(this.closeStackButton.getVisibility());
+            }
         }
-        if (this.f2193h != null) {
-            this.f2193h.setText(m1711d(m1716S().f2271b));
+        if (this.readFilterButton != null) {
+            this.readFilterButton.setText(m1711d(m1716S().f2271b));
         }
         if (m1716S().m1749a() == 2) {
             strM1387b = iMo1719a == 1 ? m1838b(C0806fv.one_stack, new Object[0]) : m1838b(C0806fv.d_stacks, Integer.valueOf(iMo1719a));
@@ -648,6 +631,9 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
                                 }
                             }
                         }
+                        if (LibraryInterface.isMaterial(m55i()) && c0726cwM1748a.f2270a) {
+                            java.util.Collections.reverse(stackedComics.m1986x());
+                        }
                         c0575ak2 = stackedComics;
                     }
                 }
@@ -714,8 +700,8 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
 
     /* renamed from: a */
     public final void m1722a(int i) {
-        if (this.f2193h != null) {
-            this.f2193h.setText(m1711d(i));
+        if (this.readFilterButton != null) {
+            this.readFilterButton.setText(m1711d(i));
         }
         m1716S().f2271b = i;
         m1833Z();
@@ -744,8 +730,8 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
     public final void m1723a(int i, boolean z) {
         int i2;
         m1716S().f2274e = i;
-        if (this.f2194i != null) {
-            TextView textView = this.f2194i;
+        if (this.viewModeButton != null) {
+            TextView textView = this.viewModeButton;
             switch (i & 255) {
                 case 0:
                     i2 = C0806fv.cover;
@@ -760,7 +746,6 @@ public class C0681be extends AbstractC0782ey implements InterfaceC0892j, Interfa
             }
             textView.setText(i2);
         }
-        updateMaterialViewMode(i & 255);
         if (z) {
             m1833Z();
         }

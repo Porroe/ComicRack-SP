@@ -10,7 +10,6 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/preference_category_reader_reading_title" android:key="preference_category_reading">
         <CheckBoxPreference android:title="@string/general_reading_show_cover_title" android:key="general_reading_show_cover" android:summary="@string/general_reading_show_cover_summary" android:defaultValue="true" />
-        <CheckBoxPreference android:title="@string/general_rate_comic_title" android:key="general_rate_comic" android:summary="@string/general_rate_comic_summary" android:defaultValue="true" />
         <CheckBoxPreference android:title="@string/reader_reading_manga_default_title" android:key="reader_reading_manga_default" android:summary="@string/reader_reading_manga_default_summary" android:defaultValue="false" />
         <com.cyo.common.view.ListPreferenceMultiSelect android:entries="@array/pageType" android:title="@string/reader_reading_pagefilter_title" android:key="reader_reading_pagefilter" android:summary="@string/reader_reading_pagefilter_summary" android:defaultValue="" android:dialogTitle="@string/reader_reading_pagefilter_dialog_title" android:entryValues="@array/pageTypeValues" />
     </PreferenceCategory>

@@ -485,7 +485,7 @@ public class ViewPager extends ViewGroup {
         }
         m307a(false);
         scrollTo(clientWidth, 0);
-        m314c(clientWidth);
+        dispatchPageScroll(clientWidth);
     }
 
     public void setOnPageChangeListener(InterfaceC0189bw interfaceC0189bw) {
@@ -678,7 +678,7 @@ public class ViewPager extends ViewGroup {
                 int i7 = i3 - 1;
                 C0185bs c0185bs3 = i7 >= 0 ? (C0185bs) this.f434e.get(i7) : null;
                 int clientWidth = getClientWidth();
-                float paddingLeft = clientWidth <= 0 ? 0.0f : (2.0f - c0185bsM296a.f508d) + (getPaddingLeft() / clientWidth);
+                float paddingLeft = clientWidth <= 0 ? 0.0f : (2.0f - c0185bsM296a.f508d) + ((float) getPaddingLeft() / clientWidth);
                 float f = 0.0f;
                 int i8 = i3;
                 int i9 = i7;
@@ -708,7 +708,7 @@ public class ViewPager extends ViewGroup {
                 int i11 = i8 + 1;
                 if (f2 < 2.0f) {
                     C0185bs c0185bs4 = i11 < this.f434e.size() ? (C0185bs) this.f434e.get(i11) : null;
-                    float paddingRight = clientWidth <= 0 ? 0.0f : (getPaddingRight() / clientWidth) + 2.0f;
+                    float paddingRight = clientWidth <= 0 ? 0.0f : ((float) getPaddingRight() / clientWidth) + 2.0f;
                     C0185bs c0185bs5 = c0185bs4;
                     int i12 = i11;
                     int i13 = this.f438i + 1;
@@ -738,7 +738,7 @@ public class ViewPager extends ViewGroup {
                         f2 = f2;
                     }
                 }
-                m305a(c0185bsM296a, i8, c0185bs);
+                calculatePageOffsets(c0185bsM296a, i8, c0185bs);
             }
             this.f437h.mo255b(this, this.f438i, c0185bsM296a != null ? c0185bsM296a.f505a : null);
             this.f437h.mo250a();
@@ -785,20 +785,19 @@ public class ViewPager extends ViewGroup {
         }
     }
 
-    /* renamed from: a */
-    private void m305a(C0185bs c0185bs, int i, C0185bs c0185bs2) {
+    private void calculatePageOffsets(C0185bs currentPage, int currentIndex, C0185bs previousPage) {
         C0185bs c0185bs3;
         C0185bs c0185bs4;
         int iMo408c = this.f437h.mo408c();
         int clientWidth = getClientWidth();
-        float f = clientWidth > 0 ? this.f444o / clientWidth : 0.0f;
-        if (c0185bs2 != null) {
-            int i2 = c0185bs2.f506b;
-            if (i2 < c0185bs.f506b) {
-                float f2 = c0185bs2.f509e + c0185bs2.f508d + f;
+        float marginOffset = clientWidth > 0 ? (float) this.f444o / clientWidth : 0.0f;
+        if (previousPage != null) {
+            int i2 = previousPage.f506b;
+            if (i2 < currentPage.f506b) {
+                float f2 = previousPage.f509e + previousPage.f508d + marginOffset;
                 int i3 = i2 + 1;
                 int i4 = 0;
-                while (i3 <= c0185bs.f506b && i4 < this.f434e.size()) {
+                while (i3 <= currentPage.f506b && i4 < this.f434e.size()) {
                     Object obj = this.f434e.get(i4);
                     while (true) {
                         c0185bs4 = (C0185bs) obj;
@@ -810,18 +809,18 @@ public class ViewPager extends ViewGroup {
                     }
                     while (i3 < c0185bs4.f506b) {
                         AbstractC0145af abstractC0145af = this.f437h;
-                        f2 += 1.0f + f;
+                        f2 += 1.0f + marginOffset;
                         i3++;
                     }
                     c0185bs4.f509e = f2;
-                    f2 += c0185bs4.f508d + f;
+                    f2 += c0185bs4.f508d + marginOffset;
                     i3++;
                 }
-            } else if (i2 > c0185bs.f506b) {
+            } else if (i2 > currentPage.f506b) {
                 int size = this.f434e.size() - 1;
-                float f3 = c0185bs2.f509e;
+                float f3 = previousPage.f509e;
                 int i5 = i2 - 1;
-                while (i5 >= c0185bs.f506b && size >= 0) {
+                while (i5 >= currentPage.f506b && size >= 0) {
                     Object obj2 = this.f434e.get(size);
                     while (true) {
                         c0185bs3 = (C0185bs) obj2;
@@ -833,48 +832,48 @@ public class ViewPager extends ViewGroup {
                     }
                     while (i5 > c0185bs3.f506b) {
                         AbstractC0145af abstractC0145af2 = this.f437h;
-                        f3 -= 1.0f + f;
+                        f3 -= 1.0f + marginOffset;
                         i5--;
                     }
-                    f3 -= c0185bs3.f508d + f;
+                    f3 -= c0185bs3.f508d + marginOffset;
                     c0185bs3.f509e = f3;
                     i5--;
                 }
             }
         }
         int size2 = this.f434e.size();
-        float f4 = c0185bs.f509e;
-        int i6 = c0185bs.f506b - 1;
-        this.f448s = c0185bs.f506b == 0 ? c0185bs.f509e : -3.4028235E38f;
-        this.f449t = c0185bs.f506b == iMo408c + (-1) ? (c0185bs.f509e + c0185bs.f508d) - 1.0f : Float.MAX_VALUE;
-        for (int i7 = i - 1; i7 >= 0; i7--) {
+        float f4 = currentPage.f509e;
+        int i6 = currentPage.f506b - 1;
+        this.f448s = currentPage.f506b == 0 ? currentPage.f509e : -3.4028235E38f;
+        this.f449t = currentPage.f506b == iMo408c + (-1) ? (currentPage.f509e + currentPage.f508d) - 1.0f : Float.MAX_VALUE;
+        for (int i7 = currentIndex - 1; i7 >= 0; i7--) {
             C0185bs c0185bs5 = (C0185bs) this.f434e.get(i7);
             while (i6 > c0185bs5.f506b) {
                 AbstractC0145af abstractC0145af3 = this.f437h;
                 i6--;
-                f4 -= 1.0f + f;
+                f4 -= 1.0f + marginOffset;
             }
-            f4 -= c0185bs5.f508d + f;
+            f4 -= c0185bs5.f508d + marginOffset;
             c0185bs5.f509e = f4;
             if (c0185bs5.f506b == 0) {
                 this.f448s = f4;
             }
             i6--;
         }
-        float f5 = c0185bs.f509e + c0185bs.f508d + f;
-        int i8 = c0185bs.f506b + 1;
-        for (int i9 = i + 1; i9 < size2; i9++) {
+        float f5 = currentPage.f509e + currentPage.f508d + marginOffset;
+        int i8 = currentPage.f506b + 1;
+        for (int i9 = currentIndex + 1; i9 < size2; i9++) {
             C0185bs c0185bs6 = (C0185bs) this.f434e.get(i9);
             while (i8 < c0185bs6.f506b) {
                 AbstractC0145af abstractC0145af4 = this.f437h;
                 i8++;
-                f5 += 1.0f + f;
+                f5 += 1.0f + marginOffset;
             }
             if (c0185bs6.f506b == iMo408c - 1) {
                 this.f449t = (c0185bs6.f508d + f5) - 1.0f;
             }
             c0185bs6.f509e = f5;
-            f5 += c0185bs6.f508d + f;
+            f5 += c0185bs6.f508d + marginOffset;
             i8++;
         }
         this.f421T = false;
@@ -1215,7 +1214,7 @@ public class ViewPager extends ViewGroup {
             int currY = this.f442m.getCurrY();
             if (scrollX != currX || scrollY != currY) {
                 scrollTo(currX, currY);
-                if (!m314c(currX)) {
+                if (!dispatchPageScroll(currX)) {
                     this.f442m.abortAnimation();
                     scrollTo(0, currY);
                 }
@@ -1226,9 +1225,8 @@ public class ViewPager extends ViewGroup {
         m307a(true);
     }
 
-    /* renamed from: c */
-    private boolean m314c(int i) {
-        if (this.f434e.size() == 0) {
+    private boolean dispatchPageScroll(int scrollPixels) {
+        if (this.f434e.isEmpty()) {
             this.f422U = false;
             m299a(0, 0.0f);
             if (this.f422U) {
@@ -1236,13 +1234,13 @@ public class ViewPager extends ViewGroup {
             }
             throw new IllegalStateException("onPageScrolled did not call superclass implementation");
         }
-        C0185bs c0185bsM320h = m320h();
+        C0185bs page = findPageForScrollPosition();
         int clientWidth = getClientWidth();
-        int i2 = this.f444o;
-        int i3 = c0185bsM320h.f506b;
-        float f = ((i / clientWidth) - c0185bsM320h.f509e) / (c0185bsM320h.f508d + (this.f444o / clientWidth));
+        float marginOffset = clientWidth > 0 ? (float) this.f444o / clientWidth : 0;
+        float scrollOffset = clientWidth > 0 ? (float) scrollPixels / clientWidth : 0;
+        float pageOffset = (scrollOffset - page.f509e) / (page.f508d + marginOffset);
         this.f422U = false;
-        m299a(i3, f);
+        m299a(page.f506b, pageOffset);
         if (!this.f422U) {
             throw new IllegalStateException("onPageScrolled did not call superclass implementation");
         }
@@ -1455,7 +1453,6 @@ public class ViewPager extends ViewGroup {
 
     @Override // android.view.View
     public boolean onTouchEvent(MotionEvent motionEvent) throws Resources.NotFoundException {
-        int iMax;
         boolean zM543c = false;
         if (this.f417P) {
             return true;
@@ -1487,29 +1484,31 @@ public class ViewPager extends ViewGroup {
                 if (this.f402A) {
                     VelocityTracker velocityTracker = this.f412K;
                     velocityTracker.computeCurrentVelocity(1000, this.f414M);
-                    int iM420a = (int) C0159at.m420a(velocityTracker, this.f411J);
+                    int velocity = (int) C0159at.m420a(velocityTracker, this.f411J);
                     this.f454y = true;
                     int clientWidth = getClientWidth();
-                    int scrollX = getScrollX();
-                    C0185bs c0185bsM320h = m320h();
-                    int i = c0185bsM320h.f506b;
-                    float f = ((scrollX / clientWidth) - c0185bsM320h.f509e) / c0185bsM320h.f508d;
-                    if (Math.abs((int) (C0141ab.m395c(motionEvent, C0141ab.m392a(motionEvent, this.f411J)) - this.f409H)) <= this.f415N || Math.abs(iM420a) <= this.f413L) {
-                        iMax = (int) (i + f + (i >= this.f438i ? 0.4f : 0.6f));
+                    C0185bs page = findPageForScrollPosition();
+                    float marginOffset = (float) this.f444o / clientWidth;
+                    float pageOffset = ((float) getScrollX() / clientWidth - page.f509e)
+                            / (page.f508d + marginOffset);
+                    int pointerIndex = C0141ab.m392a(motionEvent, this.f411J);
+                    int dragDistance = (int) (C0141ab.m395c(motionEvent, pointerIndex) - this.f409H);
+                    int targetPage;
+                    if (Math.abs(dragDistance) <= this.f415N || Math.abs(velocity) <= this.f413L) {
+                        float settleBias = page.f506b >= this.f438i ? 0.4f : 0.6f;
+                        targetPage = (int) (page.f506b + pageOffset + settleBias);
                     } else {
-                        if (iM420a <= 0) {
-                            i++;
-                        }
-                        iMax = i;
+                        targetPage = velocity > 0 ? page.f506b : page.f506b + 1;
                     }
-                    if (this.f434e.size() > 0) {
-                        iMax = Math.max(((C0185bs) this.f434e.get(0)).f506b, Math.min(iMax, ((C0185bs) this.f434e.get(this.f434e.size() - 1)).f506b));
+                    if (!this.f434e.isEmpty()) {
+                        int firstPage = ((C0185bs) this.f434e.get(0)).f506b;
+                        int lastPage = ((C0185bs) this.f434e.get(this.f434e.size() - 1)).f506b;
+                        targetPage = Math.max(firstPage, Math.min(targetPage, lastPage));
                     }
-                    m303a(iMax, true, true, iM420a);
+                    m303a(targetPage, true, true, velocity);
                     this.f411J = -1;
                     m321i();
                     zM543c = this.f418Q.m543c() | this.f419R.m543c();
-                    break;
                 }
                 break;
             case 2:
@@ -1608,54 +1607,43 @@ public class ViewPager extends ViewGroup {
         }
         this.f407F += f4 - ((int) f4);
         scrollTo((int) f4, getScrollY());
-        m314c((int) f4);
+        dispatchPageScroll((int) f4);
         return zM540a;
     }
 
-    /* renamed from: h */
-    private C0185bs m320h() {
-        int i;
-        C0185bs c0185bs;
+    private C0185bs findPageForScrollPosition() {
         int clientWidth = getClientWidth();
-        float scrollX = clientWidth > 0 ? getScrollX() / clientWidth : 0.0f;
-        float f = clientWidth > 0 ? this.f444o / clientWidth : 0.0f;
-        float f2 = 0.0f;
-        float f3 = 0.0f;
-        int i2 = -1;
-        int i3 = 0;
-        boolean z = true;
-        C0185bs c0185bs2 = null;
-        while (i3 < this.f434e.size()) {
-            C0185bs c0185bs3 = (C0185bs) this.f434e.get(i3);
-            if (z || c0185bs3.f506b == i2 + 1) {
-                i = i3;
-                c0185bs = c0185bs3;
-            } else {
-                C0185bs c0185bs4 = this.f435f;
-                c0185bs4.f509e = f2 + f3 + f;
-                c0185bs4.f506b = i2 + 1;
-                AbstractC0145af abstractC0145af = this.f437h;
-                int i4 = c0185bs4.f506b;
-                c0185bs4.f508d = 1.0f;
-                i = i3 - 1;
-                c0185bs = c0185bs4;
+        // Pages before a directly selected collection can have negative offsets.
+        // Integer division here rounds their fractional positions toward zero.
+        float scrollOffset = clientWidth > 0 ? (float) getScrollX() / clientWidth : 0;
+        float marginOffset = clientWidth > 0 ? (float) this.f444o / clientWidth : 0;
+        float previousOffset = 0;
+        float previousWidth = 0;
+        int previousPosition = -1;
+        C0185bs previousPage = null;
+        for (int index = 0; index < this.f434e.size(); index++) {
+            C0185bs page = (C0185bs) this.f434e.get(index);
+            if (previousPage != null && page.f506b != previousPosition + 1) {
+                page = this.f435f;
+                page.f509e = previousOffset + previousWidth + marginOffset;
+                page.f506b = previousPosition + 1;
+                page.f508d = 1.0f;
+                index--;
             }
-            float f4 = c0185bs.f509e;
-            float f5 = c0185bs.f508d + f4 + f;
-            if (!z && scrollX < f4) {
-                return c0185bs2;
+            float pageStart = page.f509e;
+            float pageEnd = pageStart + page.f508d + marginOffset;
+            if (previousPage != null && scrollOffset < pageStart) {
+                return previousPage;
             }
-            if (scrollX < f5 || i == this.f434e.size() - 1) {
-                return c0185bs;
+            if (scrollOffset < pageEnd || index == this.f434e.size() - 1) {
+                return page;
             }
-            f3 = f4;
-            i2 = c0185bs.f506b;
-            z = false;
-            f2 = c0185bs.f508d;
-            c0185bs2 = c0185bs;
-            i3 = i + 1;
+            previousPosition = page.f506b;
+            previousOffset = pageStart;
+            previousWidth = page.f508d;
+            previousPage = page;
         }
-        return c0185bs2;
+        return previousPage;
     }
 
     @Override // android.view.View
@@ -1700,7 +1688,7 @@ public class ViewPager extends ViewGroup {
         if (this.f444o > 0 && this.f445p != null && this.f434e.size() > 0 && this.f437h != null) {
             int scrollX = getScrollX();
             int width = getWidth();
-            float f2 = this.f444o / width;
+            float f2 = (float) this.f444o / width;
             C0185bs c0185bs = (C0185bs) this.f434e.get(0);
             float f3 = c0185bs.f509e;
             int size = this.f434e.size();

@@ -1,6 +1,5 @@
 package com.cyo.comicrack.viewer;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -11,18 +10,12 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.ContextThemeWrapper;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewOutlineProvider;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,9 +30,9 @@ import com.google.android.material.R.attr;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.textfield.TextInputLayout;
 
 final class LibraryInterface {
+    private static final String DISMISSED_RESUME_COMIC = "dismissed_resume_comic";
     private static final String CLASSIC_LIBRARY = "classic_library_interface";
 
     private LibraryInterface() {}
@@ -69,96 +62,44 @@ final class LibraryInterface {
         MaterialToolbar toolbar = header.findViewById(R.id.materialLibraryToolbar);
         int iconColor = MaterialColors.getColor(theme, attr.colorOnSurface, 0);
         boolean mainLibrary = activity instanceof LibraryActivity;
-        if (!mainLibrary || activity.findViewById(C0803fs.libraryListFragmentContainer) != null) {
-            toolbar.setNavigationIcon(tintedIcon(theme, mainLibrary ? R.drawable.ic_library_menu
-                    : R.drawable.ic_settings_arrow_back, iconColor));
-            toolbar.setNavigationContentDescription(mainLibrary ? R.string.library_navigation
-                    : R.string.settings_back);
-            toolbar.setNavigationOnClickListener(view -> {
-                if (activity instanceof LibraryActivity) {
-                    ((LibraryActivity) activity).toggleLibrarySidebar();
-                } else {
-                    activity.onBackPressed();
-                }
-            });
+        if (!mainLibrary) {
+            toolbar.setNavigationIcon(tintedIcon(theme, R.drawable.ic_settings_arrow_back, iconColor));
+            toolbar.setNavigationContentDescription(R.string.settings_back);
+            toolbar.setNavigationOnClickListener(view -> activity.onBackPressed());
         }
-        toolbar.setOverflowIcon(tintedIcon(theme, R.drawable.ic_library_more_vert, iconColor));
         Menu menu = toolbar.getMenu();
-        if (activity instanceof LibraryActivity) {
-            ((LibraryActivity) activity).addMaterialLibraryMenu(menu);
-        }
-        menu.add(0, 6, 0, R.string.settings_title);
-        menu.add(0, 12, 0, R.string.about);
-        toolbar.setOnMenuItemClickListener(activity::onOptionsItemSelected);
-
-        EditText search = header.findViewById(R.id.materialLibrarySearch);
-        TextInputLayout searchBox = header.findViewById(R.id.materialLibrarySearchBox);
-        toolbar.removeView(searchBox);
-        toolbar.setTitle(R.string.app_name);
-        toolbar.setTitleTextColor(iconColor);
-        toolbar.setCollapseIcon(tintedIcon(theme, R.drawable.ic_settings_arrow_back, iconColor));
-        toolbar.setCollapseContentDescription(R.string.library_close_search);
-
-        InputMethodManager keyboard = activity.getSystemService(InputMethodManager.class);
-        MenuItem searchAction = menu.add(0, R.id.materialLibrarySearchAction, 0, R.string.search);
-        searchAction.setIcon(tintedIcon(theme, R.drawable.ic_library_search, iconColor));
-        searchAction.setActionView(searchBox);
-        searchAction.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-        searchAction.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                search.post(() -> {
-                    if (item.isActionViewExpanded() && search.requestFocus()) {
-                        keyboard.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
-                    }
-                });
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                keyboard.hideSoftInputFromWindow(search.getWindowToken(), 0);
-                search.clearFocus();
-                return true;
-            }
+        MenuItem browse = menu.add(0, R.id.materialLibraryBrowseAction, 0, R.string.library_browse);
+        browse.setIcon(tintedIcon(theme, R.drawable.ic_library_books, iconColor));
+        browse.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        browse.setOnMenuItemClickListener(item -> {
+            activity.openCollectionSheet();
+            return true;
         });
-        searchBox.setEndIconVisible(false);
-        searchBox.setEndIconOnClickListener(view -> {
-            search.getText().clear();
-            activity.clearMaterialSearch();
-        });
-        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) {
-                searchBox.setEndIconVisible(text.length() > 0);
-            }
-
-            @Override
-            public void afterTextChanged(Editable text) {}
-        });
-        search.setOnEditorActionListener((field, actionId, event) -> {
-            boolean enter = event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
-                    && event.getAction() == KeyEvent.ACTION_UP;
-            if (actionId != EditorInfo.IME_ACTION_SEARCH && !enter) {
-                return false;
-            }
-            String query = search.getText().toString().trim();
-            if (!query.isEmpty()) {
-                keyboard.hideSoftInputFromWindow(search.getWindowToken(), 0);
-                search.clearFocus();
-                activity.m1821a(new Intent(Intent.ACTION_SEARCH).putExtra(SearchManager.QUERY, query));
+        MenuItem options = menu.add(0, R.id.materialLibraryOptionsAction, 1, R.string.library_options);
+        options.setIcon(tintedIcon(theme, R.drawable.ic_library_filter_list, iconColor));
+        options.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        options.setVisible(activity.findViewById(C0803fs.comicListPager) != null);
+        options.setOnMenuItemClickListener(item -> {
+            C0681be collection = activity.mo1402f();
+            if (collection != null) {
+                collection.showLibraryOptions();
             }
             return true;
         });
+        MenuItem settings = menu.add(0, 6, 2, R.string.settings_title);
+        settings.setIcon(tintedIcon(theme, R.drawable.ic_library_settings, iconColor));
+        settings.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        settings.setOnMenuItemClickListener(activity::onOptionsItemSelected);
+
+        toolbar.setTitle(R.string.library);
+        toolbar.setTitleTextColor(iconColor);
+        toolbar.setSubtitleTextColor(MaterialColors.getColor(theme, attr.colorOnSurfaceVariant, iconColor));
 
         if (mainLibrary) {
             LinearLayout resumeContainer = header.findViewById(R.id.materialLibraryResumeContainer);
             View resume = LayoutInflater.from(theme)
                     .inflate(R.layout.material_library_resume, resumeContainer, false);
-            roundCover(resume.findViewById(R.id.libraryResumeCover), dp(theme, 6));
+            roundCover(resume.findViewById(R.id.libraryResumeCover), dp(theme, 10));
             resumeContainer.addView(resume);
             resumeContainer.setVisibility(View.GONE);
         }
@@ -184,22 +125,27 @@ final class LibraryInterface {
         }
     }
 
-    static boolean closeToolbarSearch(AbstractActivityC0773ep activity) {
-        MaterialToolbar toolbar = activity.findViewById(R.id.materialLibraryToolbar);
-        if (toolbar == null || !toolbar.hasExpandedActionView()) {
-            return false;
-        }
-        toolbar.collapseActionView();
-        return true;
+    static boolean closeCollectionSheet(AbstractActivityC0773ep activity) {
+        return activity.closeCollectionSheet();
     }
 
-    static EditText getToolbarSearch(AbstractActivityC0773ep activity) {
+    static void setCollectionTitle(AbstractActivityC0773ep activity, C0575ak collection) {
         MaterialToolbar toolbar = activity.findViewById(R.id.materialLibraryToolbar);
-        if (toolbar == null) {
-            return null;
+        if (toolbar != null) {
+            toolbar.setTitle(collection.mo1211f());
+            int count = collection.m1987y();
+            toolbar.setSubtitle(activity.getResources().getQuantityString(
+                    R.plurals.library_issue_count, count, count));
         }
-        MenuItem searchAction = toolbar.getMenu().findItem(R.id.materialLibrarySearchAction);
-        return searchAction == null ? null : searchAction.getActionView().findViewById(R.id.materialLibrarySearch);
+    }
+
+    static void updateCollectionTitle(AbstractActivityC0773ep activity) {
+        if (activity.findViewById(R.id.materialLibraryToolbar) != null) {
+            C0575ak collection = activity.getDisplayedLibraryCollection();
+            if (collection != null) {
+                setCollectionTitle(activity, collection);
+            }
+        }
     }
 
     static void updateResumeCard(LibraryActivity activity) {
@@ -216,17 +162,52 @@ final class LibraryInterface {
         }
         C0572ah entry = (C0572ah) recent.m1983d(recent.m1987y() - 1);
         C0505b comic = entry.m1221j();
+        String dismissedComic = application.m1441e().getString(DISMISSED_RESUME_COMIC, null);
+        if (comic.f1570b.equals(dismissedComic)) {
+            resume.setVisibility(View.GONE);
+            return;
+        }
+        if (dismissedComic != null) {
+            application.m1441e().edit().remove(DISMISSED_RESUME_COMIC).apply();
+        }
+        Runnable dismiss = () -> dismissResumeCard(application, resume, comic.f1570b);
+        resume.findViewById(R.id.libraryResumeDismiss).setOnClickListener(view -> dismiss.run());
+        com.google.android.material.card.MaterialCardView card = resume.findViewById(R.id.libraryResumeCard);
+        com.google.android.material.behavior.SwipeDismissBehavior<View> swipe =
+                new com.google.android.material.behavior.SwipeDismissBehavior<>();
+        swipe.setSwipeDirection(com.google.android.material.behavior.SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
+        swipe.setListener(new com.google.android.material.behavior.SwipeDismissBehavior.OnDismissListener() {
+            @Override
+            public void onDismiss(View view) {
+                dismiss.run();
+            }
+
+            @Override
+            public void onDragStateChanged(int state) {}
+        });
+        ((androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) card.getLayoutParams())
+                .setBehavior(swipe);
+        card.setAlpha(1f);
+        card.requestLayout();
         View cover = resume.findViewById(R.id.libraryResumeCover);
         entry.mo1219a(cover, 0, C0628f.m1366c().m1914a(C0802fr.page_thumbnail_image_file_error));
         TextView summary = resume.findViewById(R.id.libraryResumeSummary);
+        summary.setText(comic.m1168a(false, true));
+        TextView page = resume.findViewById(R.id.libraryResumePage);
         int pageCount = comic.m1139e();
-        summary.setText(pageCount > 0
-                ? activity.getString(R.string.library_resume_progress, entry.mo1211f(),
-                        Math.min(comic.m1140f() + 1, pageCount), pageCount)
-                : entry.mo1211f());
-        ((LinearLayout) resume).getChildAt(0).setOnClickListener(view -> activity.startActivity(
+        page.setVisibility(pageCount > 0 ? View.VISIBLE : View.GONE);
+        if (pageCount > 0) {
+            page.setText(activity.getString(R.string.library_resume_page,
+                    Math.min(comic.m1140f() + 1, pageCount), pageCount));
+        }
+        card.setOnClickListener(view -> activity.startActivity(
                 C0635m.m1380a(activity.getApplicationContext(), ReaderActivity.class, comic, recent, true)));
         resume.setVisibility(View.VISIBLE);
+    }
+
+    private static void dismissResumeCard(ComicRackApplication application, View container, String comicId) {
+        application.m1441e().edit().putString(DISMISSED_RESUME_COMIC, comicId).apply();
+        container.setVisibility(View.GONE);
     }
 
     private static Drawable tintedIcon(Context theme, int resourceId, int color) {

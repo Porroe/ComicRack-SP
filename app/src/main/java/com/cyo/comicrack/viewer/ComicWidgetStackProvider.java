@@ -21,7 +21,7 @@ public class ComicWidgetStackProvider extends AbstractC0733dc {
     public static final int f1988c = C0804ft.comic_widget_stack;
 
     /* compiled from: DontLook */
-    public class ConfigureActivity extends AbstractC0734dd {
+    public static class ConfigureActivity extends AbstractC0734dd {
         public ConfigureActivity() {
             super(ComicWidgetStackProvider.f1987b, C0809fy.preferences_widget_stack);
         }
@@ -53,7 +53,13 @@ public class ComicWidgetStackProvider extends AbstractC0733dc {
         intent2.putExtra("appWidgetId", i);
         intent2.addFlags(603979776);
         intent2.setData(Uri.parse(intent.toUri(1)));
-        remoteViews.setPendingIntentTemplate(C0803fs.comicStackView, PendingIntent.getActivity(context, 0, intent2, 134217728));
+        // Collection items supply their comic ID through fill-in intents.
+        int templateFlags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            templateFlags |= PendingIntent.FLAG_MUTABLE;
+        }
+        remoteViews.setPendingIntentTemplate(C0803fs.comicStackView,
+                PendingIntent.getActivity(context, 0, intent2, templateFlags));
         return true;
     }
 
@@ -70,7 +76,7 @@ public class ComicWidgetStackProvider extends AbstractC0733dc {
     }
 
     /* compiled from: DontLook */
-    public class StackWidgetService extends RemoteViewsService {
+    public static class StackWidgetService extends RemoteViewsService {
         @Override // android.widget.RemoteViewsService
         public RemoteViewsService.RemoteViewsFactory onGetViewFactory(Intent intent) {
             return new C0739di(getApplicationContext(), intent);

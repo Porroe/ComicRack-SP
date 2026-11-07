@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView android:id="@id/splashLogo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="40.0dip" android:src="@drawable/logo" />
     <Button android:id="@id/splashChooseFolder" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/select_folder" />
-    <ProgressBar android:id="@id/splashProgress" android:layout_width="250.0dip" android:layout_height="wrap_content" style="@android:style/Widget.ProgressBar.Horizontal" />
+    <ProgressBar android:id="@id/splashProgress" android:layout_width="280dp" android:layout_height="6dp" android:progressDrawable="@drawable/splash_progress" style="@android:style/Widget.ProgressBar.Horizontal" />
     <TextView android:textAppearance="?android:textAppearanceSmall" android:gravity="center_horizontal" android:id="@id/splashMessage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="Message" />
     <TextView android:gravity="center" android:id="@id/splashEdition" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:text="@string/full_edition" style="?android:attr/textAppearanceSmall" />
     <TextView android:gravity="center" android:id="@id/splashCopyright" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/copyright" style="?android:attr/textAppearanceSmall" />

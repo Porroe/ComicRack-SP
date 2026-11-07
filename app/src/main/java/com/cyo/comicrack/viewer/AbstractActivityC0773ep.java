@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import com.cyo.comicrack.p019a.C0575ak;
 import com.cyo.comicrack.p019a.C0635m;
 import com.cyo.comicrack.p019a.InterfaceC0571ag;
@@ -43,23 +42,61 @@ public abstract class AbstractActivityC0773ep extends ActivityC0881ip implements
             recreate();
             return;
         }
-        EditText search = LibraryInterface.getToolbarSearch(this);
-        if (search != null && search.length() == 0) {
-            C0575ak collection = getDisplayedLibraryCollection();
-            if (C0635m.isSearchResult(collection)) {
-                search.setText(collection.mo1211f());
-            }
-        }
+        LibraryInterface.updateCollectionTitle(this);
     }
 
     @Override
     public void onBackPressed() {
-        if (!LibraryInterface.closeToolbarSearch(this)) {
+        if (!LibraryInterface.closeCollectionSheet(this)) {
             super.onBackPressed();
         }
     }
 
     abstract C0575ak getDisplayedLibraryCollection();
+
+    private LibraryCollectionSheet collectionSheet;
+
+    void openCollectionSheet() {
+        if (collectionSheet == null) {
+            collectionSheet = new LibraryCollectionSheet(this);
+        }
+        collectionSheet.show();
+    }
+
+    boolean closeCollectionSheet() {
+        if (collectionSheet == null || !collectionSheet.isShowing()) {
+            return false;
+        }
+        collectionSheet.dismiss();
+        return true;
+    }
+
+    void selectLibraryCollection(C0575ak collection) {
+        LibraryInterface.setCollectionTitle(this, collection);
+        if (this instanceof LibraryActivity) {
+            ((LibraryActivity) this).m1481b(collection.mo1210e(), true);
+            ((LibraryActivity) this).m1479a(collection, false, true, false);
+        } else {
+            mo1400a(collection, false);
+        }
+    }
+
+    void submitLibrarySearch(String query) {
+        C0575ak results = ComicRackApplication.f1954i.m1438c().m1393a(query, true);
+        selectLibraryCollection(results);
+        ComicRackApplication application = ComicRackApplication.f1954i;
+        C0724cu settings = application.m1442f();
+        settings.f2266b = application.m1438c().m1394a();
+        application.m1441e().edit().putString("config", settings.toString()).apply();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (collectionSheet != null) {
+            collectionSheet.dismiss();
+        }
+        super.onDestroy();
+    }
 
     void clearMaterialSearch() {
         if (C0635m.isSearchResult(getDisplayedLibraryCollection())) {
@@ -85,6 +122,9 @@ public abstract class AbstractActivityC0773ep extends ActivityC0881ip implements
 
     @Override // com.cyo.comicrack.viewer.ActivityC0881ip, android.app.Activity
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (LibraryInterface.isMaterial(this)) {
+            return false;
+        }
         MenuItem menuItemAdd = menu.add(0, 8, 0, C0806fv.search);
         menuItemAdd.setIcon(android.R.drawable.ic_menu_search);
         C0951ag.m1995a().mo2019a(this, menuItemAdd);
@@ -95,7 +135,6 @@ public abstract class AbstractActivityC0773ep extends ActivityC0881ip implements
             menuItemAdd2.setIcon(C0802fr.ab_continue);
             C0951ag.m1995a().mo2024a(menuItemAdd2);
         }
-        menu.add(0, 1, 0, C0806fv.refresh_library).setIcon(C0802fr.ic_menu_refresh);
         menu.add(0, 14, 0, C0806fv.request_wifi_sync).setIcon(C0802fr.ic_menu_wifi);
         return super.onCreateOptionsMenu(menu);
     }

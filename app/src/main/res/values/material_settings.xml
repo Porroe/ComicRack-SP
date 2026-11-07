@@ -14,10 +14,43 @@
     <string name="library_interface_material">Material</string>
     <string name="library_interface_classic">Classic</string>
     <string name="library_navigation">Library lists</string>
-    <string name="library_search_hint">Search your comics</string>
+    <string name="library_search_hint">Search Your Comics</string>
     <string name="library_pin_lists">Pin library lists</string>
-    <string name="library_resume_progress">%1$s · Page %2$d of %3$d</string>
     <string name="library_clear_search">Clear search</string>
     <item name="materialLibrarySearchAction" type="id" />
     <string name="library_close_search">Close search field</string>
+    <item name="materialLibraryOptionsAction" type="id" />
+    <string name="library_options">Library options</string>
+    <string name="library_filter_tab">Filter</string>
+    <string name="library_sort_tab">Sort</string>
+    <string name="library_display_tab">Display</string>
+    <string name="library_sort_direction">Sort direction</string>
+    <string name="library_ascending">Ascending</string>
+    <string name="library_descending">Descending</string>
+    <string name="library_stack_grouping">Stack grouping</string>
+    <string name="library_dismiss_resume">Dismiss Continue Reading</string>
+    <item name="materialLibraryBrowseAction" type="id" />
+    <string name="library_browse">Browse library</string>
+    <string name="library_collections_tab">Collections</string>
+    <string name="library_browse_tab">Browse</string>
+    <string name="library_search_all">Search All Comics</string>
+    <string name="library_no_searches">No recent searches</string>
+    <string name="library_selected">Selected</string>
+    <string name="library_resume_page">Page %1$d of %2$d</string>
+    <plurals name="library_issue_count">
+        <item quantity="one">%d issue</item>
+        <item quantity="other">%d issues</item>
+    </plurals>
+    <string name="library_refresh_title">Refreshing library</string>
+    <string name="library_refresh_failed">Could not refresh the library. Check that your comics folders are available and try again.</string>
+    <string name="library_retry">Retry</string>
+    <string name="about_sp_description">ComicRack SP is an AI-assisted effort to decompile and update ComicRack for modern Android. SP means “Slop.”</string>
+    <string name="library_empty_title">Your library is empty</string>
+    <string name="library_empty_message">No comics were found in your selected folder. Choose another folder, or add CBZ or CBR files and refresh your library.</string>
+    <string name="library_not_now">Not now</string>
+    <string name="library_reading_status">Reading status</string>
+    <string name="library_sort_by">Sort by</string>
+    <string name="library_view_style">View style</string>
+    <string name="library_spacing">Spacing</string>
+    <string name="library_past_searches_tab">Past Searches</string>
 </resources>

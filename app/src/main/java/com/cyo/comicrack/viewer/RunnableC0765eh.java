@@ -16,7 +16,7 @@ final class RunnableC0765eh implements Runnable {
     public final void run() {
         LibraryActivity libraryActivity = this.f2404a.f2403a;
         if (LibraryActivity.m1875q().f1931k.size() == 0 && this.f2404a.f2403a.m1878r().getBoolean("show_empty_folder_help", true)) {
-            LibraryActivity.m1474d(this.f2404a.f2403a);
+            LibraryActivity.showEmptyLibraryPrompt(this.f2404a.f2403a);
         }
     }
 }

@@ -11,7 +11,6 @@ import android.widget.ListAdapter;
 import com.cyo.comicrack.p019a.C0575ak;
 import com.cyo.comicrack.p019a.InterfaceC0571ag;
 import com.cyo.common.C0951ag;
-import com.cyo.common.EnumC0993bd;
 
 /* compiled from: DontLook */
 /* renamed from: com.cyo.comicrack.viewer.es */
@@ -58,7 +57,7 @@ public class C0776es extends AbstractC0782ey {
         this.f2421g = (ImageView) viewMo25a.findViewById(C0803fs.wifiButton);
         this.f2422h = (ImageView) viewMo25a.findViewById(C0803fs.refreshButton);
         this.f2423i = (ImageView) viewMo25a.findViewById(C0803fs.pinButton);
-        this.f2419a = m56j().getBoolean(C0799fo.showLibraryButtons);
+        this.f2419a = m56j().getBoolean(C0799fo.showLibraryButtons) || m55i() instanceof LibraryActivity;
         if (!this.f2419a) {
             if (this.f2421g != null) {
                 this.f2421g.setVisibility(8);
@@ -80,8 +79,10 @@ public class C0776es extends AbstractC0782ey {
                 this.f2422h.setOnClickListener(new ViewOnClickListenerC0778eu(this));
             }
             if (this.f2423i != null) {
+                this.f2423i.setContentDescription(m55i().getText(R.string.library_pin_lists));
                 this.f2423i.setOnClickListener(new ViewOnClickListenerC0779ev(this));
-                if (!C0951ag.m1997a(viewMo25a.getContext(), EnumC0993bd.Large)) {
+                if (!(m55i() instanceof LibraryActivity)
+                        || !((LibraryActivity) m55i()).supportsSidebarPinning()) {
                     this.f2423i.setVisibility(8);
                     this.f2423i = null;
                 }

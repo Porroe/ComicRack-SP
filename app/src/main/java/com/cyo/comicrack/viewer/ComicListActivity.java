@@ -24,7 +24,7 @@ public class ComicListActivity extends AbstractActivityC0773ep {
             SystemBarInsets.applyToContent(this);
         }
         this.f2676s.m2395a(C0803fs.comicListContainer, C0800fp.comic_list_background_dark, -1);
-        this.f1947o = new C0874ii(this, C0681be.class, C0803fs.comicListPager, C0803fs.comicListPagerTitle, null);
+        this.f1947o = new C0874ii(this, C0681be.class, C0803fs.comicListPager, C0803fs.comicListPagerTitle, this::onVisibleCollectionChanged);
         this.f1947o.mo1810h();
         this.f1947o.mo1805c().setPageMargin(getResources().getDimensionPixelSize(C0801fq.list_page_margin));
         this.f1947o.mo1805c().setPageMarginDrawable(C0800fp.comic_list_background_dark);
@@ -33,6 +33,15 @@ public class ComicListActivity extends AbstractActivityC0773ep {
         this.f1947o.mo1801a(intent != null ? intent.getStringExtra("comic_folder_id") : null, false);
         C0951ag.m1995a().mo2018a((Activity) this);
         m1821a(intent);
+    }
+
+    private void onVisibleCollectionChanged(int position) {
+        if (f1947o != null) {
+            C0575ak collection = f1947o.mo1798a(position);
+            if (collection != null) {
+                LibraryInterface.setCollectionTitle(this, collection);
+            }
+        }
     }
 
     @Override
@@ -51,7 +60,7 @@ public class ComicListActivity extends AbstractActivityC0773ep {
 
     @Override // com.cyo.comicrack.viewer.ActivityC0881ip, android.support.v4.app.ActivityC0076l, android.app.Activity
     public void onBackPressed() {
-        if (LibraryInterface.closeToolbarSearch(this)) {
+        if (LibraryInterface.closeCollectionSheet(this)) {
             return;
         }
         C0681be c0681be = (C0681be) this.f1947o.mo1803b();

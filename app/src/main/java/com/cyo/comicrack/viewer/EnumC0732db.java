@@ -107,14 +107,20 @@ public enum EnumC0732db {
         }
     }
 
-    /* renamed from: a */
-    public final void m1754a(Context context, RemoteViews remoteViews, int i, C0505b c0505b) {
-        Intent intentM1753a = m1753a(context, c0505b);
-        if (intentM1753a != null) {
-            remoteViews.setOnClickPendingIntent(i, PendingIntent.getActivity(context, 0, intentM1753a, 134217728));
+    public final void bindWidgetClickAction(Context context, RemoteViews widgetViews,
+            int viewId, C0505b comic) {
+        Intent clickIntent = m1753a(context, comic);
+        PendingIntent clickAction;
+        if (clickIntent != null) {
+            clickAction = PendingIntent.getActivity(context, 0, clickIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         } else {
-            remoteViews.setOnClickPendingIntent(i, PendingIntent.getBroadcast(context, 0, new Intent("DoNothingBlaBla"), 0));
+            Intent noAction = new Intent(context.getPackageName() + ".WIDGET_NO_ACTION")
+                    .setPackage(context.getPackageName());
+            clickAction = PendingIntent.getBroadcast(context, 0, noAction,
+                    PendingIntent.FLAG_IMMUTABLE);
         }
+        widgetViews.setOnClickPendingIntent(viewId, clickAction);
     }
 
     /* renamed from: a */

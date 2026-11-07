@@ -205,7 +205,7 @@ public class WifiSyncService extends Service {
     }
 
     /* compiled from: DontLook */
-    public class BootCompletedReceiver extends BroadcastReceiver {
+    public static class BootCompletedReceiver extends BroadcastReceiver {
         @Override // android.content.BroadcastReceiver
         public void onReceive(Context context, Intent intent) {
             WifiSyncService.m1653a(context);
@@ -379,7 +379,7 @@ public class WifiSyncService extends Service {
                     service.f2115H = -1;
                     service.f2137u = 0;
                     service.f2138v = 0;
-                    service.m1652a(0);
+                    service.updateSyncNotification(0);
                     return;
                 case FINISH_SYNC:
                     service.m1681f();
@@ -389,7 +389,7 @@ public class WifiSyncService extends Service {
                         service.f2115H = -1;
                     }
                     service.f2113F = true;
-                    service.m1652a(input.read());
+                    service.updateSyncNotification(input.read());
                     return;
                 case HEARTBEAT:
                     service.f2140x = 2;
@@ -521,17 +521,26 @@ public class WifiSyncService extends Service {
     }
 
     /* renamed from: a */
-    private void m1652a(int i) {
-        this.f2115H = i;
+    private void updateSyncNotification(int notificationState) {
+        this.f2115H = notificationState;
         if (this.f2112E == null) {
             this.f2111D = (NotificationManager) getSystemService("notification");
             this.f2116I = ((PowerManager) getSystemService("power")).newWakeLock(6, "ComicRackWifi");
             if (!this.f2116I.isHeld()) {
                 this.f2116I.acquire();
             }
-            Intent intent = new Intent(this, (Class<?>) LibraryActivity.class);
-            intent.setFlags(603979776);
-            this.f2112E = new C0024av(this).m140a().m141a(C0802fr.icon_wifi).m143a(0, !this.f2113F).m144a(PendingIntent.getActivity(this, 0, intent, 0)).m145a(getString(C0806fv.comicrack_synchronization)).m142a(C0802fr.btn_cancel, getString(C0806fv.abort_sync), PendingIntent.getBroadcast(this, 0, new Intent("com.cyo.comicracksp.WIFI_ABORT_SYNC"), 134217728));
+            Intent openLibrary = new Intent(this, LibraryActivity.class);
+            openLibrary.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent openLibraryAction = PendingIntent.getActivity(
+                    this, 0, openLibrary, PendingIntent.FLAG_IMMUTABLE);
+            Intent abortSync = new Intent("com.cyo.comicracksp.WIFI_ABORT_SYNC")
+                    .setPackage(getPackageName());
+            PendingIntent abortSyncAction = PendingIntent.getBroadcast(this, 0, abortSync,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            this.f2112E = new C0024av(this).m140a().m141a(C0802fr.icon_wifi)
+                    .m143a(0, !this.f2113F).m144a(openLibraryAction)
+                    .m145a(getString(C0806fv.comicrack_synchronization))
+                    .m142a(C0802fr.btn_cancel, getString(C0806fv.abort_sync), abortSyncAction);
             this.f2114G = new Timer("Notification Update Timer", false);
             C0889ix c0889ix = new C0889ix(this);
             c0889ix.run();

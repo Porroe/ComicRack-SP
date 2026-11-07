@@ -165,6 +165,7 @@ public class ActivityC0881ip extends ActivityC0424m {
         if (this.f2676s != null) {
             this.f2676s.m2402c();
         }
+        ComicRackApplication.f1954i.libraryRefresh().attach(this);
     }
 
     /* renamed from: n */
@@ -206,6 +207,7 @@ public class ActivityC0881ip extends ActivityC0424m {
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // android.support.v4.app.ActivityC0076l, android.app.Activity
     public void onPause() {
+        ComicRackApplication.f1954i.libraryRefresh().detach(this);
         super.onPause();
         this.f2678u = false;
         if (m1881u()) {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/libraryContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@id/libraryOverlayLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:id="@id/libraryListFragment"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:orientation="vertical"
+            android:visibility="gone" />
+        <android.support.v4.view.ViewPager
+            android:id="@id/comicListPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v4.view.PagerTabStrip
+                android:id="@id/comicListPagerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:visibility="gone" />
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+</LinearLayout>

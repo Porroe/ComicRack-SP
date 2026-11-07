@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/materialLibrarySearchBox"
+    style="@style/Widget.Material3.TextInputLayout.FilledBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="12dp"
+    app:boxCornerRadiusBottomEnd="28dp"
+    app:boxCornerRadiusBottomStart="28dp"
+    app:boxCornerRadiusTopEnd="28dp"
+    app:boxCornerRadiusTopStart="28dp"
+    app:boxStrokeWidth="0dp"
+    app:boxStrokeWidthFocused="0dp"
+    app:hintEnabled="false"
+    app:startIconDrawable="@drawable/ic_library_search">
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/materialLibrarySearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="56dp"
+        android:gravity="center_vertical"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:hint="@string/library_search_all"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:maxLines="1" />
+</com.google.android.material.textfield.TextInputLayout>

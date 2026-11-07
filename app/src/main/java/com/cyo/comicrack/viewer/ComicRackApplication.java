@@ -306,8 +306,14 @@ public class ComicRackApplication extends android.app.Application implements Int
             return false;
         }
         refreshQueued = true;
-        new AsyncTaskC0712ci(this, activity, showProgress).execute();
+        new LibraryRefreshTask(this, showProgress).execute();
         return true;
+    }
+
+    private final LibraryRefreshController refreshController = new LibraryRefreshController(this);
+
+    LibraryRefreshController libraryRefresh() {
+        return refreshController;
     }
 
     void libraryRefreshFinished() {
@@ -494,17 +500,6 @@ public class ComicRackApplication extends android.app.Application implements Int
         String previousAboutVersion = defaultSharedPreferences.getString("about_version", "");
         String currentVersion = C0951ag.m2003d(this);
         int i2 = defaultSharedPreferences.getInt("about_version_count", 0) + 1;
-        if (i2 == 5) {
-            try {
-                if (C0649a.m1698b() && !C0649a.m1696a()) {
-                    runnable = new RunnableC0716cm(this, activityC0881ip, runnable);
-                }
-            } catch (Throwable th2) {
-                i = i2;
-                defaultSharedPreferences.edit().putString("about_version", currentVersion).putInt("about_version_count", i).commit();
-                throw th2;
-            }
-        }
         if (previousAboutVersion.isEmpty() || previousAboutVersion.equals(currentVersion)) {
             if (runnable != null) {
                 runnable.run();
@@ -681,7 +676,7 @@ public class ComicRackApplication extends android.app.Application implements Int
     }
 
     public final void showComicRatingDialog(Activity activity, InterfaceC0606h comicProvider,
-            boolean offerDisablePrompt, Runnable onDismiss) {
+            Runnable onDismiss) {
         C0505b comic = comicProvider.mo1298a();
         View ratingView = activity.getLayoutInflater().inflate(C0804ft.comic_rating, (ViewGroup) null);
         RatingBar ratingBar = (RatingBar) ratingView.findViewById(C0803fs.comicRating);
@@ -698,10 +693,6 @@ public class ComicRackApplication extends android.app.Application implements Int
                     C0628f.m1364b(comicProvider);
                 })
                 .setNegativeButton(android.R.string.no, null);
-        if (offerDisablePrompt) {
-            builder.setNeutralButton(C0806fv.do_not_ask_again, (dialog, button) ->
-                    m1441e().edit().putBoolean("general_rate_comic", false).commit());
-        }
         AlertDialog ratingDialog = builder.create();
         ratingDialog.setCanceledOnTouchOutside(true);
         ratingDialog.setOnDismissListener(dialog -> {

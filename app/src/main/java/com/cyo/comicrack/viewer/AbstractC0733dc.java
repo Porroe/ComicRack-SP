@@ -73,8 +73,8 @@ public abstract class AbstractC0733dc extends AppWidgetProvider {
                 Intent intent = new Intent(context, (Class<?>) this.f2290d);
                 intent.putExtra("appWidgetId", i4);
                 intent.setData(Uri.parse(intent.toUri(1)));
-                remoteViews.setOnClickPendingIntent(C0803fs.widgetConfigure, PendingIntent.getActivity(context, 0, intent, 134217728));
-                remoteViews.setOnClickPendingIntent(C0803fs.widgetWifi, PendingIntent.getBroadcast(context, 0, new Intent("com.cyo.comicracksp.WIFI_REQUEST_SYNC"), 134217728));
+                remoteViews.setOnClickPendingIntent(C0803fs.widgetConfigure, PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+                remoteViews.setOnClickPendingIntent(C0803fs.widgetWifi, PendingIntent.getBroadcast(context, 0, new Intent("com.cyo.comicracksp.WIFI_REQUEST_SYNC"), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
                 remoteViews.setOnClickPendingIntent(C0803fs.widgetRefresh, m1756a(context, i4, 1));
                 remoteViews.setViewVisibility(C0803fs.widgetRefresh, c0736df.f2308j ? 0 : 8);
                 remoteViews.setViewVisibility(C0803fs.widgetWifi, (!C0628f.f1889k && c0736df.f2309k && ComicRackApplication.f1954i.m1433a()) ? 0 : 8);
@@ -124,7 +124,7 @@ public abstract class AbstractC0733dc extends AppWidgetProvider {
         intent.setClass(context, this.f2289c);
         intent.putExtra("RefreshComic", i2);
         intent.setData(Uri.parse(intent.toUri(1)));
-        return PendingIntent.getBroadcast(context, 0, intent, 134217728);
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     /* renamed from: a */

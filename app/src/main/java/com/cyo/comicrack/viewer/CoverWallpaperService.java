@@ -26,7 +26,7 @@ public class CoverWallpaperService extends C0927n {
     }
 
     /* compiled from: DontLook */
-    public class ConfigurationActivity extends PreferenceActivity {
+    public static class ConfigurationActivity extends PreferenceActivity {
         @Override // android.preference.PreferenceActivity, android.app.Activity
         protected void onCreate(Bundle bundle) {
             super.onCreate(bundle);

@@ -12,36 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="64dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/materialLibrarySearchBox"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="4dp"
-            app:boxCornerRadiusBottomEnd="28dp"
-            app:boxCornerRadiusBottomStart="28dp"
-            app:boxCornerRadiusTopEnd="28dp"
-            app:boxCornerRadiusTopStart="28dp"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:endIconContentDescription="@string/library_clear_search"
-            app:endIconDrawable="@drawable/mtrl_ic_cancel"
-            app:endIconMode="custom"
-            app:endIconTint="?attr/colorOnSurfaceVariant"
-            app:hintEnabled="false"
-            app:startIconDrawable="@drawable/ic_library_search"
-            app:startIconTint="?attr/colorOnSurfaceVariant">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/materialLibrarySearch"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="@string/library_search_hint"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
     <LinearLayout
